@@ -1,0 +1,32 @@
+.nav-bar{
+    height: 100%;
+    background-color: #F8F8F8;
+    border-right:2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.nav-bar div{
+    height: 25px;
+    width: 100px;
+font-size: 20px;
+text-align:center;
+margin:15px 0;
+
+}
+
+.nav-bar div > a{
+    text-decoration: none;
+    color: #333;
+
+}
+
+.nav-bar div:hover{
+    background-color: red;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
