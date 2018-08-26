@@ -8,6 +8,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { StudentManagementComponent } from './student-management/student-management.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 
 const appRoutes: Routes = [
   { path: 'user-mng', component: UserManagementComponent },
@@ -30,7 +33,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing:false}
-    )
+    ),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
