@@ -1,0 +1,348 @@
+一些需要知道的命令
+
+ng g component mycontrol//快速建一个组件
+外部库需要被放到angular-cli.json的script和style中。
+npm i jquery -S|-D//install 一个库，并写入在配置文件中， 
+
+npm i @types/jquery -D //下载d.ts声明文件
+
+ng new project -routing//建立项目的时候 加了路由
+
+
+，，，，，，，，，，，，，，，《路由 详见项目：Router /  in "angular" folder》，，，，，，，，，，，，，，，，
+ 
+第一节课：
+1.  Routes对象 定义在rout module中 定义路径 //app-routing.module.ts
+2. const routes: Routes = [
+  {path:'',component:HomepageComponent },
+  {path:'product',component:ProductComponent },
+  {path:'**',component:Page404Component }
+];//app-routing.module.ts
+3. 在这个<router-outlet></router-outlet>插座-下面显示路由到的页面 定义在html中 //app.component.html
+4. <a routerLink="/">主页</a> 或者 <a [routerLink]="['/product']">商品详情</a>（两种写法） 按这个link, 在<router-outlet>下要显示该页面  定义在html中 //app.component.html
+5. router对象， 和html中的routerLink作用一样，用this.router.navigateByUrl('/product');或者 this.router.navigate(['/product']);//app.component.ts
+
+第二节 路由参数：
+三种传递参数方式：
+第一种：在查询参数中传递数据
+
+{path:"address/:id"}   => address/1  => ActivatedRoute.param[id]
+
+　　在路由中传递
+
+　　<a [routerLink] = "['/address',1]"></a>
+
+　　点击事件传递router:Router
+
+　　this.router.navigate([‘/address’,2])
+
+　　//routeInfo: ActivatedRoute 在不同等级页面跳转可以用snapshot（快照方式）
+
+　　this.id = this.routeInfo.snapshot.params["id"]
+
+　　//相同组件跳转需要使用subscribe(订阅方式)
+
+　　 this.routeInfo.params.subscribe((params: Params) => this.id = params["id"]  )
+
+第二种：在路由路径中传递参数数据
+
+<a [routerLink] = "['/address']" queryParams= "{id:1}"></a>
+this.id = this.routeInfo.snapshot.queryParams["id"]//拿到路由中的参数
+ 
+第三种：在路由配置中传递数据
+{path:'home', component: HomeComponent，data:[{isPush:true}] }  => ActivatedRoute.data[0][isPush]
+　　//同样也是有snapshot和subscribe两种类型
+　　this.isPush = this.routeInfo.snapshot.data[0]["isPush"]
+ 
+第三节 路由重定位：
+  const routes: Routes = [{path:'', redirectTo:"/home", pathMatch: 'full'},...]
+
+第四节 子路由:
+
+1.  在product组件里加
+<a [routerLink]="['./productDetail']">商品详情</a>
+  <a [routerLink]="['./sellerDetail', 99]">销售信息</a>
+   <router-outlet></router-outlet>
+
+2. 在routing module 里加
+   
+   const routes: Routes = [
+  {path:'', redirectTo:"/home", pathMatch: 'full'},
+  {path:'home',component:HomepageComponent },
+  {path:'product',component:ProductComponent },
+  {path:'product/:id',component:ProductComponent,
+  children:[
+    {path:'productDetail',component:ProductDetailComponent },
+    {path:'sellerDetail/:id',component:SellerDetailComponent }
+  ]
+},
+  {path:'**',component:Page404Component }
+];/
+
+第五节 辅助路由
+1. 在主页里定义辅助路由的插座， 并为它起名字。 在连接里设置为[routerLink]="[{outlets: {aux: 'chat'}}]"
+<a [routerLink]="[{outlets: {aux: 'chat'}}]">打开聊天页面</a>
+<a [routerLink]="[{outlets:{aux: null}}]">关闭聊天页面</a>
+<router-outlet></router-outlet>
+<router-outlet name='aux'></router-outlet>
+
+2.在app-routing.module.ts里定义路径，并且需要加outlet属性 指定该组件出现在辅助路由下面
+  {path:'chat',component:ChatComponent, outlet:'aux' },
+
+第六节 路由守卫
+1. 建立两个守卫（登录和登出）： export class LoginGuard implements CanActivate，export class LogoutGuard implements CanDeactivate<ProductComponent>
+2. 在app-routing.module.ts里定义 
+{path:'product/:id',component:ProductComponent, 
+    canActivate:[LoginGuard],
+    canDeactivate:[LogoutGuard]
+  }
+3. provides 里添加：
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers:[LoginGuard,LogoutGuard]
+})
+
+第七节　resolve
+1. 建一个resolve: export class MyResolve implements Resolve<Product>
+2. product 属性名是自己起的。 MyResolve返回一个Product
+
+{path:'product/:id',component:ProductComponent, 
+     resolve: {product: MyResolve}
+  }
+3. 在ts里拿数据 product.component.ts
+ // 用resolve传进来的数据
+    this.routeInfo.data.subscribe((data:{product:Product})=>{
+      this.productName = data.product.title;
+    })
+///////////////////////////////////////////////////////////////////
+
+///////////////////////依赖注入//////////////////////////////
+提供器中放入多个需要注入的类， 在具体的某个控制器（如****.component.ts）的构造方法中放入该参数
+-除了component外其他类在构造方法中加入该参数需要加@Injectable() 。 
+
+他就会在该控制器被实例化调用构造方法是去提供器（一般提供器放在上层的module中）去找到该token的provide 所对应得value，（ 如下的Product ）,
+
+然后实例化,而实例化的默认方法有useClass就是直接new 一个实例对象。
+另外一种实例化得方法是工厂模式 实例如下：  
+provider:[{provide: ProductService,
+  useFactory: (logger:LoggerService,  appConfig) => {
+    if(appConfig.isDev){
+        return new ProductService(logger);
+    }else{
+      return new NewProductService(logger);
+    }
+
+  },
+  deps:[LoggerService, "APP_CONFIG"]
+},LoggerService,
+{
+  provide: "APP_CONFIG", useValue:{isDes:false}
+}
+]
+
+实际上provider:[Product]等同于provider:[{provide: Product, useClass: Product}] 
+ 提供器的几种写法
+provider:[{provide: ProductService,useClass: ProductService}]
+provider:[{provide: ProductService,useFactory: () => { }]
+provider:[{provide: ProductService,useValue: {}]
+
+/////////////////////////////////////////////////////
+/////////////////////数据绑定与管道//////////////////////////////
+1. dom 属性绑定, dom 属性会随着用户输入放生变化
+<input value ="{{productValue}}">或者<input [value] ="productValue">
+2. html 属性绑定，他不会变化，只初始化一次
+.属性 <input [attr.value]="productValue">
+.css 
+  1) <input [class]='myClass'>, 
+  2) <input [class.myClass]='true'>
+  3) <input [ngClass]="{'myClass':true, 'yourClass':false}">
+.style
+  1) <input [style]='myStyle'>, 
+  2) <input [class.color]='red'>
+  3) <input [ngStyle]="{'color':red, 'font-size':'12px'}">
+3. 双向绑定
+<input [(ngModel)]='value'> 
+4. 事件绑定
+<input (change)='onChange($event)'>
+5. 管道 要定义在declarations中
+{{ myDate | date:'yyyy/MM/dd HH:mm:ss'}}// 内置管道：date, lowercase,uppercase...
+自定义管道： {{ num | multiple:'2' }}
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'multiple'
+})
+export class MyPipePipe implements PipeTransform {
+
+  transform(value: number, args?: number): any {
+     if(args){
+      return value*args;
+     }else{
+       return value;
+     }
+  }
+
+}
+
+6. 响应式编程//课程缺失， 还有些配置没有清楚，需要进一步了解
+项目中的form响应式， 需要加入一个模块ReactiveFormsModule， import { ReactiveFormsModule } from '@angular/forms';
+然后在 <input class="form-control"  placeholder="商品名称搜查"   [formControl] = 'filterControl' >
+在ts里订阅filterControl的change 事件
+另外需要引入一个包：import "rxjs/Rx";
+constructor(private productService: ProductService) {
+    // debounceTime 是用户停止输入后的500ms 在相应valuechange 事件
+    // 订阅 input控件 的 value change 的事件
+    this.filterControl.valueChanges
+    .debounceTime(500)
+    .subscribe(value=>{
+      this.keyWord = value;
+    });
+   }
+/////////////////////////////////////////////////////
+/////////////////父子间的通讯以及生命周期//////////////
+
+父子间的通讯三种模式是:
+1. 父向子传
+父： <app-child [prop]='father.propValue'></app-child>
+子： @Input() prop;
+
+2. 子向父传
+子：@Output out=new EventEmit<T>();
+out.emit(t);
+父： <app-child (out)='getFromChild($event)'></app-child>
+getFromChild($event){
+  console.log(event);//event is t;
+}
+
+3. 中间人模式（两个不相关的控件通过同一个父控件传递）
+子先向父传， 在从父传向另一个子。
+
+生命周期大致顺序：
+// 父-> 子
+constructor
+dngOnChanges// 输入属性发生变化是调用
+ngOnInit//初始化一次
+ngDoCheck// 每次页面事件或是改变都调用
+ngAfterConentInit// ngcontent 插入内容的渲染结束
+ngAfterContentChecked//ngcontent checked,每次页面事件或是改变都调用
+// 子 -> 父
+ngAfterViewInit// view 加载完毕
+ngAfterViewChecked//每次页面事件或是改变都调用
+
+
+<form ngNoForm></form>//angular不会接管form, 还是原来的html form表单
+#myForm // 模板本地变量
+@ViewChild("myForm") child: ChildenComponent;//子组件实例引用
+
+//////模板表单
+ngForm
+ngModel
+ngModelGroup
+例子： 
+<form #myForm = "ngForm" (ngSubmit)="onSubmit(myForm.value)">
+  <div>username: <input type='text' ngModel #userName = "ngModel" name="username" required pattern="[a-zA-Z0-9]+"></div>
+  <div>phone: <input type='number' ngModel name="phone" min='13000000000'></div>
+  <div ngModelGroup ="passwordsGroup">
+    <div>password: <input type='password'ngModel  name="password" required ></div>
+    <div>repassword: <input type='password' ngModel name="repassword" required></div>
+  </div>
+  <button type="submit">submit</button>
+</form>
+{{myForm.value|json}}<br>
+{{userName.value}}
+
+
+/////////////// 响应式表单 ////////////
+FormControl -> formControl, formControlName
+FormGroup -> formGroup, formGroupName
+FormArray -> formArrayName
+
+
+
+///////npm 命令
+npm init -y 会生成一个package.json
+tsconfig.json 是ts的配置
+
+@types/node 
+// 配置一个express server
+npm init -y
+tsconfig.json
+npm i @types/node -S
+npm install -g typescript
+npm install -g typings
+npm i express -S// 装express
+node build/acution_server.js // 启动express
+
+vsCode中按快捷键“ctrl+shift+B”顶部选择   tsc:构建-tsconfig.json
+必须先设置好tsconfig.json， task.json
+
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "build",
+    "sourceMap": true,
+    "declaration": false,
+    "module":"commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  },
+  "exclude":[
+      "node_modules"
+    ]
+}
+
+
+///////////////
+ {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "tsc",
+    "isShellCommand": true,
+    "args": ["-w", "-p", "."],
+    "showOutput": "silent",
+    "isWatching": true,
+    "problemMatcher": "$tsc-watch"
+}
+
+可以编译ts文件 一旦运行之后只要改变文件都会自动编译。
+
+连接http 请求:
+0. module的imports 里加 HttpModule
+
+1. 必须在component组建里定义
+import {Http} from "@angular/http";
+import 'rxjs/RX';
+ 
+   
+  private products: Array<Product> = [];
+  dataSource:Observable<any>;
+  constructor(private http: Http) {
+     
+    //用http请求
+    this.dataSource = this.http.get('/products')
+                      .map(res=> res.json());
+  }
+  ngOnInit(): void {
+    this.dataSource.subscribe(res=>this.products = res);
+  }
+
+  2. 建一个proxy.conf.json
+  {
+  "/api":{
+    "target":"http://localhost:8000"
+  }
+}
+ 3. 改 package.json:
+ "start": "ng serve --proxy-config proxy.conf.json",
