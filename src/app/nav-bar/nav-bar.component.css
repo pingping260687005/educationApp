@@ -89,14 +89,6 @@ a, a:hover, a:focus {
     visibility: visible;
 }
 
-#sidebar .toggleSidebarIcon:after {
-    content: "<";
-}
-
-#sidebar .toggleSidebarIcon-collapsed:after {
-    content: ">";
-}
-
 #sidebar .sidebar-header strong {
     display: none;
     font-size: 1.8em;
