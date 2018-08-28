@@ -54,7 +54,7 @@
         line-height: 50px;
         font-size: 0.8em;
     }
-
+    
     .navbar-brand span::before {
         background: url("../../images/logo.PNG") no-repeat;
         background-size: 50px;
@@ -67,12 +67,20 @@
 }
 
 @media (max-width: 320px) {
-    .navbar-brand{
+    .navbar-brand {
         margin-right: 0;
     }
     .navbar-brand span {
         margin-bottom: 0;
         line-height: 50px;
         font-size: 0.65em;
+    }
+    .navbar-toggler {
+        padding: 0;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: .25rem;
     }
 }
