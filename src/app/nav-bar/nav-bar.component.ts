@@ -39,25 +39,25 @@ export class NavBarComponent implements OnInit {
     {
       routerLink: "/finance",
       linkName: "财务管理",
-      iconClass: "sidebarIcon fas fa-money-check-alt",
+      iconClass: "sidebarIcon fas fa-wallet",
       id: "finance",
       subMenu: [
         {
           routerLink: "/finance",
           linkName: "教师财务",
-          iconClass: "",
+          iconClass: "sidebarIcon fas fa-user-secret",
           id: "finance"
         },
         {
           routerLink: "/finance",
           linkName: "学生财务",
-          iconClass: "",
+          iconClass: "sidebarIcon fas fa-user-edit",
           id: "finance"
         },
         {
           routerLink: "/finance",
           linkName: "其他费用",
-          iconClass: "",
+          iconClass: "sidebarIcon fas fa-money-check-alt",
           id: "finance"
         }
       ]
@@ -65,7 +65,7 @@ export class NavBarComponent implements OnInit {
   }
 
   toggleSidebarBtnClick() {
-    $("#toggleSidebarIcon").toggleClass("toggleSidebarIcon-collapsed");
+    $("#toggleSidebarIcon").toggleClass("fa-rotate-180");
     $('#sidebar').toggleClass('active');
   }
 }

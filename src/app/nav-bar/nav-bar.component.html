@@ -1,5 +1,6 @@
 <nav id="sidebar">
-    <div id="toggleSidebarIcon" class="toggleSidebarIcon" (click)="toggleSidebarBtnClick()">
+    <div class="toggleSidebarIcon" (click)="toggleSidebarBtnClick()">
+        <span id="toggleSidebarIcon" class="fa fa-angle-double-left" ></span>
   </div>
 
   <ul class="list-unstyled components">
@@ -14,7 +15,10 @@
           </a>
           <ul *ngIf="item.subMenu" class="collapse list-unstyled" id="{{item.id}}">
               <li *ngFor="let subItem of item.subMenu">
-                  <a [routerLink]="item.routerLink">{{subItem.linkName}}</a>
+                  <a [routerLink]="subItem.routerLink">
+                        <i class="{{subItem.iconClass}}"></i>
+                      <span>{{subItem.linkName}}</span>
+                </a>
               </li>
           </ul>
       </li>
