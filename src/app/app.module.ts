@@ -8,15 +8,16 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { StudentManagementComponent } from './student-management/student-management.component';
+import { AppShellComponent } from './app-shell/app-shell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 
 const appRoutes: Routes = [
-  { path: 'user-mng', component: UserManagementComponent },
-  { path: 'student-mng', component: StudentManagementComponent },
+  { path: 'user', component: UserManagementComponent },
+  { path: 'student', component: StudentManagementComponent },
   { path: '',
-    redirectTo: '/',
+    redirectTo: '/user',
     pathMatch: 'full'
   }
 ];
@@ -26,14 +27,15 @@ const appRoutes: Routes = [
     UserManagementComponent,
     AppHeaderComponent,
     NavBarComponent,
-    StudentManagementComponent
+    StudentManagementComponent,
+    AppShellComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing:false}
-    ),
+    ), 
     FormsModule,
     ReactiveFormsModule,
     HttpModule
