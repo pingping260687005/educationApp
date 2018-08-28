@@ -6,17 +6,17 @@
   <ul class="list-unstyled components">
       <li *ngFor="let item of sideBarList">
           <a *ngIf="!item.subMenu"  [routerLink]="item.routerLink" >
-              <i class="{{item.iconClass}}"></i>
+              <i title="{{item.linkName}}" class="{{item.iconClass}}"></i>
               <span>{{item.linkName}}</span>
           </a>
           <a *ngIf="item.subMenu" href="#{{item.id}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <i class="{{item.iconClass}}"></i>
+              <i title="{{item.linkName}}" class="{{item.iconClass}}"></i>
               <span>{{item.linkName}}</span>
           </a>
           <ul *ngIf="item.subMenu" class="collapse list-unstyled" id="{{item.id}}">
               <li *ngFor="let subItem of item.subMenu">
                   <a [routerLink]="subItem.routerLink">
-                        <i class="{{subItem.iconClass}}"></i>
+                        <i title="{{subItem.linkName}}" class="{{subItem.iconClass}}"></i>
                       <span>{{subItem.linkName}}</span>
                 </a>
               </li>
