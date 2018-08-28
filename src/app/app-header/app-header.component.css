@@ -20,13 +20,13 @@
     float: left;
 }
 
-.navbar-brand h5 {
-    display: inline-block;
+.navbar-brand span {
     margin-bottom: 0;
     line-height: 50px;
+    font-size: 1.1em;
 }
 
-.navbar-brand h5::before {
+.navbar-brand span::before {
     background: url("../../images/logo.PNG") no-repeat;
     background-size: 70px;
     width: 70px;
@@ -46,4 +46,33 @@
 
 .navbar-collapse {
     justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand span {
+        margin-bottom: 0;
+        line-height: 50px;
+        font-size: 0.8em;
+    }
+
+    .navbar-brand span::before {
+        background: url("../../images/logo.PNG") no-repeat;
+        background-size: 50px;
+        width: 50px;
+        height: 40px;
+        display: inline-block;
+        content: "";
+        float: left;
+    }
+}
+
+@media (max-width: 320px) {
+    .navbar-brand{
+        margin-right: 0;
+    }
+    .navbar-brand span {
+        margin-bottom: 0;
+        line-height: 50px;
+        font-size: 0.65em;
+    }
 }
