@@ -42,31 +42,40 @@ export class StudentManagementComponent implements OnInit {
       {
         field: 'id',
         title: 'Item ID',
-        visible: false
+        visible: false,
+        sortable:true
       }, {
         field: 'studentNum',
-        title: '学号'
+        title: '学号',
+        sortable:true
       }, {
         field: 'name',
-        title: '姓名'
+        title: '姓名',
+        sortable:true
       }, {
         field: 'sex',
-        title: '性别'
+        title: '性别',
+        sortable:true
       }, {
         field: 'age',
-        title: '年龄'
+        title: '年龄',
+        sortable:true
       }, {
         field: 'phone',
-        title: '手机'
+        title: '手机',
+        sortable:true
       }, {
         field: 'parentPhone',
-        title: '父母手机'
+        title: '父母手机',
+        sortable:true
       }, {
         field: 'address',
-        title: '地址'
+        title: '地址',
+        sortable:true
       }, {
         field: 'videoId',
-        title: '视频页'
+        title: '视频页',
+        sortable:true
       }],
       data: this.getStudentList(),
       search: true,
