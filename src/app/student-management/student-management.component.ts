@@ -110,20 +110,21 @@ export class StudentManagementComponent implements OnInit {
 
   private showModal(isAdd: boolean) {
     let modal = $("#addOrModifyModal");
+    let selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = "添加学生信息";
     } else {
       this.addModifyDialogTitle = "修改学生信息";
-      let selection = $("#studentMngTable").bootstrapTable("getSelections", null)[0]; // 修改只能是一条数据，所以直接用第一个
-      modal.find(".studentNum").val(selection["studentNum"]);
-      modal.find(".phone").val(selection["phone"]);
-      modal.find(".name").val(selection["name"]);
-      modal.find(".parentPhone").val(selection["parentPhone"]);
-      modal.find(".age").val(selection["age"]);
-      modal.find(".sex").val(selection["sex"]);
-      modal.find(".address").val(selection["address"]);
-      modal.find(".address").attr("title", selection["address"]);
+      selection = $("#studentMngTable").bootstrapTable("getSelections", null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
+    modal.find(".studentNum").val(selection ? selection["studentNum"] : "");
+    modal.find(".phone").val(selection ? selection["phone"] : "");
+    modal.find(".name").val(selection ? selection["name"] : "");
+    modal.find(".parentPhone").val(selection ? selection["parentPhone"] : "");
+    modal.find(".age").val(selection ? selection["age"] : "");
+    modal.find(".sex").val(selection ? selection["sex"] : "");
+    modal.find(".address").val(selection ? selection["address"] : "");
+    modal.find(".address").attr("title", selection ? selection["address": "");
     modal.modal("show");
   }
 
