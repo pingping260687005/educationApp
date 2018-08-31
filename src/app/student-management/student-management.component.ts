@@ -124,7 +124,7 @@ export class StudentManagementComponent implements OnInit {
     modal.find(".age").val(selection ? selection["age"] : "");
     modal.find(".sex").val(selection ? selection["sex"] : "");
     modal.find(".address").val(selection ? selection["address"] : "");
-    modal.find(".address").attr("title", selection ? selection["address": "");
+    modal.find(".address").attr("title", selection ? selection["address"] : "");
     modal.modal("show");
   }
 
