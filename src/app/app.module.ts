@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],//后端路经匹配 刷新
   bootstrap: [AppComponent]
 })
 export class AppModule { }
