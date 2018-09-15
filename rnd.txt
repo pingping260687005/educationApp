@@ -345,4 +345,9 @@ import 'rxjs/RX';
   }
 }
  3. 改 package.json:
- "start": "ng serve --proxy-config proxy.conf.json",
+ "start": "ng serve --proxy-config proxy.conf.json
+ 
+ 
+ 最后构建与打包
+ 把前端打包， npm build.可以看到代码在dist
+ 把dist文件放在后端的client 目录下， 使用use匹配根目录路有。
