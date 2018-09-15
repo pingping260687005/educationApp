@@ -22,7 +22,27 @@ export class NavBarComponent implements OnInit {
       routerLink: "/student",
       linkName: "学生管理",
       iconClass: "sidebarIcon fas fa-user-graduate",
-      id: "student"
+      id: "student",
+      subMenu: [
+        {
+          routerLink: "/student",
+          linkName: "学生信息",
+          iconClass: "sidebarIcon fas fa-graduation-cap",
+          id: "student"
+        },
+        {
+          routerLink: "/vedioDetail",
+          linkName: "视频详情",
+          iconClass: "sidebarIcon fas fa-tv",
+          id: "vedioDetail"
+        },
+        {
+          routerLink: "/studentCourses",
+          linkName: "学生课程",
+          iconClass: "sidebarIcon fas fa-clipboard-list",
+          id: "studentCourses"
+        }
+      ]
     },
     {
       routerLink: "/teacher",

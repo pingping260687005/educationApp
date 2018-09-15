@@ -1,21 +1,22 @@
-<nav id="sidebar">
+<aside id="sidebar" >
     <div class="toggleSidebarIcon" (click)="toggleSidebarBtnClick()">
         <span id="toggleSidebarIcon" class="fa fa-angle-double-left" ></span>
   </div>
 
   <ul class="list-unstyled components">
       <li *ngFor="let item of sideBarList">
-          <a *ngIf="!item.subMenu"  [routerLink]="item.routerLink" >
+          <a *ngIf="!item.subMenu"  [routerLink]="item.routerLink" routerLinkActive="active-link">
               <i title="{{item.linkName}}" class="{{item.iconClass}}"></i>
               <span>{{item.linkName}}</span>
           </a>
           <a *ngIf="item.subMenu" href="#{{item.id}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <i title="{{item.linkName}}" class="{{item.iconClass}}"></i>
-              <span>{{item.linkName}}</span>
+                    <i title="{{item.linkName}}" class="{{item.iconClass}}"></i>
+                    <span>{{item.linkName}}</span>
+
           </a>
           <ul *ngIf="item.subMenu" class="collapse list-unstyled" id="{{item.id}}">
               <li *ngFor="let subItem of item.subMenu">
-                  <a [routerLink]="subItem.routerLink">
+                  <a [routerLink]="subItem.routerLink" routerLinkActive="active-link">
                         <i title="{{subItem.linkName}}" class="{{subItem.iconClass}}"></i>
                       <span>{{subItem.linkName}}</span>
                 </a>
@@ -24,4 +25,4 @@
       </li>
   </ul>
 
-</nav>
+</aside>

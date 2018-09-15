@@ -10,9 +10,7 @@ export class AppShellComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    $('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
-  });
+
   }
 
 }
