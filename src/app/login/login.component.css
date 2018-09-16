@@ -1,6 +1,7 @@
 .right-pane {
     box-shadow: 1px 1px 3px black;
     height: 100%;
+    background-color: #262D35;
 }
 
 .right-pane>div {
@@ -9,20 +10,10 @@
 
 .login-view-bg {
     height: 100%;
-    background-image: url("../../assets/images/login-bg.PNG");
+    background-image: url("../../assets/images/login-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    filter: blur(3px);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.login-view-bg-clear {
-    height: 100%;
-    background-image: url("../../assets/images/login-bg.PNG");
-    background-repeat: no-repeat;
-    background-size: cover;
+    filter: blur(6px);
     position: absolute;
     top: 0;
     left: 0;
@@ -31,10 +22,11 @@
 .login-view {
     height: 100%;
     width: 100%;
-    background-image: url("../../assets/images/login-bg.PNG");
+    --paddingVertical:0;
+    background-image: url("../../assets/images/login-bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    padding: calc(25% - 193px) calc(50% - 300px);
+    padding: var(--paddingVertical) calc(50% - 300px);  /*垂直方向上的padding百分比是按照父级元素的width来计算的*/
     background-clip: content-box;
     z-index: 1;
     position: absolute;

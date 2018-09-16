@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 private appName = "乐尔夫培训系统后台";
-  constructor() { }
+  constructor() {
+    window.addEventListener("resize", (e) => {
+      this.resetLoginPanePaddingVertical();
+    });
+
+  }
 
   ngOnInit() {
+    this.resetLoginPanePaddingVertical();
+  }
+
+  resetLoginPanePaddingVertical(){
+    let targetDom = document.getElementsByClassName("login-view")[0];
+    (<any>targetDom).style.setProperty('--paddingVertical', (window.document.body.clientHeight - 400)/2 + "px");
   }
 
 }
