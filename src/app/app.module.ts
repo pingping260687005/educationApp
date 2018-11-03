@@ -44,7 +44,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],//后端路经匹配 刷新
+  // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],//后端路经匹配 刷新
   bootstrap: [AppComponent]
 })
 export class AppModule { }

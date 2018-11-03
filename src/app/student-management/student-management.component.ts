@@ -16,21 +16,17 @@ export class StudentManagementComponent implements OnInit {
   private isDeleteBtnDisabled = true;
   constructor(private http: Http) {
     //用http请求
-    this.dataSource = this.http.get('/api/products');
+    this.dataSource = this.http.get('/api/students');
     //.map(res=> res.json());
-
   }
 
   ngOnInit() {
-
     // 真正的发请求取数据
     this.dataSource.subscribe((res) => {
-      //res.json()
-
       //get real data
-      console.log(res);
-
-
+      const students:Student[] = JSON.parse(res['_body']);
+      // set data
+      $('#studentMngTable').bootstrapTable('load', students);
     });
   }
   ngAfterViewInit() {
@@ -77,7 +73,7 @@ export class StudentManagementComponent implements OnInit {
         title: '视频页',
         sortable:true
       }],
-      data: this.getStudentList(),
+      data: [], //this.getStudentList(null),
       search: true,
       pagination: true,
       pageSize: 15,
@@ -95,26 +91,6 @@ export class StudentManagementComponent implements OnInit {
       }
     });
     this.updateToolbarIconsStatus();
-  }
-
-  private getStudentList(): Student[] {
-    ////////hard code////////////////
-    let studentList: Student[] = [];
-    let student: Student;
-    for (let i = 0; i < 100; i++) {
-      student = {
-        id: i.toString(),
-        studentNum: i.toString(),
-        name: "随机 " + i,
-        sex: i % 2 === 0 ? "男" : "女",
-        age: Math.floor(Math.random() * 100),
-        phone: '13992288771',
-        parentPhone: '13992288771',
-        address: '丹阳市黄金路25弄16号201室'
-      };
-      studentList.push(student);
-    }
-    return studentList;
   }
 
   private showModal(isAdd: boolean) {
