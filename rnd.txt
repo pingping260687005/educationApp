@@ -351,3 +351,11 @@ import 'rxjs/RX';
  最后构建与打包
  把前端打包， npm build.可以看到代码在dist
  把dist文件放在后端的client 目录下， 使用use匹配根目录路有。
+
+
+
+ 
+// https://stackoverflow.com/questions/44841215/auto-fix-tslint-warnings
+如何修改所有tslint的错误： 在package.json： 
+    "lintfix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'",
+另外需要装tslint插件来实时显示问题

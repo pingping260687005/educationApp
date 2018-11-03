@@ -10,8 +10,8 @@ export class UserManagementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
   }
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
     $('#userMngTable').bootstrapTable({
         columns: [{
@@ -35,34 +35,35 @@ export class UserManagementComponent implements OnInit {
     });
 }
   private getUserList(): User[] {
-    ////////hard code////////////////
-    let userList: User[] = [];
-    let user1: User = {
-        id: "1",
-        username: "admin",
-        password: "",
-        authority: "read-write"
+    //////// hard code////////////////
+    const userList: User[] = [];
+    const user1: User = {
+        id: '1',
+        username: 'admin',
+        password: '',
+        authority: 'read-write'
     };
-    let user2: User = {
-        id: "2",
-        username: "root",
-        password: "",
-        authority: "read-write" 
+    const user2: User = {
+        id: '2',
+        username: 'root',
+        password: '',
+        authority: 'read-write'
     };
     userList.push(user1);
     userList.push(user2);
     return userList;
 }
 
-  ngOnDestroy() {
-    $("#userMngTable").bootstrapTable('destroy');
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy () {
+    $('#userMngTable').bootstrapTable('destroy');
   }
 
 }
 
-interface User{
+interface User {
     id: string;
     username: string;
     password: string;
-    authority: string; 
+    authority: string;
 }

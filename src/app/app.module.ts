@@ -18,10 +18,10 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent },
   {
-    path:"",
-  component:HomeComponent,
-  loadChildren: 'app/home/home-routing.module#HomeRoutingModule',
-}
+    path: '',
+    component: HomeComponent,
+    loadChildren: 'app/home/home-routing.module#HomeRoutingModule',
+  }
 ];
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ const appRoutes: Routes = [
     HomeRoutingModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing:false}
-    ), 
+      {enableTracing: false}
+    ),
     FormsModule,
     ReactiveFormsModule,
     HttpModule
