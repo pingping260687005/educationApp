@@ -28,8 +28,13 @@ export class StudentManagementComponent implements OnInit {
       // set data
       $('#studentMngTable').bootstrapTable('load', students);
     });
+
+    $(window).resize(()=>{
+      $('#studentMngTable').bootstrapTable("resetView",{height:$(window).height() - 76 - 20});
+    });
   }
   ngAfterViewInit() {
+    let tableHeight = $(".wrapper").height();
     $('#studentMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
@@ -73,7 +78,8 @@ export class StudentManagementComponent implements OnInit {
         title: '视频页',
         sortable:true
       }],
-      data: [], //this.getStudentList(null),
+      height:tableHeight - 20,
+      data: [],
       search: true,
       pagination: true,
       pageSize: 15,

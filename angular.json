@@ -26,6 +26,8 @@
               "src/styles.css"
             ],
             "scripts": [
+              "bower_components/bootstrap-table/dist/bootstrap-table.min.js",
+              "bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"
             ]
           },
           "configurations": {
