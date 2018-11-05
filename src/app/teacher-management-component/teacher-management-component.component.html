@@ -1,3 +1,74 @@
-<p>
-  teacher-management-component works!
-</p>
+<div>
+  <table id="teacherMngTable" data-toggle="table">
+     
+  </table>
+  <div id="toolbar">
+    <span class="btn btn-secondary toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
+    <span id="modifyBtn" class="btn btn-secondary toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
+    <span id="deleteBtn" class="btn btn-secondary toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
+  </div>
+
+
+  <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">{{addModifyDialogTitle}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+             <div class="row">
+               <div class="col-md-6">
+                 <span class="textbox-label">工号</span>
+                 <input type="text" class="form-control studentNum">
+               </div>
+               <div class="col-md-6">
+                  <span class="textbox-label textbox-label-right">手机</span>
+                <input type="text" class="form-control form-control-right phone">
+               </div>
+             </div>
+             <div class="row">
+              <div class="col-md-6">
+                  <span class="textbox-label">姓名</span>
+                <input type="text" class="form-control name">
+              </div>
+              <div class="col-md-6">
+                  <span class="textbox-label textbox-label-right">地址</span>
+               <input type="text" class="form-control form-control-right parentPhone">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <span class="textbox-label">性别</span>
+               <input type="text" class="form-control sex">
+              </div>
+              <div class="col-md-6">
+                  <span class="textbox-label textbox-label-right">入职日期</span>
+               <input type="text" class="form-control form-control-right address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <span class="textbox-label">年龄</span>
+                <input type="text" class="form-control age">
+              </div>
+              <div class="col-md-6">
+                  <span class="textbox-label textbox-label-right">兼职/全职</span>
+               <input type="text" class="form-control form-control-right">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
