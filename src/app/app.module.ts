@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    loadChildren: 'app/home/home-routing.module#HomeRoutingModule',
+    loadChildren: './home-routing/home-routing.module#HomeRoutingModule',
   }
 ];
 @NgModule({
