@@ -13,11 +13,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeRoutingModule } from './home-routing/home-routing.module';
-import { TeacherManagementComponentComponent } from './teacher-management-component/teacher-management-component.component';
-import { VedioDetailManagementComponentComponent } from './vedio-detail-management-component/vedio-detail-management-component.component';
-import { StudentCoursesManagementComponentComponent } from './student-courses-management-component/student-courses-management-component.component';
-import { CourseManagementComponentComponent } from './course-management-component/course-management-component.component';
-import { FinanceManagementComponentComponent } from './finance-management-component/finance-management-component.component';
+import { TeacherManagementComponentComponent } from './teacher-management/teacher-management.component';
+import { VedioDetailManagementComponentComponent } from './vedio-detail-management/vedio-detail-management.component';
+import { StudentCoursesManagementComponentComponent } from './student-courses-management/student-courses-management.component';
+import { CourseManagementComponentComponent } from './course-management/course-management.component';
+import { FinanceManagementComponentComponent } from './finance-management/finance-management.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

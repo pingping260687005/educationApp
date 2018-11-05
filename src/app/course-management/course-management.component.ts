@@ -4,18 +4,19 @@ import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from } from 'rxjs/index';
 @Component({
-  selector: 'app-student-courses-management-component',
-  templateUrl: './student-courses-management-component.component.html',
-  styleUrls: ['./student-courses-management-component.component.css']
+  selector: 'app-course-management',
+  templateUrl: './course-management.component.html',
+  styleUrls: ['./course-management.component.css']
 })
-export class StudentCoursesManagementComponentComponent implements OnInit {
+export class CourseManagementComponentComponent implements OnInit {
+
   dataSource: Observable<any>;
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
   constructor(private http: Http) {
       // 用http请求
-      this.dataSource = this.http.get('/api/students');
+      this.dataSource = this.http.get('/api/courses');
       // .map(res=> res.json());
    }
 
@@ -23,18 +24,18 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
      // 真正的发请求取数据
      this.dataSource.subscribe((res) => {
       // get real data
-      const students: Student[] = JSON.parse(res['_body']);
+      const courses: Course[] = JSON.parse(res['_body']);
       // set data
-      // $('#studentMngTable').bootstrapTable('load', students);
+      // $('#courseMngTable').bootstrapTable('load', students);
     });
 
     $(window).resize(() => {
-      $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
+      $('#courseMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
     });
   }
   ngAfterViewInit() {
     const tableHeight = $('.wrapper').height();
-    $('#studentMngTable').bootstrapTable({
+    $('#courseMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
         visiable: true
@@ -46,38 +47,26 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
         sortable: true
       },
        {
-        field: 'name',
-        title: '姓名',
+        field: 'courseTeacher',
+        title: '课程-教师',
         sortable: true
       },
       {
-        field: 'course',
-        title: '课程',
+        field: 'hours',
+        title: '学时',
         sortable: true
       },
       {
-        field: 'teacherName',
-        title: '教师',
+        field: 'cost',
+        title: '费用',
         sortable: true
       }, {
-        field: 'applyDate',
-        title: '报班日期',
-        sortable: true
-      }, {
-        field: 'availableTimes',
-        title: '可用次数',
-        sortable: true
-      }, {
-        field: 'score',
-        title: '成绩',
-        sortable: true
-      }, {
-        field: 'feedback',
-        title: '反馈',
+        field: 'rate',
+        title: '评价',
         sortable: true
       }],
       height: tableHeight - 20,
-      data: this.getStudentList(),
+      data: this.getCourseList(),
       search: true,
       pagination: true,
       pageSize: 15,
@@ -97,24 +86,21 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
     this.updateToolbarIconsStatus();
   }
 
-  private getStudentList(): Student[] {
+  private getCourseList(): Course[] {
     //////// hard code////////////////
-    const studentList: Student[] = [];
-    let student: Student;
+    const courseList: Course[] = [];
+    let course: Course;
     for (let i = 0; i < 100; i++) {
-      student = {
+      course = {
         id: i.toString(),
-        name: '随机 ' + i,
-        course: '钢琴',
-        teacherName: '马云',
-        applyDate: '2018-11-06',
-        availableTimes: '3',
-        score: '100',
-        feedback: '123'
+        courseTeacher: '钢琴-马云' + i,
+        hours: 50,
+        cost: 1500,
+        rate: '5星'
       };
-      studentList.push(student);
+      courseList.push(course);
     }
-    return studentList;
+    return courseList;
   }
 
   private showModal(isAdd: boolean) {
@@ -124,7 +110,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       this.addModifyDialogTitle = '添加学生信息';
     } else {
       this.addModifyDialogTitle = '修改学生信息';
-      selection = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      selection = $('#courseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
     modal.find('.phone').val(selection ? selection['phone'] : '');
     modal.find('.name').val(selection ? selection['name'] : '');
@@ -137,7 +123,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
   }
 
   private updateToolbarIconsStatus() {
-    const selectionsLength = $('#studentMngTable').bootstrapTable('getSelections', null).length;
+    const selectionsLength = $('#courseMngTable').bootstrapTable('getSelections', null).length;
     this.isModifyBtnDisabled = selectionsLength !== 1;
     this.isDeleteBtnDisabled = selectionsLength === 0;
     if (this.isModifyBtnDisabled) {
@@ -153,7 +139,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
   }
 
   private removeItems() {
-    const table = $('#studentMngTable');
+    const table = $('#courseMngTable');
     const selections = table.bootstrapTable('getSelections', null);
     for (let i = 0; i < selections.length; i++) {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
@@ -161,18 +147,15 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
     $('#deleteBtn').addClass('disabled');
   }
   ngOnDestroy() {
-    $('#studentMngTable').bootstrapTable('destroy');
+    $('#courseMngTable').bootstrapTable('destroy');
   }
-
 }
 
-interface Student {
+
+interface Course {
   id: string;
-  name: string;
-  course: string;
-  teacherName: string;
-  applyDate: string;
-  availableTimes: string;
-  score: string;
-  feedback: string;
+  courseTeacher: string;
+  hours: number;
+  cost: number;
+  rate: string;
 }

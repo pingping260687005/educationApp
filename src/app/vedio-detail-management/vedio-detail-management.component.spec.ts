@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VedioDetailManagementComponentComponent } from './vedio-detail-management-component.component';
+import { VedioDetailManagementComponentComponent } from './vedio-detail-management.component';
 
 describe('VedioDetailManagementComponentComponent', () => {
   let component: VedioDetailManagementComponentComponent;

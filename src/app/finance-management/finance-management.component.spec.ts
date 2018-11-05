@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinanceManagementComponentComponent } from './finance-management-component.component';
+import { FinanceManagementComponentComponent } from './finance-management.component';
 
 describe('FinanceManagementComponentComponent', () => {
   let component: FinanceManagementComponentComponent;

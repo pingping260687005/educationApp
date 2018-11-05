@@ -1,8 +1,8 @@
-import { FinanceManagementComponentComponent } from './../finance-management-component/finance-management-component.component';
-import { CourseManagementComponentComponent } from './../course-management-component/course-management-component.component';
-import { StudentCoursesManagementComponentComponent } from './../student-courses-management-component/student-courses-management-component.component';
-import { VedioDetailManagementComponentComponent } from './../vedio-detail-management-component/vedio-detail-management-component.component';
-import { TeacherManagementComponentComponent } from './../teacher-management-component/teacher-management-component.component';
+import { FinanceManagementComponentComponent } from '../finance-management/finance-management.component';
+import { CourseManagementComponentComponent } from './../course-management/course-management.component';
+import { StudentCoursesManagementComponentComponent } from './../student-courses-management/student-courses-management.component';
+import { VedioDetailManagementComponentComponent } from './../vedio-detail-management/vedio-detail-management.component';
+import { TeacherManagementComponentComponent } from '../teacher-management/teacher-management.component';
 import { UserManagementComponent } from './../user-management/user-management.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

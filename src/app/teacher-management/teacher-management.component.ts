@@ -3,9 +3,9 @@ import { Http } from '@angular/http';
 import { Observable, from } from 'rxjs/index';
 
 @Component({
-  selector: 'app-teacher-management-component',
-  templateUrl: './teacher-management-component.component.html',
-  styleUrls: ['./teacher-management-component.component.css']
+  selector: 'app-teacher-management',
+  templateUrl: './teacher-management.component.html',
+  styleUrls: ['./teacher-management.component.css']
 })
 export class TeacherManagementComponentComponent implements OnInit {
   dataSource: Observable<any>;

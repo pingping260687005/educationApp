@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-finance-management-component',
-  templateUrl: './finance-management-component.component.html',
-  styleUrls: ['./finance-management-component.component.css']
+  selector: 'app-finance-management',
+  templateUrl: './finance-management.component.html',
+  styleUrls: ['./finance-management.component.css']
 })
 export class FinanceManagementComponentComponent implements OnInit {
 
