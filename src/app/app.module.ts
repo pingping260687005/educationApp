@@ -20,10 +20,11 @@ import { CourseManagementComponentComponent } from './course-management-componen
 import { FinanceManagementComponentComponent } from './finance-management-component/finance-management-component.component';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     loadChildren: './home-routing/home-routing.module#HomeRoutingModule',
   }
