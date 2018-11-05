@@ -13,6 +13,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeRoutingModule } from './home-routing/home-routing.module';
+import { TeacherManagementComponentComponent } from './teacher-management-component/teacher-management-component.component';
+import { VedioDetailManagementComponentComponent } from './vedio-detail-management-component/vedio-detail-management-component.component';
+import { StudentCoursesManagementComponentComponent } from './student-courses-management-component/student-courses-management-component.component';
+import { CourseManagementComponentComponent } from './course-management-component/course-management-component.component';
+import { FinanceManagementComponentComponent } from './finance-management-component/finance-management-component.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,7 +36,12 @@ const appRoutes: Routes = [
     AppShellComponent,
     HomeComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TeacherManagementComponentComponent,
+    VedioDetailManagementComponentComponent,
+    StudentCoursesManagementComponentComponent,
+    CourseManagementComponentComponent,
+    FinanceManagementComponentComponent
   ],
   imports: [
     BrowserModule,

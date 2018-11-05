@@ -18,6 +18,7 @@ export class StudentManagementComponent implements OnInit {
     // 用http请求
     this.dataSource = this.http.get('/api/students');
     // .map(res=> res.json());
+
   }
 
   ngOnInit() {
@@ -26,7 +27,7 @@ export class StudentManagementComponent implements OnInit {
       // get real data
       const students: Student[] = JSON.parse(res['_body']);
       // set data
-      $('#studentMngTable').bootstrapTable('load', students);
+      // $('#studentMngTable').bootstrapTable('load', students);
     });
 
     $(window).resize(() => {
@@ -79,7 +80,7 @@ export class StudentManagementComponent implements OnInit {
         sortable: true
       }],
       height: tableHeight - 20,
-      data: [],
+      data: this.getStudentList(),
       search: true,
       pagination: true,
       pageSize: 15,
@@ -97,6 +98,26 @@ export class StudentManagementComponent implements OnInit {
       }
     });
     this.updateToolbarIconsStatus();
+  }
+
+  private getStudentList(): Student[] {
+    //////// hard code////////////////
+    const studentList: Student[] = [];
+    let student: Student;
+    for (let i = 0; i < 100; i++) {
+      student = {
+        id: i.toString(),
+        studentNum: i.toString(),
+        name: '随机 ' + i,
+        sex: i % 2 === 0 ? '男' : '女',
+        age: Math.floor(Math.random() * 100),
+        phone: '13992288771',
+        parentPhone: '13992288771',
+        address: '丹阳市黄金路25弄16号201室'
+      };
+      studentList.push(student);
+    }
+    return studentList;
   }
 
   private showModal(isAdd: boolean) {
