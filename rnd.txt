@@ -359,3 +359,10 @@ import 'rxjs/RX';
 如何修改所有tslint的错误： 在package.json： 
     "lintfix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'",
 另外需要装tslint插件来实时显示问题
+
+
+// 报错 需要在 jquery index.d.ts 里加
+interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
+    bootstrapTable: any;
+    modal: any;
+    ...}

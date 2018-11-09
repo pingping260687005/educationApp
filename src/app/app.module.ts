@@ -18,6 +18,7 @@ import { VedioDetailManagementComponentComponent } from './vedio-detail-manageme
 import { StudentCoursesManagementComponentComponent } from './student-courses-management/student-courses-management.component';
 import { CourseManagementComponentComponent } from './course-management/course-management.component';
 import { FinanceManagementComponentComponent } from './finance-management/finance-management.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     ),
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],//后端路经匹配 刷新
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from } from 'rxjs/index';
+import { StudentService } from './student.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-student-management',
@@ -14,20 +16,29 @@ export class StudentManagementComponent implements OnInit {
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
-  constructor(private http: Http) {
+  studentForm = new FormGroup({
+    studentNumber: new FormControl(''),
+    telephone: new FormControl(''),
+  });
+    
+  constructor(private http: Http, private studentService: StudentService) {
     // 用http请求
-    this.dataSource = this.http.get('/api/students');
+    //this.dataSource = this.http.get('/api/students');
     // .map(res=> res.json());
 
   }
 
   ngOnInit() {
     // 真正的发请求取数据
-    this.dataSource.subscribe((res) => {
-      // get real data
-      const students: Student[] = JSON.parse(res['_body']);
-      // set data
-      // $('#studentMngTable').bootstrapTable('load', students);
+    // this.dataSource.subscribe((res) => {
+    //   // get real data
+    //   const students: Student[] = JSON.parse(res['_body']);
+    //   // set data
+    //   // $('#studentMngTable').bootstrapTable('load', students);
+    // });
+    this.studentService.getAllStudent().subscribe((students:Student[])=>{
+      console.table(students);
+      $('#studentMngTable').bootstrapTable('load', students);
     });
 
     $(window).resize(() => {
@@ -159,11 +170,16 @@ export class StudentManagementComponent implements OnInit {
   private removeItems() {
     const table = $('#studentMngTable');
     const selections = table.bootstrapTable('getSelections', null);
+    let deleteStudents:number[] = [];
     for (let i = 0; i < selections.length; i++) {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
+      deleteStudents.push(selections[i].id)
     }
     $('#deleteBtn').addClass('disabled');
+    // post a request to delete students
+    this.studentService.deleteStudents(deleteStudents).subscribe(res=>console.log(res));
   }
+
 
   ngOnDestroy() {
     $('#studentMngTable').bootstrapTable('destroy');
@@ -171,14 +187,3 @@ export class StudentManagementComponent implements OnInit {
 
 }
 
-interface Student {
-  id: string;
-  studentNum: string;
-  name: string;
-  sex: string;
-  age: number;
-  phone: string;
-  parentPhone: string;
-  address: string;
-
-}

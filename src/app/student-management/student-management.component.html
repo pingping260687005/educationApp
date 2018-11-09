@@ -18,54 +18,56 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="container-fluid">
-             <div class="row">
-               <div class="col-md-6">
-                 <span class="textbox-label">学号</span>
-                 <input type="text" class="form-control studentNum">
-               </div>
-               <div class="col-md-6">
-                  <span class="textbox-label textbox-label-right">手机</span>
-                <input type="text" class="form-control form-control-right phone">
-               </div>
-             </div>
-             <div class="row">
-              <div class="col-md-6">
-                  <span class="textbox-label">姓名</span>
-                <input type="text" class="form-control name">
+        <form ><!--[formGroup]="studentForm"-->
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="textbox-label">学号</span>
+                  <input type="text" class="form-control studentNum" formControlName="studentNumber">
+                </div>
+                <div class="col-md-6">
+                    <span class="textbox-label textbox-label-right">手机</span>
+                  <input type="text" class="form-control form-control-right phone" formControlName="telephone">
+                </div>
               </div>
-              <div class="col-md-6">
-                  <span class="textbox-label textbox-label-right">父母手机</span>
-               <input type="text" class="form-control form-control-right parentPhone">
+              <div class="row">
+                <div class="col-md-6">
+                    <span class="textbox-label">姓名</span>
+                  <input type="text" class="form-control name">
+                </div>
+                <div class="col-md-6">
+                    <span class="textbox-label textbox-label-right">父母手机</span>
+                <input type="text" class="form-control form-control-right parentPhone">
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                  <span class="textbox-label">性别</span>
-               <input type="text" class="form-control sex">
+              <div class="row">
+                <div class="col-md-6">
+                    <span class="textbox-label">性别</span>
+                <input type="text" class="form-control sex">
+                </div>
+                <div class="col-md-6">
+                    <span class="textbox-label textbox-label-right">地址</span>
+                <input type="text" class="form-control form-control-right address">
+                </div>
               </div>
-              <div class="col-md-6">
-                  <span class="textbox-label textbox-label-right">地址</span>
-               <input type="text" class="form-control form-control-right address">
+              <div class="row">
+                <div class="col-md-6">
+                    <span class="textbox-label">年龄</span>
+                  <input type="text" class="form-control age">
+                </div>
+                <div class="col-md-6">
+                    <span class="textbox-label textbox-label-right">课程</span>
+                <input type="text" class="form-control form-control-right">
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                  <span class="textbox-label">年龄</span>
-                <input type="text" class="form-control age">
-              </div>
-              <div class="col-md-6">
-                  <span class="textbox-label textbox-label-right">课程</span>
-               <input type="text" class="form-control form-control-right">
-              </div>
+
             </div>
 
           </div>
-
-        </div>
+        </form>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">添加</button>
+          <button type="submit" class="btn btn-primary">添加</button>
         </div>
       </div>
     </div>
