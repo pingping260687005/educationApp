@@ -1,0 +1,8 @@
+.toolbar .student-picker .label{
+    vertical-align: middle;
+}
+
+.toolbar .student-picker .dropdown{
+    display: inline-block;
+    margin-left:10px;
+}

@@ -1,3 +1,69 @@
-<p>
-  vedio-detail-management-component works!
-</p>
+<div class="container-fluid">
+<div class="row justify-content-between toolbar">
+<div class="col-4 student-picker">
+  <div>
+      <span class="label" >学生</span>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          马云
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">马云</a>
+          <a class="dropdown-item" href="#">刘强东</a>
+          <a class="dropdown-item" href="#">李彦宏</a>
+        </div>
+      </div>
+  </div>
+
+</div>
+<div class="col-4">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">综合排序</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">最新发布</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">时长</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li>
+         <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  上传视频
+</button>
+      </ul>
+   
+</div>
+</div>
+<div class="video-list-panel"></div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">上传视频</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="file-loading">
+          <input id="input-b9" name="input-b9[]" multiple type="file">
+        </div>
+        <div id="kartik-file-errors"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" title="Your custom upload logic">上传</button>
+      </div>
+    </div>
+  </div>
+</div>

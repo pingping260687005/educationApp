@@ -23,11 +23,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap-fileinput/css/fileinput.min.css"
             ],
             "scripts": [
               "bower_components/bootstrap-table/dist/bootstrap-table.min.js",
-              "bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"
+              "bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js",
+              "node_modules/bootstrap-fileinput/js/fileinput.min.js",
+              "node_modules/bootstrap-fileinput/js/locales/zh.js"
             ]
           },
           "configurations": {

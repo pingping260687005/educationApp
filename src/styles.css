@@ -47,3 +47,11 @@ html,body{
 .form-control-right {
     width: calc(100% - 100px);
 }
+
+.fixed-table-container{
+    color:white;
+    }
+
+    .fixed-table-container .selected td{
+        background-color:#584343ab !important;
+        }
