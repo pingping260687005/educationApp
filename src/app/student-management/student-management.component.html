@@ -18,13 +18,13 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form ><!--[formGroup]="studentForm"-->
+        <form [formGroup]="studentForm" >
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-6">
                   <span class="textbox-label">学号</span>
-                  <input type="text" class="form-control studentNum" formControlName="studentNumber">
+                  <input type="text" class="form-control studentNum"  formControlName="studentNumber">
                 </div>
                 <div class="col-md-6">
                     <span class="textbox-label textbox-label-right">手机</span>
@@ -67,7 +67,7 @@
           </div>
         </form>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">添加</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()">添加</button>
         </div>
       </div>
     </div>

@@ -53,7 +53,6 @@ const appRoutes: Routes = [
       {enableTracing: false}
     ),
     FormsModule,
-    ReactiveFormsModule,
     HttpModule,
     HttpClientModule
   ],

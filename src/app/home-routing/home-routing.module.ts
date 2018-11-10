@@ -10,6 +10,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { StudentManagementComponent } from '../student-management/student-management.component';
 import { HomeComponent } from '../home/home.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 const appRoutes: Routes = [
   {
     path: 'home',
@@ -31,7 +33,13 @@ const appRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(
       appRoutes
-    )
+    ),
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     UserManagementComponent,

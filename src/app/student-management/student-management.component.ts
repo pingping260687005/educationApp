@@ -4,7 +4,8 @@ import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from } from 'rxjs/index';
 import { StudentService } from './student.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-student-management',
@@ -12,31 +13,18 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./student-management.component.css']
 })
 export class StudentManagementComponent implements OnInit {
-  dataSource: Observable<any>;
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
-  studentForm = new FormGroup({
+  private studentForm = new FormGroup({
     studentNumber: new FormControl(''),
     telephone: new FormControl(''),
   });
-    
-  constructor(private http: Http, private studentService: StudentService) {
-    // 用http请求
-    //this.dataSource = this.http.get('/api/students');
-    // .map(res=> res.json());
 
-  }
-
+  constructor(private http: Http, private studentService: StudentService) { }
   ngOnInit() {
     // 真正的发请求取数据
-    // this.dataSource.subscribe((res) => {
-    //   // get real data
-    //   const students: Student[] = JSON.parse(res['_body']);
-    //   // set data
-    //   // $('#studentMngTable').bootstrapTable('load', students);
-    // });
-    this.studentService.getAllStudent().subscribe((students:Student[])=>{
+    this.studentService.getAllStudent().subscribe((students: Student[]) => {
       console.table(students);
       $('#studentMngTable').bootstrapTable('load', students);
     });
@@ -45,6 +33,11 @@ export class StudentManagementComponent implements OnInit {
       $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
     });
   }
+
+  onSubmit () {
+    // console.log("user",this.studentForm.value);
+  }
+
   ngAfterViewInit() {
     const tableHeight = $('.wrapper').height();
     $('#studentMngTable').bootstrapTable({
@@ -170,14 +163,14 @@ export class StudentManagementComponent implements OnInit {
   private removeItems() {
     const table = $('#studentMngTable');
     const selections = table.bootstrapTable('getSelections', null);
-    let deleteStudents:number[] = [];
+    const deleteStudents: number[] = [];
     for (let i = 0; i < selections.length; i++) {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
-      deleteStudents.push(selections[i].id)
+      deleteStudents.push(selections[i].id);
     }
     $('#deleteBtn').addClass('disabled');
     // post a request to delete students
-    this.studentService.deleteStudents(deleteStudents).subscribe(res=>console.log(res));
+    this.studentService.deleteStudents(deleteStudents).subscribe(res => console.log(res));
   }
 
 
