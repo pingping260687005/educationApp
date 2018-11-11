@@ -6,3 +6,32 @@
     display: inline-block;
     margin-left:10px;
 }
+
+.video-list-panel{
+    height: calc(100% - 100px);
+}
+
+.video-panel{
+    height:100%;
+}
+
+.video-card{
+    max-height: 200px;
+    height:22%;
+    width:22%;
+    margin:10px;
+    position: relative;
+    display: inline-block;
+}
+
+.video-card img{
+   height:100%;
+   width:100%;
+   cursor: pointer;
+}
+.video-card span{
+    position: absolute;
+    right: 10px;
+    color: black;
+    bottom: 0;
+ }

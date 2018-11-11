@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vedio-detail-management.component.css']
 })
 export class VedioDetailManagementComponentComponent implements OnInit {
-
+private videoList = [];
   constructor() { }
 
   ngOnInit() {
+    this.initFileUpoad();
+    this.getVideoList();
+  }
+
+  initFileUpoad() {
     $('#input-b9').fileinput({
       language: 'zh', // 设置语言
       showPreview: true,
@@ -20,4 +25,44 @@ export class VedioDetailManagementComponentComponent implements OnInit {
   });
   }
 
+  getVideoList() {
+this.videoList = [
+  {
+    url: require('../../assets/勤杂财务表.jpg'),
+    length: '01:10:30'
+  },
+  {
+    url: require('../../assets/学生教师表.jpg'),
+    length: '00:30:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  },
+  {
+    url: require('../../assets/学生表.jpg'),
+    length: '01:00:30'
+  }
+];
+  }
 }
