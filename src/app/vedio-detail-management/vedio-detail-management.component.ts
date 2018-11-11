@@ -26,43 +26,43 @@ private videoList = [];
   }
 
   getVideoList() {
-this.videoList = [
-  {
-    url: require('../../assets/勤杂财务表.jpg'),
-    length: '01:10:30'
-  },
-  {
-    url: require('../../assets/学生教师表.jpg'),
-    length: '00:30:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  },
-  {
-    url: require('../../assets/学生表.jpg'),
-    length: '01:00:30'
-  }
-];
+    this.videoList = [
+      {
+        url: '../../assets/勤杂财务表.jpg',
+        length: '01:10:30'
+      },
+      {
+        url: '../../assets/学生教师表.jpg',
+        length: '00:30:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      },
+      {
+        url: '../../assets/学生表.jpg',
+        length: '01:00:30'
+      }
+    ];
   }
 }

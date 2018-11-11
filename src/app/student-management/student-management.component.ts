@@ -16,26 +16,33 @@ export class StudentManagementComponent implements OnInit {
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
+  private isAdd = true;
+  private editId;
   private studentForm = new FormGroup({
-    studentNumber: new FormControl(''),
-    telephone: new FormControl(''),
+    studentNum: new FormControl(''),
+    name: new FormControl(''),
+    sex: new FormControl(''),
+    age: new FormControl(''),
+    phone: new FormControl(''),
+    parentPhone: new FormControl(''),
+    address: new FormControl(''),
+    course: new FormControl('')
   });
 
   constructor(private http: Http, private studentService: StudentService) { }
   ngOnInit() {
     // 真正的发请求取数据
-    this.studentService.getAllStudent().subscribe((students: Student[]) => {
-      console.table(students);
-      $('#studentMngTable').bootstrapTable('load', students);
-    });
+    this.setAllStudents();
 
     $(window).resize(() => {
       $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
     });
   }
 
-  onSubmit () {
-    // console.log("user",this.studentForm.value);
+  setAllStudents() {
+    this.studentService.getAllStudent().subscribe((students: Student[]) => {
+      $('#studentMngTable').bootstrapTable('load', students);
+    });
   }
 
   ngAfterViewInit() {
@@ -125,6 +132,7 @@ export class StudentManagementComponent implements OnInit {
   }
 
   private showModal(isAdd: boolean) {
+    this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
     let selection = null;
     if (isAdd) {
@@ -132,6 +140,7 @@ export class StudentManagementComponent implements OnInit {
     } else {
       this.addModifyDialogTitle = '修改学生信息';
       selection = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.editId = selection['id'];
     }
     modal.find('.studentNum').val(selection ? selection['studentNum'] : '');
     modal.find('.phone').val(selection ? selection['phone'] : '');
@@ -163,16 +172,48 @@ export class StudentManagementComponent implements OnInit {
   private removeItems() {
     const table = $('#studentMngTable');
     const selections = table.bootstrapTable('getSelections', null);
-    const deleteStudents: number[] = [];
-    for (let i = 0; i < selections.length; i++) {
-      table.bootstrapTable('removeByUniqueId', selections[i].id);
-      deleteStudents.push(selections[i].id);
-    }
+    const deleteStudents: number[] = selections.map(({id}) => id);
     $('#deleteBtn').addClass('disabled');
     // post a request to delete students
-    this.studentService.deleteStudents(deleteStudents).subscribe(res => console.log(res));
+    this.studentService.deleteStudents(deleteStudents).subscribe((res: any) => {
+      if (res.message === 'succeed') {
+        deleteStudents.forEach(id => table.bootstrapTable('removeByUniqueId', id));
+      }
+    });
   }
 
+  onSubmit () {
+    const table = $('#studentMngTable');
+    if (this.isAdd) {
+      // add
+      this.studentService.addStudent(this.studentForm.value).subscribe(res => {
+        if ( res.message === 'succeed') {
+
+          // append is append to the bottom, prepend is appending to the top.
+          table.bootstrapTable('append', {index: 1, row: res});
+        } else {
+          // res.message === 'failed'
+          // TODO:  error
+          window.alert('add student failed');
+        }
+      });
+    } else {
+      // edit
+      this.studentForm.value.id = this.editId;
+      this.studentService.updateStudent(this.studentForm.value).subscribe(res => {
+        if ( res.message === 'succeed') {
+          const index = $('#studentMngTable .selected').attr('data-index');
+          $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+        } else {
+          // res.message === 'failed'
+          // TODO:  error
+          window.alert('add student failed');
+        }
+      });
+    }
+    const modal = $('#addOrModifyModal');
+    modal.modal('hide');
+  }
 
   ngOnDestroy() {
     $('#studentMngTable').bootstrapTable('destroy');

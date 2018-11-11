@@ -27,17 +27,17 @@ export class StudentService {
     );
   }
 
-  addStudent (student: Student): Observable<string> {
-    return this.http.post<string>(this.studentUrl, student, httpOptions).pipe(
+  addStudent (student: Student): Observable<any> {
+    return this.http.post<any>(this.studentUrl, student, httpOptions).pipe(
       tap(_ => this.log(`added Student w/ name=${student.name}`)),
-      catchError(this.handleError<string>('addStudent'))
+      catchError(this.handleError<any>('addStudent'))
     );
   }
 
-  updateStudent (student: Student): Observable<Student> {
-    return this.http.put<Student>(this.studentUrl, student, httpOptions).pipe(
+  updateStudent (student: Student): Observable<any> {
+    return this.http.put<any>(this.studentUrl, student, httpOptions).pipe(
       tap(_ => this.log(`updated hero id=${student.id}`)),
-      catchError(this.handleError<Student>('updateStudent'))
+      catchError(this.handleError<any>('updateStudent'))
     );
   }
 

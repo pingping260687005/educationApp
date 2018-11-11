@@ -27,3 +27,10 @@ interface Teacher {
   issueDate: string;
   fullTime: boolean;
 }
+interface Course {
+  id: string;
+  courseTeacher: string;
+  hours: number;
+  cost: number;
+  rate: string;
+}
