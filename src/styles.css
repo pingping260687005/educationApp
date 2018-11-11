@@ -55,3 +55,7 @@ html,body{
     .fixed-table-container .selected td{
         background-color:#584343ab !important;
         }
+
+        .modal{
+            color:black;
+        }
