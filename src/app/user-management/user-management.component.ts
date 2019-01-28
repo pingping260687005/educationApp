@@ -51,7 +51,6 @@ export class UserManagementComponent implements OnInit {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    const tableHeight = $('.wrapper').height();
     $('#userMngTable').bootstrapTable({
       columns: [
         {
@@ -76,10 +75,9 @@ export class UserManagementComponent implements OnInit {
           title: '权限'
         }],
       data: this.getUserList(),
-      height: tableHeight - 20,
       search: true,
       pagination: true,
-      pageSize: 15,
+      pageSize: 10,
       idField: 'id',
       uniqueId: 'id',
       smartDisplay: true,

@@ -2,9 +2,9 @@
     <table id="userMngTable" data-toggle="table">
     </table>
     <div id="toolbar">
-        <span class="btn btn-secondary toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
-        <span id="modifyBtn" class="btn btn-secondary toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
-        <span id="deleteBtn" class="btn btn-secondary toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
+        <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
+        <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
+        <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
       </div>
 
       <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" (hidden.bs.modal)="alert(1)">

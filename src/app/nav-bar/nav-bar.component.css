@@ -8,8 +8,7 @@ a, a:hover, a:focus {
 #sidebar {
     min-width: 150px;
     max-width: 150px;
-    background: #28272b;
-    color: #fff;
+    background: #f8f8f8;
     transition: all 0.3s;
     height: 100%;
     position: relative;
@@ -22,7 +21,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar .active-link {
-    background-color: #5273b1ab;
+    color: #409EFF;
 }
 
 #sidebar.active .sidebar-header h3, #sidebar.active .CTAs {
@@ -78,7 +77,7 @@ a, a:hover, a:focus {
     width: 20px;
     height: 200px;
     right: 0;
-    background-color: #28272b;
+    background-color: #f8f8f8;
     cursor: pointer;
     top: 50%;
     transform: translate(100%, -50%);
@@ -105,12 +104,12 @@ a, a:hover, a:focus {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1em;
     display: block;
 }
 
 #sidebar ul li a:hover {
-    background: #303B4D;
+    background: #ecf5ff;
 }
 
 #sidebar ul li a i {
@@ -118,8 +117,6 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li.active>a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #584343ab;
 }
 
 .dropdown-toggle::after {
@@ -169,7 +166,6 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #584343ab;
 }
 
 ul.CTAs {
