@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <table id="teacherFinanceMngTable" data-toggle="table">
+    </table>
+    <div id="toolbar">
+        <span class="btn btn-secondary toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
+        <span id="modifyBtn" class="btn btn-secondary toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
+        <span id="deleteBtn" class="btn btn-secondary toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
+      </div>
+
+      <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" (hidden.bs.modal)="alert(1)">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">{{addModifyDialogTitle}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="teacherFinanceForm" >
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-6">
+                      <span class="textbox-label">姓名</span>
+                      <input type="text" class="form-control teacherFinanceName"  formControlName="name">
+                      <div *ngIf="formErrors.name" class="showerr alert alert-danger" >{{ formErrors.name }}</div>
+                    </div>
+                    <div class="col-6">
+                      <span class="textbox-label">已付工资</span>
+                      <input type="text" class="form-control paidSalary"  formControlName="paidSalary">
+                      <div *ngIf="formErrors.paidSalary" class="showerr alert alert-danger" >{{ formErrors.paidSalary }}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <span class="textbox-label">未付工资</span>
+                      <input type="text" class="form-control unPaidSalary"  formControlName="unPaidSalary">
+                      <div *ngIf="formErrors.unPaidSalary" class="showerr alert alert-danger" >{{ formErrors.unPaidSalary }}</div>
+                    </div>
+                    <div class="col-6">
+                      <span class="textbox-label">欠款</span>
+                      <input type="text" class="form-control arrearage"  formControlName="arrearage">
+                      <div *ngIf="formErrors.arrearage" class="showerr alert alert-danger" >{{ formErrors.arrearage }}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <span class="textbox-label">未付工资</span>
+                      <input type="text" class="form-control unPaidSalary"  formControlName="unPaidSalary">
+                      <div *ngIf="formErrors.unPaidSalary" class="showerr alert alert-danger" >{{ formErrors.unPaidSalary }}</div>
+                    </div>
+                    <div class="col-6">
+                      <span class="textbox-label">欠款</span>
+                      <input type="text" class="form-control arrearage"  formControlName="arrearage">
+                      <div *ngIf="formErrors.arrearage" class="showerr alert alert-danger" >{{ formErrors.arrearage }}</div>
+                    </div>
+                  </div>
+                  </div>
+    
+                </div>
+    
+            </form>
+            <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">添加</button>
+
+            </div>
+          </div>
+        </div>
+</div>
+

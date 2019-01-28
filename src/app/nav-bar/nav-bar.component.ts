@@ -63,25 +63,31 @@ export class NavBarComponent implements OnInit {
       id: 'finance',
       subMenu: [
         {
-          routerLink: '/home/finance',
+          routerLink: '/home/teacherFinance',
           linkName: '教师财务',
           iconClass: 'sidebarIcon fas fa-user-secret',
           id: 'finance'
         },
         {
-          routerLink: '/home/finance',
+          routerLink: '/home/studentFinance',
           linkName: '学生财务',
           iconClass: 'sidebarIcon fas fa-user-edit',
           id: 'finance'
         },
         {
-          routerLink: '/home/finance',
+          routerLink: '/home/otherFinance',
           linkName: '其他费用',
           iconClass: 'sidebarIcon fas fa-money-check-alt',
           id: 'finance'
         }
       ]
-    }];
+    },
+  {
+    routerLink: '/home/contactUs',
+    linkName: '联系我们',
+    iconClass: 'sidebarIcon fas fa-chalkboard-teacher',
+    id: 'contactUs'
+  }];
   }
 
   toggleSidebarBtnClick() {

@@ -17,8 +17,13 @@ import { TeacherManagementComponentComponent } from './teacher-management/teache
 import { VedioDetailManagementComponentComponent } from './vedio-detail-management/vedio-detail-management.component';
 import { StudentCoursesManagementComponentComponent } from './student-courses-management/student-courses-management.component';
 import { CourseManagementComponentComponent } from './course-management/course-management.component';
-import { FinanceManagementComponentComponent } from './finance-management/finance-management.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TeacherFinanceManagementComponent } from './teacher-finance-management/teacher-finance-management.component';
+import { StudentFinanceManagementComponent } from './student-finance-management/student-finance-management.component';
+import { OtherFinanceManagementComponent } from './other-finance-management/other-finance-management.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -43,7 +48,10 @@ const appRoutes: Routes = [
     VedioDetailManagementComponentComponent,
     StudentCoursesManagementComponentComponent,
     CourseManagementComponentComponent,
-    FinanceManagementComponentComponent
+    TeacherFinanceManagementComponent,
+    StudentFinanceManagementComponent,
+    OtherFinanceManagementComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
