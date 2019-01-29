@@ -46,7 +46,6 @@ validationMessage = {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    const tableHeight = $('.wrapper').height();
     $('#teacherFinanceMngTable').bootstrapTable({
         columns: [
             {
@@ -84,7 +83,6 @@ validationMessage = {
   }
       ],
         data: this.getData(),
-        height: tableHeight - 20,
         search: true,
         pagination: true,
         pageSize: 15,

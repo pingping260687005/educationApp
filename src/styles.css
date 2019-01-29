@@ -49,12 +49,45 @@ html,body{
 }
 
 .fixed-table-container{
+    max-height: calc(100vh - 216px);
+    overflow: auto;
     }
 
     .fixed-table-container .selected td{
-        background-color:#584343ab !important;
         }
 
         .modal{
             color:black;
+        }
+
+        .bootstrap-table{
+            font-size: 0.875rem;
+        }
+        .bootstrap-table .search .form-control{
+            font-size: 0.875rem;
+        }
+        .bootstrap-table .search .form-control:focus{
+            box-shadow: none;
+        }
+        .bootstrap-table .page-link{
+            box-shadow: none;
+        }
+        .bootstrap-table .pagination-detail .btn{
+            padding: .25rem .5rem;
+            font-size: .875rem;
+            line-height: 1.5;
+            border-radius: .2rem;
+            box-shadow: none;
+            color: #007bff;
+            background-color: #fff;
+        }
+
+        .bootstrap-table .btn:hover{
+            background-color: rgba(0, 123, 255, 1);
+        }
+
+        .bootstrap-table .pagination-detail .btn:hover{
+            background-color: rgba(0, 123, 255, 1);
+            border-color: #dee2e6;
+            color: #fff;
         }

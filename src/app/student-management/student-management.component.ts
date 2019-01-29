@@ -32,10 +32,10 @@ export class StudentManagementComponent implements OnInit {
   constructor(private http: Http, private studentService: StudentService) { }
   ngOnInit() {
     // 真正的发请求取数据
-    this.setAllStudents();
+    // this.setAllStudents();
 
     $(window).resize(() => {
-      $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
+      // $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
     });
   }
 
@@ -46,7 +46,6 @@ export class StudentManagementComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    const tableHeight = $('.wrapper').height();
     $('#studentMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
@@ -90,7 +89,6 @@ export class StudentManagementComponent implements OnInit {
         title: '视频页',
         sortable: true
       }],
-      height: tableHeight - 20,
       data: this.getStudentList(),
       search: true,
       pagination: true,

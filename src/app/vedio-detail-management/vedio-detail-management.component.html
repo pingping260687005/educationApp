@@ -4,7 +4,7 @@
   <div>
       <span class="label" >学生</span>
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           马云
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -35,7 +35,7 @@
           </div>
         </li>
          <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
   上传视频
 </button>
       </ul>
@@ -43,7 +43,7 @@
 </div>
 </div>
 <div class="video-list-panel">
-  <div class="video-card" *ngFor="let item of videoList"><iframe height=200 width=300 src='http://player.youku.com/embed/XNDAzNDAwODI3Mg==' frameborder=0></iframe><span>{{item.length}}</span></div>
+  <div class="video-card" *ngFor="let item of videoList"><iframe height=200 width=300 src='http://player.youku.com/embed/XNDAzNDAwODI3Mg==' frameborder=0></iframe></div>
 </div>
 
 <nav aria-label="Page navigation example">
@@ -84,7 +84,7 @@
         <div id="kartik-file-errors"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" title="Your custom upload logic">上传</button>
+        <button type="button" class="btn btn-outline-primary btn-sm" title="Your custom upload logic">上传</button>
       </div>
     </div>
   </div>

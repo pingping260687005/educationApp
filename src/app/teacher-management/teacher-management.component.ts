@@ -33,7 +33,6 @@ export class TeacherManagementComponentComponent implements OnInit {
     });
   }
   ngAfterViewInit() {
-    const tableHeight = $('.wrapper').height();
     $('#teacherMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
@@ -81,7 +80,6 @@ export class TeacherManagementComponentComponent implements OnInit {
         title: '课程',
         sortable: true
       }],
-      height: tableHeight - 20,
       data: this.getStudentList(),
       search: true,
       pagination: true,

@@ -33,7 +33,6 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
     });
   }
   ngAfterViewInit() {
-    const tableHeight = $('.wrapper').height();
     $('#studentMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
@@ -76,7 +75,6 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
         title: '反馈',
         sortable: true
       }],
-      height: tableHeight - 20,
       data: this.getStudentList(),
       search: true,
       pagination: true,
