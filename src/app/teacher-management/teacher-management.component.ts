@@ -27,10 +27,6 @@ export class TeacherManagementComponentComponent implements OnInit {
       // set data
       // $('#teacherMngTable').bootstrapTable('load', teachers);
     });
-
-    $(window).resize(() => {
-      $('#teacherMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
-    });
   }
   ngAfterViewInit() {
     $('#teacherMngTable').bootstrapTable({

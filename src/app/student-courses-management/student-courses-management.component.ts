@@ -27,10 +27,6 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       // set data
       // $('#studentMngTable').bootstrapTable('load', students);
     });
-
-    $(window).resize(() => {
-      $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
-    });
   }
   ngAfterViewInit() {
     $('#studentMngTable').bootstrapTable({

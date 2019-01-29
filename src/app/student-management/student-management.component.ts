@@ -33,10 +33,6 @@ export class StudentManagementComponent implements OnInit {
   ngOnInit() {
     // 真正的发请求取数据
     // this.setAllStudents();
-
-    $(window).resize(() => {
-      // $('#studentMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
-    });
   }
 
   setAllStudents() {

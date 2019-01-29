@@ -28,10 +28,6 @@ export class CourseManagementComponentComponent implements OnInit {
       // set data
       // $('#courseMngTable').bootstrapTable('load', students);
     });
-
-    $(window).resize(() => {
-      $('#courseMngTable').bootstrapTable('resetView', {height: $(window).height() - 76 - 20});
-    });
   }
   ngAfterViewInit() {
     $('#courseMngTable').bootstrapTable({

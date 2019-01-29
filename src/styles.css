@@ -51,6 +51,8 @@ html,body{
 .fixed-table-container{
     max-height: calc(100vh - 216px);
     overflow: auto;
+    height: fit-content !important;
+    padding-bottom: 0 !important;
     }
 
     .fixed-table-container .selected td{
