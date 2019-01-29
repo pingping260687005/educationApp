@@ -142,10 +142,7 @@ export class UserManagementComponent implements OnInit {
     modal.find('.phone').val(selection ? selection['phone'] : '');
     modal.find('.name').val(selection ? selection['name'] : '');
     modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-    modal.find('.age').val(selection ? selection['age'] : '');
-    modal.find('.sex').val(selection ? selection['sex'] : '');
-    modal.find('.address').val(selection ? selection['address'] : '');
-    modal.find('.address').attr('title', selection ? selection['address'] : '');
+   
     modal.modal('show');
   }
 

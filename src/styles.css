@@ -38,10 +38,18 @@ html,body{
 .textbox-label-right {
     width: 80px;
 }
+.alert-danger{
+    font-size: 0.875rem;
+    margin: 0;
+    padding: 0;
+}
 
 .form-control {
-    width: calc(100% - 55px);
     display: inline-block;
+}
+
+.form-control:focus{
+    box-shadow: none;
 }
 
 .form-control-right {
@@ -92,4 +100,8 @@ html,body{
             background-color: rgba(0, 123, 255, 1);
             border-color: #dee2e6;
             color: #fff;
+        }
+
+        .bootstrap-table .pagination-detail .btn:focus{
+            box-shadow: none;
         }
