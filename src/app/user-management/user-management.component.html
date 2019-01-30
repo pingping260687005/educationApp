@@ -22,14 +22,14 @@
                   <div class="form-group row">
                       <label for="usernameInput" class="col-sm-2 col-form-label col-form-label-sm">用户名</label>
                       <div class="col-sm-10">
-                        <input type="text" id="usernameInput" class="form-control form-control-sm"  formControlName="userName">
+                        <input type="text" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName">
                         <div *ngIf="formErrors.userName" class="showerr alert alert-danger" >{{ formErrors.userName }}</div>
                       </div>
                   </div>
                   <div class="form-group row">
                       <label for="authoritySelect" class="col-sm-2 col-form-label col-form-label-sm">权限</label>
                       <div class="col-sm-10">
-                          <select id="authoritySelect" class="form-control">
+                          <select id="authoritySelect" class="form-control form-control-sm">
                               <option selected>可读/可写</option>
                               <option>只读</option>
                             </select>
@@ -38,14 +38,14 @@
                   <div class="form-group row">
                       <label for="psdInput" class="col-sm-2 col-form-label col-form-label-sm">密码</label>
                       <div class="col-sm-10">
-                        <input type="password" id="psdInput" class="form-control userPsd"  formControlName="userPsd">
+                        <input type="password" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd">
                       <div *ngIf="formErrors.userPsd" class="showerr alert alert-danger" >{{ formErrors.userPsd }}</div>
                       </div>
                   </div>
                   <div class="row">
                         <label for="psdConfirmInput" class="col-sm-2 col-form-label col-form-label-sm">确认密码</label>
                         <div class="col-sm-10">
-                      <input type="password" id="psdConfirmInput" class="form-control userPsdRepeat"  formControlName="userPsdRepeat">
+                      <input type="password" id="psdConfirmInput" class="form-control form-control-sm userPsdRepeat"  formControlName="userPsdRepeat">
                       <div *ngIf="formErrors.userPsdRepeat" class="showerr alert alert-danger" >{{ formErrors.userPsdRepeat }}</div>
                       </div>
                   </div>

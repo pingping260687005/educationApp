@@ -28,11 +28,11 @@
     width: 80px;
 }
 
-.form-control {
+.form-control form-control-sm {
     width: calc(100% - 55px);
     display: inline-block;
 }
 
-.form-control-right {
+.form-control form-control-sm-right {
     width: calc(100% - 100px);
 }
