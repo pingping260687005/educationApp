@@ -21,46 +21,90 @@
         <form [formGroup]="studentForm" >
           <div class="modal-body">
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-6">
-                  <label for="studentNum" class="textbox-label">学号</label>
-                  <input id="studentNum" type="text" class="form-control form-control-sm studentNum" formControlName="studentNum">
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <label for="studentNum" class="col-sm-3 col-form-label col-form-label-sm">学号</label>
+                        <div class="col-sm-9">
+                           <input id="studentNum" type="text" class="form-control form-control-sm studentNum" formControlName="studentNum">
+                        </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="row">
+                              <label for="phone" class="col-sm-3 col-form-label col-form-label-sm">手机</label>
+                              <div class="col-sm-9">
+                                <input id="phone" type="text" class="form-control form-control-sm form-control form-control-sm-right phone" formControlName="phone">
+                              </div>
+                          </div>
+                        </div>
                 </div>
-                <div class="col-md-6">
-                  <label for="phone" class="textbox-label textbox-label-right">手机</label>
-                  <input id="phone" type="text" class="form-control form-control-sm form-control form-control-sm-right phone" formControlName="phone">
-                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <label for="name" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
+                            <div class="col-sm-9">
+                            <input id="name" type="text" class="form-control form-control-sm name" formControlName="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                      <label for="parentPhone" class="col-sm-3 col-form-label col-form-label-sm">父母手机</label>
+                      <div class="col-sm-9">
+                      <input id="parentPhone" type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone" formControlName="parentPhone">
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                            <label for="sex" class="col-sm-3 col-form-label col-form-label-sm">性别</label>
+                            <div class="col-sm-9">
+                              <input id="sex" type="text" class="form-control form-control-sm sex" formControlName="sex">
+                            </div>
+                        </div>
+                       
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row">
+                            <label for="address" class="col-sm-3 col-form-label col-form-label-sm">地址</label>
+                            <div class="col-sm-9">
+                        <input id="address" type="text" class="form-control form-control-sm form-control form-control-sm-right address" formControlName="address">
+
+                            </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                              <label for="age" class="col-sm-3 col-form-label col-form-label-sm">年龄</label>
+                              <div class="col-sm-9">
+                              <input id="age" type="text" class="form-control form-control-sm age" formControlName="age">
+
+                              </div>
+                          </div>
+                         
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row">
+                              <label for="course" class="col-sm-3 col-form-label col-form-label-sm">课程</label>
+                              <div class="col-sm-9">
+                              <input id="course" type="text" class="form-control form-control-sm form-control form-control-sm-right" formControlName="course">
+                              </div>
+                          </div>
+                         
+                        </div>
+                      </div>
               </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label for="name" class="textbox-label">姓名</label>
-                  <input id="name" type="text" class="form-control form-control-sm name" formControlName="name">
-                </div>
-                <div class="col-md-6">
-                  <label for="parentPhone" class="textbox-label textbox-label-right">父母手机</label>
-                  <input id="parentPhone" type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone" formControlName="parentPhone">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label for="sex" class="textbox-label">性别</label>
-                  <input id="sex" type="text" class="form-control form-control-sm sex" formControlName="sex">
-                </div>
-                <div class="col-md-6">
-                  <label for="address" class="textbox-label textbox-label-right">地址</label>
-                  <input id="address" type="text" class="form-control form-control-sm form-control form-control-sm-right address" formControlName="address">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label for="age" class="textbox-label">年龄</label>
-                  <input id="age" type="text" class="form-control form-control-sm age" formControlName="age">
-                </div>
-                <div class="col-md-6">
-                  <label for="course" class="textbox-label textbox-label-right">课程</label>
-                  <input id="course" type="text" class="form-control form-control-sm form-control form-control-sm-right" formControlName="course">
-                </div>
-              </div>
+            
+            
+           
 
             </div>
 

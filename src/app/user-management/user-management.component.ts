@@ -8,9 +8,18 @@ import { validateRex } from '../validate-register';
   styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit {
+  private modal: JQuery<HTMLElement> = null;
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
+  private isAdd = true;
+  private addOrModifyRowData: User = {
+    id: null,
+    username: '',
+    psd: '',
+    authority: ''
+  };
+
 
   // 定义表单
   private userForm;
@@ -24,30 +33,29 @@ export class UserManagementComponent implements OnInit {
   // 为每一项表单验证添加说明文字
   validationMessage = {
     'userName': {
-      'minlength': '用户名长度最少为3个字符',
-      'maxlength': '用户名长度最多为10个字符',
-      'required': '请填写用户名',
-      'notdown': '用户名不能以下划线开头',
-      'only': '用户名只能包含数字、字母、下划线'
+      'required': '请填写用户名'
     },
     'userPsd': {
-      'minlength': '密码长度最少为6个字符',
-      'maxlength': '密码长度最多为10个字符',
-      'required': '请填写密码',
-      'only': '密码只能包含数字、字母、下划线'
+      'required': '请填写密码'
     },
     'userPsdRepeat': {
-      'minlength': '密码长度最少为6个字符',
-      'maxlength': '密码长度最多为10个字符',
-      'required': '请再次确认密码',
-      'only': '密码只能包含数字、字母、下划线'
+      'required': '请再次确认密码'
     }
   };
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
-
+    this.modal = $('#addOrModifyModal');
+    this.modal.on('hide.bs.modal', () => {
+      this.addOrModifyRowData = {
+        id: null,
+        username: '',
+        psd: '',
+        authority: ''
+      };
+      this.modal.find('#psdConfirmInput').val('');
+    });
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
@@ -99,14 +107,14 @@ export class UserManagementComponent implements OnInit {
     const user1: User = {
       id: '1',
       username: 'admin',
-      password: '',
-      authority: 'read-write'
+      psd: '123',
+      authority: '可读/可写'
     };
     const user2: User = {
       id: '2',
       username: 'root',
-      password: '',
-      authority: 'read-write'
+      psd: '123',
+      authority: '只读'
     };
     userList.push(user1);
     userList.push(user2);
@@ -130,49 +138,31 @@ export class UserManagementComponent implements OnInit {
   }
 
   private showModal(isAdd: boolean) {
-    const modal = $('#addOrModifyModal');
-    let selection = null;
+    this.isAdd = isAdd;
     if (isAdd) {
-      this.addModifyDialogTitle = '添加用户';
+      this.addModifyDialogTitle = '新增用户';
     } else {
       this.addModifyDialogTitle = '修改用户';
-      selection = $('#userMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.addOrModifyRowData = $('#userMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.modal.find('#psdConfirmInput').val(this.addOrModifyRowData.psd);
     }
-    modal.find('.studentNum').val(selection ? selection['studentNum'] : '');
-    modal.find('.phone').val(selection ? selection['phone'] : '');
-    modal.find('.name').val(selection ? selection['name'] : '');
-    modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-   
-    modal.modal('show');
+    this.modal.modal('show');
   }
 
   private buildForm() {
     // 通过 formBuilder构建表单
     this.userForm = this.formBuilder.group({
-      /* 为 username 添加3项验证规则：
-      * 1.必填， 2.最大长度为10， 3.最小长度为3， 4.不能以下划线开头， 5.只能包含数字、字母、下划线
-      * 其中第一个空字符串参数为表单的默认值
-      */
       'userName': ['', [
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.minLength(3),
-        validateRex('notdown', /^(?!_)/),
-        validateRex('only', /^[1-9a-zA-Z_]+$/)
+        Validators.required
+      ]],
+      'authority': ['',[
+        Validators.required
       ]],
       'userPsd': ['', [
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.minLength(6),
-        validateRex('notdown', /^(?!_)/),
-        validateRex('only', /^[1-9a-zA-Z_]+$/)
+        Validators.required
       ]],
       'userPsdRepeat': ['', [
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.minLength(6),
-        validateRex('notdown', /^(?!_)/),
-        validateRex('only', /^[1-9a-zA-Z_]+$/)
+        Validators.required
       ]]
     });
 
@@ -212,8 +202,37 @@ export class UserManagementComponent implements OnInit {
       }
     }
   }
-  onSubmit() { }
-  // tslint:disable-next-line:use-life-cycle-interface
+  onSubmit() {
+   if(this.modal.find('#psdConfirmInput').val() !== this.addOrModifyRowData.psd) {
+    document.dispatchEvent(new CustomEvent('show-toast-error', {
+      detail: {
+        msg: '两次密码不一致，请重新输入'
+      }
+    }));
+    return;
+   }
+    if(this.isAdd) {
+      $('#userMngTable').bootstrapTable('append', this.addOrModifyRowData);
+    } else {
+      $('#userMngTable').bootstrapTable('updateByUniqueId', this.addOrModifyRowData.id, this.addOrModifyRowData);
+    }
+    this.modal.modal('hide');
+  }
+
+  removeItems() {
+    const selections = $('#userMngTable').bootstrapTable('getSelections', null).map((x) => {
+      return x.id;
+    });
+    selections.forEach(x => {
+      $('#userMngTable').bootstrapTable('removeByUniqueId', x);
+    });
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
+  }
+
   ngOnDestroy() {
     $('#userMngTable').bootstrapTable('destroy');
   }

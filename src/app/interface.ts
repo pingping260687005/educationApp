@@ -1,7 +1,7 @@
 interface User {
   id: string;
   username: string;
-  password: string;
+  psd: string;
   authority: string;
 }
 

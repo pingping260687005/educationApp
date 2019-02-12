@@ -7,7 +7,7 @@
         <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
       </div>
 
-      <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" (hidden.bs.modal)="alert(1)">
+      <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -22,14 +22,14 @@
                   <div class="form-group row">
                       <label for="usernameInput" class="col-sm-2 col-form-label col-form-label-sm">用户名</label>
                       <div class="col-sm-10">
-                        <input type="text" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName">
+                        <input type="text" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName" [(ngModel)]="addOrModifyRowData.username">
                         <div *ngIf="formErrors.userName" class="showerr alert alert-danger" >{{ formErrors.userName }}</div>
                       </div>
                   </div>
                   <div class="form-group row">
                       <label for="authoritySelect" class="col-sm-2 col-form-label col-form-label-sm">权限</label>
                       <div class="col-sm-10">
-                          <select id="authoritySelect" class="form-control form-control-sm">
+                          <select id="authoritySelect" class="form-control form-control-sm" formControlName="authority" [(ngModel)]="addOrModifyRowData.authority">
                               <option selected>可读/可写</option>
                               <option>只读</option>
                             </select>
@@ -38,7 +38,7 @@
                   <div class="form-group row">
                       <label for="psdInput" class="col-sm-2 col-form-label col-form-label-sm">密码</label>
                       <div class="col-sm-10">
-                        <input type="password" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd">
+                        <input type="password" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd" [(ngModel)]="addOrModifyRowData.psd">
                       <div *ngIf="formErrors.userPsd" class="showerr alert alert-danger" >{{ formErrors.userPsd }}</div>
                       </div>
                   </div>
@@ -55,7 +55,7 @@
     
             </form>
             <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">添加</button>
+                    <button type="submit" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">{{isAdd?"新增":"修改"}}</button>
 
             </div>
           </div>
