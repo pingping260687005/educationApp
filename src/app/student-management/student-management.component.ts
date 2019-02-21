@@ -17,28 +17,149 @@ export class StudentManagementComponent implements OnInit {
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
   private isAdd = true;
-  private editId;
-  private studentForm = new FormGroup({
-    studentNum: new FormControl(''),
-    name: new FormControl(''),
-    sex: new FormControl(''),
-    age: new FormControl(''),
-    phone: new FormControl(''),
-    parentPhone: new FormControl(''),
-    address: new FormControl(''),
-    course: new FormControl('')
-  });
+   // 定义表单
+   private modal;
+   private form;
+   private formErrors = {
+    studentNum: '',
+    name: '',
+    sex: '',
+    age: '',
+    phone: '',
+    parentPhone: '',
+    address: '',
+    course: ''
+  };
+ // 为每一项表单验证添加说明文字
+ validationMessage = {
+  'studentNum': {
+    'required': '请填写学号'
+  },
+  'name': {
+    'required': '请填写姓名'
+  },
+  'sex': {
+    'required': '请填写性别'
+  },
+  'age': {
+    'required': '请填写年龄'
+  },
+  'phone': {
+    'required': '请填写手机'
+  },
+  'parentPhone': {
+    'required': '请填写父母手机'
+  },
+  'address': {
+    'required': '请填写地址'
+  },
+  'course': {
+    'required': '请填写课程'
+  }
+};
+private addOrModifyRowData: Student = {
+  id: null,
+ studentNum: '',
+ name: '',
+ sex: '',
+ age: 0,
+ phone: '',
+ parentPhone: '',
+ address: '',
+ course: ''
+};
 
-  constructor(private http: Http, private studentService: StudentService) { }
+  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     // 真正的发请求取数据
     // this.setAllStudents();
+    this.buildForm();
+    this.modal.on('hide.bs.modal', () => {
+      this.addOrModifyRowData = {
+        id: null,
+        studentNum: '',
+        name: '',
+        sex: '',
+        age: 0,
+        phone: '',
+        parentPhone: '',
+        address: '',
+        course: ''
+      };
+      this.modal.find('#psdConfirmInput').val('');
+    });
   }
 
   setAllStudents() {
     this.studentService.getAllStudent().subscribe((students: Student[]) => {
       $('#studentMngTable').bootstrapTable('load', students);
     });
+  }
+
+  private buildForm() {
+    // 通过 formBuilder构建表单
+    this.form = this.formBuilder.group({ 
+      'studentNum': ['', [
+        Validators.required
+      ]],
+      'name': ['',[
+        Validators.required
+      ]],
+      'sex': ['', [
+        Validators.required
+      ]],
+      'age': ['', [
+        Validators.required
+      ]],
+      'phone': ['', [
+        Validators.required
+      ]],
+      'parentPhone': ['', [
+        Validators.required
+      ]],
+      'address': ['', [
+        Validators.required
+      ]],
+      'course': ['', [
+        Validators.required
+      ]]
+    });
+
+    // 每次表单数据发生变化的时候更新错误信息
+    this.form.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    // 初始化错误信息
+    this.onValueChanged();
+  }
+
+  // 每次数据发生改变时触发此方法
+  onValueChanged(data?: any) {
+    // 如果表单不存在则返回
+    if (!this.form) { return; }
+    // 获取当前的表单
+    const form = this.form;
+
+    // 遍历错误消息对象
+    // tslint:disable-next-line:forin
+    for (const field in this.formErrors) {
+      // 清空当前的错误消息
+      this.formErrors[field] = '';
+      // 获取当前表单的控件
+      const control = form.get(field);
+
+      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
+      if (control && control.dirty && !control.valid) {
+        // 获取验证不通过的控件名，为了获取更详细的不通过信息
+        const messages = this.validationMessage[field];
+        // 遍历当前控件的错误对象，获取到验证不通过的属性
+        // tslint:disable-next-line:forin
+        for (const key in control.errors) {
+          // 把所有验证不通过项的说明文字拼接成错误消息
+          this.formErrors[field] += messages[key] + '\n';
+        }
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -118,7 +239,8 @@ export class StudentManagementComponent implements OnInit {
         age: Math.floor(Math.random() * 100),
         phone: '13992288771',
         parentPhone: '13992288771',
-        address: '丹阳市黄金路25弄16号201室'
+        address: '丹阳市黄金路25弄16号201室',
+        course: "xxx"
       };
       studentList.push(student);
     }
@@ -128,22 +250,12 @@ export class StudentManagementComponent implements OnInit {
   private showModal(isAdd: boolean) {
     this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
-    let selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = '添加学生信息';
     } else {
       this.addModifyDialogTitle = '修改学生信息';
-      selection = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
-      this.editId = selection['id'];
+      this.addOrModifyRowData = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
-    modal.find('.studentNum').val(selection ? selection['studentNum'] : '');
-    modal.find('.phone').val(selection ? selection['phone'] : '');
-    modal.find('.name').val(selection ? selection['name'] : '');
-    modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-    modal.find('.age').val(selection ? selection['age'] : '');
-    modal.find('.sex').val(selection ? selection['sex'] : '');
-    modal.find('.address').val(selection ? selection['address'] : '');
-    modal.find('.address').attr('title', selection ? selection['address'] : '');
     modal.modal('show');
   }
 
@@ -180,21 +292,21 @@ export class StudentManagementComponent implements OnInit {
     const table = $('#studentMngTable');
     if (this.isAdd) {
       // add
-      this.studentService.addStudent(this.studentForm.value).subscribe(res => {
-        if ( res.message === 'succeed') {
+      // this.studentService.addStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
 
-          // append is append to the bottom, prepend is appending to the top.
-          table.bootstrapTable('append', {index: 1, row: res});
-        } else {
-          // res.message === 'failed'
-          // TODO:  error
-          window.alert('add student failed');
-        }
-      });
+      //     // append is append to the bottom, prepend is appending to the top.
+      //     table.bootstrapTable('append', {index: 1, row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
     } else {
       // edit
-      this.studentForm.value.id = this.editId;
-      this.studentService.updateStudent(this.studentForm.value).subscribe(res => {
+      this.form.value.id = this.addOrModifyRowData.id;
+      this.studentService.updateStudent(this.form.value).subscribe(res => {
         if ( res.message === 'succeed') {
           const index = $('#studentMngTable .selected').attr('data-index');
           $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});

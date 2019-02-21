@@ -24,7 +24,7 @@ html,body{
     }
 }
 
-.row {
+.form-group {
     margin-bottom: 20px;
 }
 
@@ -104,4 +104,12 @@ html,body{
 
         .bootstrap-table .pagination-detail .btn:focus{
             box-shadow: none;
+        }
+
+        .alert-danger{
+            position: absolute;
+            background-color: #fff;
+            border-color: #fff;
+            transition: all 0.5s;
+            color: #ff0000;
         }

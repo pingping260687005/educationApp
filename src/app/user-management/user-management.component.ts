@@ -203,6 +203,22 @@ export class UserManagementComponent implements OnInit {
     }
   }
   onSubmit() {
+    if(this.addOrModifyRowData){
+      let unfinished = false;
+      Object.keys(this.addOrModifyRowData).forEach(key => {
+        if(!this.addOrModifyRowData[key] && key !== 'id'){
+          unfinished = true;
+        }
+      });
+      if(unfinished){
+        document.dispatchEvent(new CustomEvent('show-toast-error', {
+          detail: {
+            msg: '输入信息不完整'
+          }
+        }));
+        return;
+      }
+    }
    if(this.modal.find('#psdConfirmInput').val() !== this.addOrModifyRowData.psd) {
     document.dispatchEvent(new CustomEvent('show-toast-error', {
       detail: {
@@ -226,6 +242,7 @@ export class UserManagementComponent implements OnInit {
     selections.forEach(x => {
       $('#userMngTable').bootstrapTable('removeByUniqueId', x);
     });
+    this.updateToolbarIconsStatus();
     document.dispatchEvent(new CustomEvent('show-toast-success', {
       detail: {
         msg: '删除成功'

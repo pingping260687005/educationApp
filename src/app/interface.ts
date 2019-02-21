@@ -14,6 +14,7 @@ interface Student {
   phone: string;
   parentPhone: string;
   address: string;
+  course: string;
 }
 
 interface Teacher {
