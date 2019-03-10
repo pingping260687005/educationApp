@@ -18,50 +18,88 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form [formGroup]="form" >
         <div class="modal-body">
           <div class="container-fluid">
-             <div class="row">
-               <div class="col-md-6">
-                 <span class="textbox-label">姓名</span>
-                 <input type="text" class="form-control form-control-sm studentNum">
-               </div>
-               <div class="col-md-6">
-                <span class="textbox-label">报班日期</span>
-             <input type="text" class="form-control form-control-sm sex">
-            </div>
+             <div class="form-group row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="name" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
+                    <div class="col-sm-9">
+                       <input id="name" type="text" class="form-control form-control-sm name" formControlName="name" [(ngModel)]="addOrModifyRowData.name">
+                       <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="row">
+                          <label for="applyDate" class="col-sm-3 col-form-label col-form-label-sm">报班日期</label>
+                      <div class="col-sm-9">
+                         <input id="applyDate" type="text" class="form-control form-control-sm applyDate" formControlName="applyDate" [(ngModel)]="addOrModifyRowData.applyDate">
+                         <div *ngIf="formErrors.applyDate" class="showerr alert-danger" >{{ formErrors.applyDate }}</div>
+                      </div>
+                      </div>
+                    </div>
              </div>
-             <div class="row">
-              <div class="col-md-6">
-                  <span class="textbox-label">课程</span>
-                <input type="text" class="form-control form-control-sm name">
-              </div>
-              <div class="col-md-6">
-                <span class="textbox-label textbox-label-right">可用次数</span>
-             <input type="text" class="form-control form-control-sm form-control form-control-sm-right address">
-            </div>
+             <div class="form-group row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="course" class="col-sm-3 col-form-label col-form-label-sm">课程</label>
+                    <div class="col-sm-9">
+                       <input id="course" type="text" class="form-control form-control-sm course" formControlName="course" [(ngModel)]="addOrModifyRowData.course">
+                       <div *ngIf="formErrors.course" class="showerr alert-danger" >{{ formErrors.course }}</div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="row">
+                          <label for="availableTimes" class="col-sm-3 col-form-label col-form-label-sm">可用次数</label>
+                      <div class="col-sm-9">
+                         <input id="availableTimes" type="text" class="form-control form-control-sm availableTimes" formControlName="availableTimes" [(ngModel)]="addOrModifyRowData.availableTimes">
+                         <div *ngIf="formErrors.availableTimes" class="showerr alert-danger" >{{ formErrors.availableTimes }}</div>
+                      </div>
+                      </div>
+                    </div>
           </div>
            
-            <div class="row">
+            <div class="form-group row">
           
-              <div class="col-md-6">
-                <span class="textbox-label textbox-label-right">教师</span>
-             <input type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone">
-            </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="teacherName" class="col-sm-3 col-form-label col-form-label-sm">教师</label>
+                    <div class="col-sm-9">
+                       <input id="teacherName" type="text" class="form-control form-control-sm teacherName" formControlName="teacherName" [(ngModel)]="addOrModifyRowData.teacherName">
+                       <div *ngIf="formErrors.teacherName" class="showerr alert-danger" >{{ formErrors.teacherName }}</div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="row">
+                          <label for="score" class="col-sm-3 col-form-label col-form-label-sm">成绩</label>
+                      <div class="col-sm-9">
+                         <input id="score" type="text" class="form-control form-control-sm score" formControlName="score" [(ngModel)]="addOrModifyRowData.score">
+                         <div *ngIf="formErrors.score" class="showerr alert-danger" >{{ formErrors.score }}</div>
+                      </div>
+                      </div>
+                    </div>
           </div>
             <div class="row">
-              <div class="col-md-6">
-                  <span class="textbox-label">成绩</span>
-                <input type="text" class="form-control form-control-sm age">
-              </div>
-              <div class="col-md-6">
-                  <span class="textbox-label textbox-label-right">反馈</span>
-               <input type="text" class="form-control form-control-sm form-control form-control-sm-right">
-              </div>
+              
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="feedback" class="col-sm-3 col-form-label col-form-label-sm">反馈</label>
+                    <div class="col-sm-9">
+                       <input id="feedback" type="text" class="form-control form-control-sm feedback" formControlName="feedback" [(ngModel)]="addOrModifyRowData.feedback">
+                       <div *ngIf="formErrors.feedback" class="showerr alert-danger" >{{ formErrors.feedback }}</div>
+                    </div>
+                    </div>
+                  </div>
             </div>
 
           </div>
 
         </div>
+        </form>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-primary btn-sm">添加</button>
         </div>
