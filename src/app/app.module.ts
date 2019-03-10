@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import * as $ from 'jquery'; // import Jquery here
+import * as bootstrap from 'bootstrap';
+require("bootstrap-table");
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -22,6 +24,7 @@ import { TeacherFinanceManagementComponent } from './teacher-finance-management/
 import { StudentFinanceManagementComponent } from './student-finance-management/student-finance-management.component';
 import { OtherFinanceManagementComponent } from './other-finance-management/other-finance-management.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+
 
 
 

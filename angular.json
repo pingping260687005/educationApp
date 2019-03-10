@@ -24,13 +24,13 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap-fileinput/css/fileinput.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.css"
+
             ],
             "scripts": [
-              "bower_components/bootstrap-table/dist/bootstrap-table.min.js",
-              "bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js",
-              "node_modules/bootstrap-fileinput/js/fileinput.min.js",
-              "node_modules/bootstrap-fileinput/js/locales/zh.js"
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/bootstrap-table/dist/bootstrap-table.js"
             ]
           },
           "configurations": {

@@ -39,7 +39,7 @@ export class UserManagementComponent implements OnInit {
       'required': '请填写密码'
     },
     'userPsdRepeat': {
-      'required': '请再次确认密码'
+      'required': '请确认密码'
     }
   };
   constructor(private formBuilder: FormBuilder) { }

@@ -107,9 +107,13 @@ html,body{
         }
 
         .alert-danger{
-            position: absolute;
+            position: relative;
             background-color: #fff;
             border-color: #fff;
             transition: all 0.5s;
             color: #ff0000;
         }
+
+            .modal-body .col-form-label{
+                padding-right: 0;
+            }

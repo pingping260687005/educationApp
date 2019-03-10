@@ -6,6 +6,7 @@ import { Observable, from } from 'rxjs/index';
 import { StudentService } from './student.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { isNumberValidator } from '../shared/is-number-validation.directive';
 
 @Component({
   selector: 'app-student-management',
@@ -42,7 +43,8 @@ export class StudentManagementComponent implements OnInit {
     'required': '请填写性别'
   },
   'age': {
-    'required': '请填写年龄'
+    'required': '请填写年龄',
+    'isNotNumber': '请输入数字'
   },
   'phone': {
     'required': '请填写手机'
@@ -74,6 +76,7 @@ private addOrModifyRowData: Student = {
     // 真正的发请求取数据
     // this.setAllStudents();
     this.buildForm();
+    this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
       this.addOrModifyRowData = {
         id: null,
@@ -109,7 +112,8 @@ private addOrModifyRowData: Student = {
         Validators.required
       ]],
       'age': ['', [
-        Validators.required
+        Validators.required,
+        isNumberValidator()
       ]],
       'phone': ['', [
         Validators.required
@@ -291,6 +295,22 @@ private addOrModifyRowData: Student = {
   onSubmit () {
     const table = $('#studentMngTable');
     if (this.isAdd) {
+      if(this.addOrModifyRowData){
+        let unfinished = false;
+        Object.keys(this.addOrModifyRowData).forEach(key => {
+          if((this.addOrModifyRowData[key] + "").length === 0 && key !== 'id'){
+            unfinished = true;
+          }
+        });
+        if(unfinished){
+          document.dispatchEvent(new CustomEvent('show-toast-error', {
+            detail: {
+              msg: '输入信息不完整'
+            }
+          }));
+          return;
+        }
+      }
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {

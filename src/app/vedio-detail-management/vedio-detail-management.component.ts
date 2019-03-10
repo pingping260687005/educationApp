@@ -10,7 +10,7 @@ private videoList = [];
   constructor() { }
 
   ngOnInit() {
-    this.initFileUpoad();
+    // this.initFileUpoad();
     this.getVideoList();
   }
 
