@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable, from } from 'rxjs/index';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-teacher-management',
@@ -12,22 +13,142 @@ export class TeacherManagementComponentComponent implements OnInit {
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
-  constructor(private http: Http) {
+  
+  private modal;
+  private form;
+  private formErrors = {
+    teacherNum: '',
+    name: '',
+    sex: '',
+    age: '',
+    phone: '',
+    address: '',
+    issueDate: '',
+    fulltime: ''
+  };
+
+  // 为每一项表单验证添加说明文字
+ validationMessage = {
+  'name': {
+    'required': '请填写姓名'
+  },
+  'teacherNum': {
+    'required': '请填写工号'
+  },
+  'sex': {
+    'required': '请填写性别'
+  },
+  'age': {
+    'required': '请填写年龄',
+  },
+  'phone': {
+    'required': '请填写电话'
+  },
+  'address': {
+    'required': '请填写地址'
+  },
+  'issueDate': {
+    'required': '请填写入职日期'
+  },
+  'fulltime': {
+    'required': '请填写是否全职'
+  }
+};
+private addOrModifyRowData: Teacher = {
+ id: null,
+ name: null,
+ teacherNum: null,
+ issueDate: null,
+ age: null,
+ address: null,
+ sex: null,
+ fullTime: null,
+ phone: null
+};
+  constructor(private http: Http,private formBuilder: FormBuilder) {
     // 用http请求
-    this.dataSource = this.http.get('/api/teachers');
+    // this.dataSource = this.http.get('/api/teachers');
     // .map(res=> res.json());
 
   }
 
   ngOnInit() {
+    this.buildForm();
     // 真正的发请求取数据
-    this.dataSource.subscribe((res) => {
-      // get real data
-      const teachers: Teacher[] = JSON.parse(res['_body']);
-      // set data
-      // $('#teacherMngTable').bootstrapTable('load', teachers);
-    });
+    // this.dataSource.subscribe((res) => {
+    //   // get real data
+    //   const teachers: Teacher[] = JSON.parse(res['_body']);
+    //   // set data
+    //   // $('#teacherMngTable').bootstrapTable('load', teachers);
+    // });
   }
+
+  private buildForm() {
+    // 通过 formBuilder构建表单
+    this.form = this.formBuilder.group({ 
+      'name': ['', [
+        Validators.required
+      ]],
+      'teacherNum': ['',[
+        Validators.required
+      ]],
+      'issueDate': ['', [
+        Validators.required
+      ]],
+      'age': ['', [
+        Validators.required,
+      ]],
+      'sex': ['', [
+        Validators.required
+      ]],
+      'address': ['', [
+        Validators.required
+      ]],
+      'fullTime': ['', [
+        Validators.required
+      ]],
+      'phone': ['', [
+        Validators.required
+      ]]
+    });
+
+    // 每次表单数据发生变化的时候更新错误信息
+    this.form.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
+    // 初始化错误信息
+    this.onValueChanged();
+  }
+
+   // 每次数据发生改变时触发此方法
+   onValueChanged(data?: any) {
+    // 如果表单不存在则返回
+    if (!this.form) { return; }
+    // 获取当前的表单
+    const form = this.form;
+
+    // 遍历错误消息对象
+    // tslint:disable-next-line:forin
+    for (const field in this.formErrors) {
+      // 清空当前的错误消息
+      this.formErrors[field] = '';
+      // 获取当前表单的控件
+      const control = form.get(field);
+
+      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
+      if (control && control.dirty && !control.valid) {
+        // 获取验证不通过的控件名，为了获取更详细的不通过信息
+        const messages = this.validationMessage[field];
+        // 遍历当前控件的错误对象，获取到验证不通过的属性
+        // tslint:disable-next-line:forin
+        for (const key in control.errors) {
+          // 把所有验证不通过项的说明文字拼接成错误消息
+          this.formErrors[field] += messages[key] + '\n';
+        }
+      }
+    }
+  }
+
   ngAfterViewInit() {
     $('#teacherMngTable').bootstrapTable({
       columns: [{
@@ -119,21 +240,13 @@ export class TeacherManagementComponentComponent implements OnInit {
 
   private showModal(isAdd: boolean) {
     const modal = $('#addOrModifyModal');
-    let selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = '添加学生信息';
     } else {
       this.addModifyDialogTitle = '修改学生信息';
-      selection = $('#teacherMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.addOrModifyRowData = $('#teacherMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
-    modal.find('.studentNum').val(selection ? selection['studentNum'] : '');
-    modal.find('.phone').val(selection ? selection['phone'] : '');
-    modal.find('.name').val(selection ? selection['name'] : '');
-    modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-    modal.find('.age').val(selection ? selection['age'] : '');
-    modal.find('.sex').val(selection ? selection['sex'] : '');
-    modal.find('.address').val(selection ? selection['address'] : '');
-    modal.find('.address').attr('title', selection ? selection['address'] : '');
+    modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
     modal.modal('show');
   }
 

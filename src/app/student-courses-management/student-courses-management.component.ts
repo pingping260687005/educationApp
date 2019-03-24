@@ -227,20 +227,14 @@ private addOrModifyRowData: StudentCourse = {
 
   private showModal(isAdd: boolean) {
     const modal = $('#addOrModifyModal');
-    let selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = '添加学生信息';
     } else {
       this.addModifyDialogTitle = '修改学生信息';
-      selection = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.addOrModifyRowData = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
-    modal.find('.phone').val(selection ? selection['phone'] : '');
-    modal.find('.name').val(selection ? selection['name'] : '');
-    modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-    modal.find('.age').val(selection ? selection['age'] : '');
-    modal.find('.sex').val(selection ? selection['sex'] : '');
-    modal.find('.address').val(selection ? selection['address'] : '');
-    modal.find('.address').attr('title', selection ? selection['address'] : '');
+   
+    modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
     modal.modal('show');
   }
 
