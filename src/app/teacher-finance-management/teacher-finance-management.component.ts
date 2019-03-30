@@ -20,29 +20,53 @@ export class TeacherFinanceManagementComponent implements OnInit {
       teacherFinancePsd: '',
       teacherFinancePsdRepeat: ''
     };
+    private isAdd = true;
+    private modal;
+  private form;
+  private formErrors = {
+    courseTeacher: '',
+    hours: '',
+    cost: '',
+    rate: ''
+  };
 
-    // 为每一项表单验证添加说明文字
-validationMessage = {
-    'teacherFinanceName': {
-    'required': '请填写用户名',
-    },
-    'teacherFinancePsd': {
-        'minlength': '密码长度最少为6个字符',
-        'maxlength': '密码长度最多为10个字符',
-        'required': '请填写密码',
-        'only': '密码只能包含数字、字母、下划线'
-        },
-        'teacherFinancePsdRepeat': {
-            'minlength': '密码长度最少为6个字符',
-            'maxlength': '密码长度最多为10个字符',
-            'required': '请再次确认密码',
-            'only': '密码只能包含数字、字母、下划线'
-            }
-   };
+  // 为每一项表单验证添加说明文字
+ validationMessage = {
+  'courseTeacher': {
+    'required': '请填写教师'
+  },
+  'hours': {
+    'required': '请填写学时'
+  },
+  'cost': {
+    'required': '请填写费用'
+  },
+  'rate': {
+    'required': '请填写评论',
+  }
+};
+private addOrModifyRowData: Course = {
+ id: null,
+ courseTeacher: '',
+ hours: 0,
+ cost: 0,
+ rate: ''
+};
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
+    this.modal = $('#addOrModifyModal');
+    this.modal.on('hide.bs.modal', () => {
+      this.addOrModifyRowData = {
+        id: null,
+        courseTeacher: '',
+        hours: 0,
+        cost: 0,
+        rate: ''
+      };
+      
+    });
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
@@ -134,22 +158,16 @@ private updateToolbarIconsStatus() {
   }
 
   private showModal(isAdd: boolean) {
+    this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
     let selection = null;
     if (isAdd) {
-      this.addModifyDialogTitle = '添加用户';
+      this.addModifyDialogTitle = '添加教师财务';
     } else {
-      this.addModifyDialogTitle = '修改用户';
+      this.addModifyDialogTitle = '修改教师财务';
       selection = $('#teacherFinanceMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.addOrModifyRowData = selection;
     }
-    modal.find('.studentNum').val(selection ? selection['studentNum'] : '');
-    modal.find('.phone').val(selection ? selection['phone'] : '');
-    modal.find('.name').val(selection ? selection['name'] : '');
-    modal.find('.parentPhone').val(selection ? selection['parentPhone'] : '');
-    modal.find('.age').val(selection ? selection['age'] : '');
-    modal.find('.sex').val(selection ? selection['sex'] : '');
-    modal.find('.address').val(selection ? selection['address'] : '');
-    modal.find('.address').attr('title', selection ? selection['address'] : '');
     modal.modal('show');
   }
 

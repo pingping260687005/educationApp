@@ -13,7 +13,7 @@ export class TeacherManagementComponentComponent implements OnInit {
   private addModifyDialogTitle = '';
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
-  
+  private isAdd = true;
   private modal;
   private form;
   private formErrors = {
@@ -81,6 +81,20 @@ private addOrModifyRowData: Teacher = {
     //   // set data
     //   // $('#teacherMngTable').bootstrapTable('load', teachers);
     // });
+    this.modal = $('#addOrModifyModal');
+    this.modal.on('hide.bs.modal', () => {
+      this.addOrModifyRowData = {
+        id: null,
+        name: null,
+        teacherNum: null,
+        issueDate: null,
+        age: null,
+        address: null,
+        sex: null,
+        fullTime: null,
+        phone: null
+      };
+    });
   }
 
   private buildForm() {
@@ -239,11 +253,12 @@ private addOrModifyRowData: Teacher = {
   }
 
   private showModal(isAdd: boolean) {
+    this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
     if (isAdd) {
-      this.addModifyDialogTitle = '添加学生信息';
+      this.addModifyDialogTitle = '添加教师';
     } else {
-      this.addModifyDialogTitle = '修改学生信息';
+      this.addModifyDialogTitle = '修改教师';
       this.addOrModifyRowData = $('#teacherMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
     modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
@@ -277,6 +292,55 @@ private addOrModifyRowData: Teacher = {
 
   ngOnDestroy() {
     $('#teacherMngTable').bootstrapTable('destroy');
+  }
+
+  onSubmit () {
+    const table = $('#studentMngTable');
+    if (this.isAdd) {
+      if(this.addOrModifyRowData){
+        let unfinished = false;
+        Object.keys(this.addOrModifyRowData).forEach(key => {
+          if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+            unfinished = true;
+          }
+        });
+        if(unfinished){
+          document.dispatchEvent(new CustomEvent('show-toast-error', {
+            detail: {
+              msg: '输入信息不完整'
+            }
+          }));
+          return;
+        }
+      }
+      // add
+      // this.studentService.addStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+
+      //     // append is append to the bottom, prepend is appending to the top.
+      //     table.bootstrapTable('append', {index: 1, row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+    } else {
+      // edit
+      this.form.value.id = this.addOrModifyRowData.id;
+      this.studentService.updateStudent(this.form.value).subscribe(res => {
+        if ( res.message === 'succeed') {
+          const index = $('#studentMngTable .selected').attr('data-index');
+          $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+        } else {
+          // res.message === 'failed'
+          // TODO:  error
+          window.alert('add student failed');
+        }
+      });
+    }
+    const modal = $('#addOrModifyModal');
+    modal.modal('hide');
   }
 
 }

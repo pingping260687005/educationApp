@@ -19,9 +19,22 @@ html,body{
 
 @media (min-width: 576px) {
     .modal-dialog {
-        max-width: 700px;
+        max-width: 750px !important;
         margin: 1.75rem auto;
     }
+
+    /* .modal-dialog .form-group .row{
+        position: relative;
+    }
+
+    .modal-dialog .form-group .row .col-form-label{
+        width: fit-content;
+    }
+
+    .modal-dialog .form-group .row .col-sm-9{
+        position: absolute;
+        right: 0;
+    } */
 }
 
 .form-group {
@@ -116,4 +129,5 @@ html,body{
 
             .modal-body .col-form-label{
                 padding-right: 0;
+                text-align: right;
             }

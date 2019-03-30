@@ -18,7 +18,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form [formGroup]="form" >
+        <form [formGroup]="form">
           <div class="modal-body">
             <div class="container-fluid">
                 <div class="form-group row">
@@ -89,7 +89,7 @@
         </form>
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-primary btn-sm">添加</button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">{{isAdd?'添加':'修改'}}</button>
         </div>
       </div>
     </div>

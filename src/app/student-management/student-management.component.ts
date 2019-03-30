@@ -89,7 +89,6 @@ private addOrModifyRowData: Student = {
         address: '',
         course: ''
       };
-      this.modal.find('#psdConfirmInput').val('');
     });
   }
 

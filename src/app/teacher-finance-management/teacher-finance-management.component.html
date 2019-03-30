@@ -19,49 +19,79 @@
             <form [formGroup]="teacherFinanceForm" >
               <div class="modal-body">
                 <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="textbox-label">姓名</span>
-                      <input type="text" class="form-control form-control-sm teacherFinanceName"  formControlName="name">
-                      <div *ngIf="formErrors.name" class="showerr alert alert-danger" >{{ formErrors.name }}</div>
-                    </div>
-                    <div class="col-6">
-                      <span class="textbox-label">已付工资</span>
-                      <input type="text" class="form-control form-control-sm paidSalary"  formControlName="paidSalary">
-                      <div *ngIf="formErrors.paidSalary" class="showerr alert alert-danger" >{{ formErrors.paidSalary }}</div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="textbox-label">未付工资</span>
-                      <input type="text" class="form-control form-control-sm unPaidSalary"  formControlName="unPaidSalary">
-                      <div *ngIf="formErrors.unPaidSalary" class="showerr alert alert-danger" >{{ formErrors.unPaidSalary }}</div>
-                    </div>
-                    <div class="col-6">
-                      <span class="textbox-label">欠款</span>
-                      <input type="text" class="form-control form-control-sm arrearage"  formControlName="arrearage">
-                      <div *ngIf="formErrors.arrearage" class="showerr alert alert-danger" >{{ formErrors.arrearage }}</div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="textbox-label">未付工资</span>
-                      <input type="text" class="form-control form-control-sm unPaidSalary"  formControlName="unPaidSalary">
-                      <div *ngIf="formErrors.unPaidSalary" class="showerr alert alert-danger" >{{ formErrors.unPaidSalary }}</div>
-                    </div>
-                    <div class="col-6">
-                      <span class="textbox-label">欠款</span>
-                      <input type="text" class="form-control form-control-sm arrearage"  formControlName="arrearage">
-                      <div *ngIf="formErrors.arrearage" class="showerr alert alert-danger" >{{ formErrors.arrearage }}</div>
-                    </div>
-                  </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label for="teacherId" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
+                            <div class="col-sm-9">
+                               <input id="teacherId" type="text" class="form-control form-control-sm teacherId" formControlName="teacherId" [(ngModel)]="addOrModifyRowData.teacherId">
+                               <div *ngIf="formErrors.teacherId" class="showerr alert-danger" >{{ formErrors.teacherId }}</div>
+                            </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="row">
+                                  <label for="paidSalary" class="col-sm-3 col-form-label col-form-label-sm">已付工资</label>
+                              <div class="col-sm-9">
+                                 <input id="paidSalary" type="text" class="form-control form-control-sm paidSalary" formControlName="paidSalary" [(ngModel)]="addOrModifyRowData.paidSalary">
+                                 <div *ngIf="formErrors.paidSalary" class="showerr alert-danger" >{{ formErrors.paidSalary }}</div>
+                              </div>
+                              </div>
+                            </div>
+                     </div>
+
+                     <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label for="unPaidSalary" class="col-sm-3 col-form-label col-form-label-sm">未付工资</label>
+                            <div class="col-sm-9">
+                               <input id="unPaidSalary" type="text" class="form-control form-control-sm unPaidSalary" formControlName="unPaidSalary" [(ngModel)]="addOrModifyRowData.unPaidSalary">
+                               <div *ngIf="formErrors.unPaidSalary" class="showerr alert-danger" >{{ formErrors.unPaidSalary }}</div>
+                            </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="row">
+                                  <label for="arrearage" class="col-sm-3 col-form-label col-form-label-sm">欠款</label>
+                              <div class="col-sm-9">
+                                 <input id="arrearage" type="text" class="form-control form-control-sm arrearage" formControlName="arrearage" [(ngModel)]="addOrModifyRowData.arrearage">
+                                 <div *ngIf="formErrors.arrearage" class="showerr alert-danger" >{{ formErrors.arrearage }}</div>
+                              </div>
+                              </div>
+                            </div>
+                     </div>
+
+                     <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label for="date" class="col-sm-3 col-form-label col-form-label-sm">发放日期</label>
+                            <div class="col-sm-9">
+                               <input id="date" type="text" class="form-control form-control-sm date" formControlName="date" [(ngModel)]="addOrModifyRowData.date">
+                               <div *ngIf="formErrors.date" class="showerr alert-danger" >{{ formErrors.date }}</div>
+                            </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="row">
+                                  <label for="period" class="col-sm-3 col-form-label col-form-label-sm">间隔(月/年)</label>
+                              <div class="col-sm-9">
+                                 <input id="period" type="text" class="form-control form-control-sm period" formControlName="period" [(ngModel)]="addOrModifyRowData.period">
+                                 <div *ngIf="formErrors.period" class="showerr alert-danger" >{{ formErrors.period }}</div>
+                              </div>
+                              </div>
+                            </div>
+                     </div>
+                     
+                
+                
+                  
                   </div>
     
                 </div>
     
             </form>
             <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">添加</button>
+                    <button type="submit" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">{{isAdd?'添加':'修改'}}</button>
 
             </div>
           </div>
