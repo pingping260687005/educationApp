@@ -43,8 +43,8 @@ export class CourseManagementComponentComponent implements OnInit {
 private addOrModifyRowData: Course = {
  id: null,
  courseTeacher: '',
- hours: 0,
- cost: 0,
+ hours: null,
+ cost: null,
  rate: ''
 };
   constructor(private http: Http,private formBuilder: FormBuilder) {
@@ -67,8 +67,8 @@ private addOrModifyRowData: Course = {
       this.addOrModifyRowData = {
         id: null,
         courseTeacher: '',
-        hours: 0,
-        cost: 0,
+        hours: null,
+        cost: null,
         rate: ''
       };
     });
@@ -231,6 +231,57 @@ private addOrModifyRowData: Course = {
     }
     $('#deleteBtn').addClass('disabled');
   }
+
+  onSubmit () {
+    const table = $('#studentMngTable');
+    if(this.addOrModifyRowData){
+      let unfinished = false;
+      Object.keys(this.addOrModifyRowData).forEach(key => {
+        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+          unfinished = true;
+        }
+      });
+      if(unfinished){
+        document.dispatchEvent(new CustomEvent('show-toast-error', {
+          detail: {
+            msg: '输入信息不完整'
+          }
+        }));
+        return;
+      }
+    }
+    if (this.isAdd) {
+     
+      // add
+      // this.studentService.addStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+
+      //     // append is append to the bottom, prepend is appending to the top.
+      //     table.bootstrapTable('append', {index: 1, row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+    } else {
+      // edit
+      this.form.value.id = this.addOrModifyRowData.id;
+      // this.studentService.updateStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+      //     const index = $('#studentMngTable .selected').attr('data-index');
+      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+    }
+    const modal = $('#addOrModifyModal');
+    modal.modal('hide');
+  }
+
   ngOnDestroy() {
     $('#courseMngTable').bootstrapTable('destroy');
   }

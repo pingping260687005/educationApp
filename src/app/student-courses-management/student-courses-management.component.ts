@@ -282,23 +282,24 @@ private addOrModifyRowData: StudentCourse = {
 
   onSubmit () {
     const table = $('#studentMngTable');
-    if (this.isAdd) {
-      if(this.addOrModifyRowData){
-        let unfinished = false;
-        Object.keys(this.addOrModifyRowData).forEach(key => {
-          if((this.addOrModifyRowData[key] + "").length === 0 && key !== 'id'){
-            unfinished = true;
-          }
-        });
-        if(unfinished){
-          document.dispatchEvent(new CustomEvent('show-toast-error', {
-            detail: {
-              msg: '输入信息不完整'
-            }
-          }));
-          return;
+    if(this.addOrModifyRowData){
+      let unfinished = false;
+      Object.keys(this.addOrModifyRowData).forEach(key => {
+        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+          unfinished = true;
         }
+      });
+      if(unfinished){
+        document.dispatchEvent(new CustomEvent('show-toast-error', {
+          detail: {
+            msg: '输入信息不完整'
+          }
+        }));
+        return;
       }
+    }
+    if (this.isAdd) {
+     
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {

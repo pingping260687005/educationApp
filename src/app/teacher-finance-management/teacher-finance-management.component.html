@@ -16,16 +16,16 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form [formGroup]="teacherFinanceForm" >
+            <form [formGroup]="form">
               <div class="modal-body">
                 <div class="container-fluid">
                     <div class="form-group row">
                         <div class="col-md-6">
                             <div class="row">
-                                <label for="teacherId" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
+                                <label for="name" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
                             <div class="col-sm-9">
-                               <input id="teacherId" type="text" class="form-control form-control-sm teacherId" formControlName="teacherId" [(ngModel)]="addOrModifyRowData.teacherId">
-                               <div *ngIf="formErrors.teacherId" class="showerr alert-danger" >{{ formErrors.teacherId }}</div>
+                               <input id="name" type="text" class="form-control form-control-sm name" formControlName="name" [(ngModel)]="addOrModifyRowData.name">
+                               <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
                             </div>
                             </div>
                           </div>

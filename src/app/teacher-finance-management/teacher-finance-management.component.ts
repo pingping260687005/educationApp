@@ -12,46 +12,59 @@ export class TeacherFinanceManagementComponent implements OnInit {
     private isModifyBtnDisabled = true;
     private isDeleteBtnDisabled = true;
 
-    // 定义表单
-    private teacherFinanceForm;
 
-    private formErrors = {
-      teacherFinanceName: '',
-      teacherFinancePsd: '',
-      teacherFinancePsdRepeat: ''
-    };
     private isAdd = true;
     private modal;
-  private form;
-  private formErrors = {
-    courseTeacher: '',
-    hours: '',
-    cost: '',
-    rate: ''
-  };
+    // 定义表单
 
-  // 为每一项表单验证添加说明文字
- validationMessage = {
-  'courseTeacher': {
-    'required': '请填写教师'
-  },
-  'hours': {
-    'required': '请填写学时'
-  },
-  'cost': {
-    'required': '请填写费用'
-  },
-  'rate': {
-    'required': '请填写评论',
-  }
-};
-private addOrModifyRowData: Course = {
- id: null,
- courseTeacher: '',
- hours: 0,
- cost: 0,
- rate: ''
-};
+    private form;
+    private formErrors = {
+      name: '',
+      paidSalary: '',
+      unpaidSalary: '',
+      arrearage: '',
+      date: '',
+      period: '',
+    };
+
+      // 为每一项表单验证添加说明文字
+    validationMessage = {
+      'name': {
+        'required': '请填写教师'
+      },
+      'paidSalary': {
+        'required': '请填写已付工资'
+      },
+      'unpaidSalary': {
+        'required': '请填写未付工资'
+      },
+      'arrearage': {
+        'required': '请填写欠款'
+      },
+      'date': {
+        'required': '请填写发放日期',
+      },
+      'period': {
+        'required': '请填写间隔',
+      }
+    };
+    /**
+     *    name: string;
+    paidSalary: number;
+    unPaidSalary: number;
+    arrearage: number;
+    date: string;
+    period: string;
+     */
+    private addOrModifyRowData: ITeacherFinance = {
+      id: null,
+      name: '',
+      paidSalary: null,
+      unPaidSalary: null,
+      arrearage: null,
+      date: '',
+      period: ''
+    };
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -60,10 +73,12 @@ private addOrModifyRowData: Course = {
     this.modal.on('hide.bs.modal', () => {
       this.addOrModifyRowData = {
         id: null,
-        courseTeacher: '',
-        hours: 0,
-        cost: 0,
-        rate: ''
+        name: '',
+        paidSalary: null,
+        unPaidSalary: null,
+        arrearage: null,
+        date: '',
+        period: ''
       };
       
     });
@@ -130,7 +145,7 @@ this.updateToolbarIconsStatus();
     const dataList: ITeacherFinance[] = [];
     const tf: ITeacherFinance = {
         id: '1',
-        teacherId: 'XXX',
+        name: 'XXX',
         paidSalary: 1000,
         unPaidSalary: 2000,
         arrearage: 1000,
@@ -173,8 +188,8 @@ private updateToolbarIconsStatus() {
 
   private buildForm() {
        // 通过 formBuilder构建表单
- this.teacherFinanceForm = this.formBuilder.group({
-    'teacherId': [ '', [
+ this.form = this.formBuilder.group({
+    'name': [ '', [
      Validators.required
     ]],
     'paidSalary': [ '', [
@@ -183,11 +198,11 @@ private updateToolbarIconsStatus() {
        ]],
        'unPaidSalary': [ '', [
         Validators.required,
-   validateRex('isNumber', /^[0-9]*$/)
+        validateRex('isNumber', /^[0-9]*$/)
        ]],
        'arrearage': [ '', [
         Validators.required,
-   validateRex('isNumber', /^[0-9]*$/)
+        validateRex('isNumber', /^[0-9]*$/)
        ]],
        'date': [ '', [
         Validators.required
@@ -198,7 +213,7 @@ private updateToolbarIconsStatus() {
     });
 
     // 每次表单数据发生变化的时候更新错误信息
-    this.teacherFinanceForm.valueChanges
+    this.form.valueChanges
     .subscribe(data => this.onValueChanged(data));
 
     // 初始化错误信息
@@ -208,9 +223,9 @@ private updateToolbarIconsStatus() {
   // 每次数据发生改变时触发此方法
 onValueChanged(data?: any) {
     // 如果表单不存在则返回
-    if (!this.teacherFinanceForm) { return; }
+    if (!this.form) { return; }
     // 获取当前的表单
-    const form = this.teacherFinanceForm;
+    const form = this.form;
 
     // 遍历错误消息对象
     // tslint:disable-next-line:forin
@@ -233,7 +248,55 @@ onValueChanged(data?: any) {
     }
     }
    }
-   onSubmit() {}
+   onSubmit () {
+    const table = $('#studentMngTable');
+    if(this.addOrModifyRowData){
+      let unfinished = false;
+      Object.keys(this.addOrModifyRowData).forEach(key => {
+        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+          unfinished = true;
+        }
+      });
+      if(unfinished){
+        document.dispatchEvent(new CustomEvent('show-toast-error', {
+          detail: {
+            msg: '输入信息不完整'
+          }
+        }));
+        return;
+      }
+    }
+    if (this.isAdd) {
+    
+      // add
+      // this.studentService.addStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+
+      //     // append is append to the bottom, prepend is appending to the top.
+      //     table.bootstrapTable('append', {index: 1, row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+    } else {
+      // edit
+      this.form.value.id = this.addOrModifyRowData.id;
+      // this.studentService.updateStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+      //     const index = $('#studentMngTable .selected').attr('data-index');
+      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+    }
+    const modal = $('#addOrModifyModal');
+    modal.modal('hide');
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy () {
     $('#userMngTable').bootstrapTable('destroy');
@@ -243,7 +306,7 @@ onValueChanged(data?: any) {
 
 interface ITeacherFinance {
     id: string;
-    teacherId: string;
+    name: string;
     paidSalary: number;
     unPaidSalary: number;
     arrearage: number;
