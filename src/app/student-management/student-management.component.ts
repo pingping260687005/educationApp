@@ -302,7 +302,7 @@ private addOrModifyRowData: Student = {
     if(this.addOrModifyRowData){
       let unfinished = false;
       Object.keys(this.addOrModifyRowData).forEach(key => {
-        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
           unfinished = true;
         }
       });

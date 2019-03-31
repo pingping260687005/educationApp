@@ -242,7 +242,7 @@ private addOrModifyRowData: Course = {
     if(this.addOrModifyRowData){
       let unfinished = false;
       Object.keys(this.addOrModifyRowData).forEach(key => {
-        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
           unfinished = true;
         }
       });
@@ -256,6 +256,8 @@ private addOrModifyRowData: Course = {
       }
     }
     if (this.isAdd) {
+      this.addOrModifyRowData.id = Math.random() + '';
+      $('#courseMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -276,6 +278,7 @@ private addOrModifyRowData: Course = {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
+      $('#courseMngTable').bootstrapTable('updateByUniqueId',{id:this.addOrModifyRowData.id,row:this.addOrModifyRowData} );
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
       //     const index = $('#studentMngTable .selected').attr('data-index');

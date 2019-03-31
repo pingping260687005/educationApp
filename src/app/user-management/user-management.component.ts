@@ -89,6 +89,7 @@ export class UserManagementComponent implements OnInit {
       pageSize: 10,
       idField: 'id',
       uniqueId: 'id',
+      locale: 'zh-CN',
       smartDisplay: true,
       checkboxHeader: true,
       clickToSelect: true,
@@ -106,13 +107,13 @@ export class UserManagementComponent implements OnInit {
     //////// hard code////////////////
     const userList: User[] = [];
     const user1: User = {
-      id: '1',
+      id: Math.random() + '',
       username: 'admin',
       psd: '123',
       authority: '可读/可写'
     };
     const user2: User = {
-      id: '2',
+      id: Math.random() + '',
       username: 'root',
       psd: '123',
       authority: '只读'
@@ -229,7 +230,8 @@ export class UserManagementComponent implements OnInit {
     return;
    }
     if(this.isAdd) {
-      $('#userMngTable').bootstrapTable('append', this.addOrModifyRowData);
+      this.addOrModifyRowData.id = Math.random() + ''; // TO be deleted
+      $('#userMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -259,6 +261,11 @@ export class UserManagementComponent implements OnInit {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
+  }
+
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
   }
 
   ngOnDestroy() {

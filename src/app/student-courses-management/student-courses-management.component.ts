@@ -291,7 +291,7 @@ private addOrModifyRowData: StudentCourse = {
     if(this.addOrModifyRowData){
       let unfinished = false;
       Object.keys(this.addOrModifyRowData).forEach(key => {
-        if((!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
+        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
           unfinished = true;
         }
       });
@@ -305,6 +305,8 @@ private addOrModifyRowData: StudentCourse = {
       }
     }
     if (this.isAdd) {
+      this.addOrModifyRowData.id = Math.random() + '';
+      $('#studentCourseMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -325,6 +327,7 @@ private addOrModifyRowData: StudentCourse = {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
+      $('#studentCourseMngTable').bootstrapTable('updateByUniqueId',{index:this.addOrModifyRowData.id,row:this.addOrModifyRowData} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'

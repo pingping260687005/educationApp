@@ -4,7 +4,7 @@
     <div id="toolbar">
         <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
         <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
-        <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
+        <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="openConfirmDeleteDialog()"><a class="fa fa-times"></a> 删除</span>
       </div>
 
       <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -60,5 +60,25 @@
             </div>
           </div>
         </div>
+</div>
+
+<!-- 删除前的警告框 -->
+<div class="modal fade" id="confirmDeleteDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog confirm-delete-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">提示</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        确认删除吗？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="removeItems()">确认</button>
+      </div>
+    </div>
+  </div>
 </div>
 

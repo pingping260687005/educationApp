@@ -23,6 +23,11 @@ html,body{
         margin: 1.75rem auto;
     }
 
+    .confirm-delete-dialog{
+        max-width: 500px !important;
+        margin: 1.75rem auto;
+    }
+
     /* .modal-dialog .form-group .row{
         position: relative;
     }
