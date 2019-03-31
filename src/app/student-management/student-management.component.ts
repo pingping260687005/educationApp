@@ -285,6 +285,7 @@ private addOrModifyRowData: Student = {
     const deleteStudents: number[] = selections.map(({id}) => id);
     $('#deleteBtn').addClass('disabled');
     // post a request to delete students
+    deleteStudents.forEach(id => table.bootstrapTable('removeByUniqueId', id));
     this.studentService.deleteStudents(deleteStudents).subscribe((res: any) => {
       if (res.message === 'succeed') {
         deleteStudents.forEach(id => table.bootstrapTable('removeByUniqueId', id));
@@ -295,6 +296,7 @@ private addOrModifyRowData: Student = {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
   }
 
   onSubmit () {
@@ -316,6 +318,8 @@ private addOrModifyRowData: Student = {
       }
     }
     if (this.isAdd) {
+      this.addOrModifyRowData.id = Math.random() + ''; // TO be deleted
+      $('#studentMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -336,16 +340,17 @@ private addOrModifyRowData: Student = {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
-      this.studentService.updateStudent(this.form.value).subscribe(res => {
-        if ( res.message === 'succeed') {
-          const index = $('#studentMngTable .selected').attr('data-index');
-          $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
-        } else {
-          // res.message === 'failed'
-          // TODO:  error
-          window.alert('add student failed');
-        }
-      });
+      $('#studentMngTable').bootstrapTable('updateByUniqueId', this.addOrModifyRowData.id, this.addOrModifyRowData);
+      // this.studentService.updateStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+      //     const index = $('#studentMngTable .selected').attr('data-index');
+      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
@@ -354,7 +359,10 @@ private addOrModifyRowData: Student = {
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
-   
+  }
+
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
   }
 
   ngOnDestroy() {
