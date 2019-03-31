@@ -80,7 +80,7 @@ export class TeacherFinanceManagementComponent implements OnInit {
         date: '',
         period: ''
       };
-      
+      this.form.reset(this.addOrModifyRowData);
     });
   }
   // tslint:disable-next-line:use-life-cycle-interface
@@ -267,7 +267,11 @@ onValueChanged(data?: any) {
       }
     }
     if (this.isAdd) {
-    
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -283,6 +287,11 @@ onValueChanged(data?: any) {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
       //     const index = $('#studentMngTable .selected').attr('data-index');
@@ -299,7 +308,22 @@ onValueChanged(data?: any) {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy () {
-    $('#userMngTable').bootstrapTable('destroy');
+    $('#teacherFinanceMngTable').bootstrapTable('destroy');
+  }
+
+  removeItems() {
+    const selections = $('#teacherFinanceMngTable').bootstrapTable('getSelections', null).map((x) => {
+      return x.id;
+    });
+    selections.forEach(x => {
+      $('#teacherFinanceMngTable').bootstrapTable('removeByUniqueId', x);
+    });
+    this.updateToolbarIconsStatus();
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
 
 }

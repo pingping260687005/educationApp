@@ -94,6 +94,7 @@ private addOrModifyRowData: Teacher = {
         fullTime: null,
         phone: null
       };
+      this.form.reset(this.addOrModifyRowData);
     });
   }
 
@@ -288,6 +289,11 @@ private addOrModifyRowData: Teacher = {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
     }
     $('#deleteBtn').addClass('disabled');
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
 
   ngOnDestroy() {
@@ -313,7 +319,11 @@ private addOrModifyRowData: Teacher = {
       }
     }
     if (this.isAdd) {
-    
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -329,19 +339,25 @@ private addOrModifyRowData: Teacher = {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
-      this.studentService.updateStudent(this.form.value).subscribe(res => {
-        if ( res.message === 'succeed') {
-          const index = $('#studentMngTable .selected').attr('data-index');
-          $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
-        } else {
-          // res.message === 'failed'
-          // TODO:  error
-          window.alert('add student failed');
+      // this.studentService.updateStudent(this.form.value).subscribe(res => {
+      //   if ( res.message === 'succeed') {
+      //     const index = $('#studentMngTable .selected').attr('data-index');
+      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+      //   } else {
+      //     // res.message === 'failed'
+      //     // TODO:  error
+      //     window.alert('add student failed');
+      //   }
+      // });
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
         }
-      });
+      }));
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
+   
   }
 
 }

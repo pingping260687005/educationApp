@@ -76,7 +76,7 @@ private addOrModifyRowData: StudentCourse = {
       // get real data
       const students: Student[] = JSON.parse(res['_body']);
       // set data
-      // $('#studentMngTable').bootstrapTable('load', students);
+      // $('#studentCourseMngTable').bootstrapTable('load', students);
     });
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
@@ -90,10 +90,11 @@ private addOrModifyRowData: StudentCourse = {
         feedback: '',
         course: ''
       };
+      this.form.reset(this.addOrModifyRowData);
     });
   }
   ngAfterViewInit() {
-    $('#studentMngTable').bootstrapTable({
+    $('#studentCourseMngTable').bootstrapTable({
       columns: [{
         checkbox: true,
         visiable: true
@@ -245,7 +246,7 @@ private addOrModifyRowData: StudentCourse = {
       this.addModifyDialogTitle = '添加学生课程';
     } else {
       this.addModifyDialogTitle = '修改学生课程';
-      this.addOrModifyRowData = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      this.addOrModifyRowData = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
     }
    
     modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
@@ -253,7 +254,7 @@ private addOrModifyRowData: StudentCourse = {
   }
 
   private updateToolbarIconsStatus() {
-    const selectionsLength = $('#studentMngTable').bootstrapTable('getSelections', null).length;
+    const selectionsLength = $('#studentCourseMngTable').bootstrapTable('getSelections', null).length;
     this.isModifyBtnDisabled = selectionsLength !== 1;
     this.isDeleteBtnDisabled = selectionsLength === 0;
     if (this.isModifyBtnDisabled) {
@@ -269,19 +270,24 @@ private addOrModifyRowData: StudentCourse = {
   }
 
   private removeItems() {
-    const table = $('#studentMngTable');
+    const table = $('#studentCourseMngTable');
     const selections = table.bootstrapTable('getSelections', null);
     for (let i = 0; i < selections.length; i++) {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
     }
     $('#deleteBtn').addClass('disabled');
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
   ngOnDestroy() {
-    $('#studentMngTable').bootstrapTable('destroy');
+    $('#studentCourseMngTable').bootstrapTable('destroy');
   }
 
   onSubmit () {
-    const table = $('#studentMngTable');
+    const table = $('#studentCourseMngTable');
     if(this.addOrModifyRowData){
       let unfinished = false;
       Object.keys(this.addOrModifyRowData).forEach(key => {
@@ -299,7 +305,11 @@ private addOrModifyRowData: StudentCourse = {
       }
     }
     if (this.isAdd) {
-     
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -315,10 +325,15 @@ private addOrModifyRowData: StudentCourse = {
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
-      //     const index = $('#studentMngTable .selected').attr('data-index');
-      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+      //     const index = $('#studentCourseMngTable .selected').attr('data-index');
+      //     $('#studentCourseMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
       //   } else {
       //     // res.message === 'failed'
       //     // TODO:  error

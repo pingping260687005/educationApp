@@ -80,6 +80,7 @@ private addOrModifyRowData: IStudentFinance = {
         date: '',
         period: ''
       };
+      this.form.reset(this.addOrModifyRowData);
     });
   }
   // tslint:disable-next-line:use-life-cycle-interface
@@ -144,8 +145,8 @@ this.updateToolbarIconsStatus();
     const tf: IStudentFinance = {
         id: '1',
         name: 'XXX',
-        paidSalary: 1000,
-        shouldPaidSalary: 2000,
+        paidTuition: 1000,
+        shouldPaidTuition: 2000,
         arrearage: 1000,
         date: new Date().getTime().toString(),
         period: '111'
@@ -278,6 +279,11 @@ onValueChanged(data?: any) {
       //     window.alert('add student failed');
       //   }
       // });
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
     } else {
       // edit
       this.form.value.id = this.addOrModifyRowData.id;
@@ -291,13 +297,33 @@ onValueChanged(data?: any) {
       //     window.alert('add student failed');
       //   }
       // });
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy () {
-    $('#userMngTable').bootstrapTable('destroy');
+    $('#studentFinanceMngTable').bootstrapTable('destroy');
+  }
+
+  removeItems() {
+    const selections = $('#studentFinanceMngTable').bootstrapTable('getSelections', null).map((x) => {
+      return x.id;
+    });
+    selections.forEach(x => {
+      $('#studentFinanceMngTable').bootstrapTable('removeByUniqueId', x);
+    });
+    this.updateToolbarIconsStatus();
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
 
 }

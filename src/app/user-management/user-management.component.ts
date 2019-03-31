@@ -54,6 +54,7 @@ export class UserManagementComponent implements OnInit {
         psd: '',
         authority: ''
       };
+      this.userForm.reset(this.addOrModifyRowData);
       this.modal.find('#psdConfirmInput').val('');
     });
   }
@@ -229,8 +230,18 @@ export class UserManagementComponent implements OnInit {
    }
     if(this.isAdd) {
       $('#userMngTable').bootstrapTable('append', this.addOrModifyRowData);
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
     } else {
       $('#userMngTable').bootstrapTable('updateByUniqueId', this.addOrModifyRowData.id, this.addOrModifyRowData);
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
     }
     this.modal.modal('hide');
   }

@@ -71,6 +71,7 @@ private addOrModifyRowData: Course = {
         cost: null,
         rate: ''
       };
+      this.form.reset(this.addOrModifyRowData);
     });
   }
   ngAfterViewInit() {
@@ -230,10 +231,14 @@ private addOrModifyRowData: Course = {
       table.bootstrapTable('removeByUniqueId', selections[i].id);
     }
     $('#deleteBtn').addClass('disabled');
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
 
   onSubmit () {
-    const table = $('#studentMngTable');
     if(this.addOrModifyRowData){
       let unfinished = false;
       Object.keys(this.addOrModifyRowData).forEach(key => {
@@ -251,7 +256,11 @@ private addOrModifyRowData: Course = {
       }
     }
     if (this.isAdd) {
-     
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -277,6 +286,11 @@ private addOrModifyRowData: Course = {
       //     window.alert('add student failed');
       //   }
       // });
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');

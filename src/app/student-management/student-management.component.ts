@@ -89,6 +89,7 @@ private addOrModifyRowData: Student = {
         address: '',
         course: ''
       };
+      this.form.reset(this.addOrModifyRowData);
     });
   }
 
@@ -289,6 +290,11 @@ private addOrModifyRowData: Student = {
         deleteStudents.forEach(id => table.bootstrapTable('removeByUniqueId', id));
       }
     });
+    document.dispatchEvent(new CustomEvent('show-toast-success', {
+      detail: {
+        msg: '删除成功'
+      }
+    }));
   }
 
   onSubmit () {
@@ -310,7 +316,11 @@ private addOrModifyRowData: Student = {
       }
     }
     if (this.isAdd) {
-      
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '添加成功'
+        }
+      }));
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -336,9 +346,15 @@ private addOrModifyRowData: Student = {
           window.alert('add student failed');
         }
       });
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '修改成功'
+        }
+      }));
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
+   
   }
 
   ngOnDestroy() {
