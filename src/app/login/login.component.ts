@@ -38,6 +38,7 @@ private form;
   onSubmit(){
     if(this.username === 'admin' && this.psd === 'admin'){
       this.route.navigate(['/home']);
+      sessionStorage.setItem('token', "test")
     }
   }
 
