@@ -13,7 +13,7 @@ html,body{
     margin: 0 2px;
 }
 
-.toolbar-icon.disabled{
+.btn.disabled{
     pointer-events: none;
 }
 

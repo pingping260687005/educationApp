@@ -67,7 +67,10 @@
                         <div class="row">
                             <label for="sex" class="col-sm-3 col-form-label col-form-label-sm">性别</label>
                             <div class="col-sm-9">
-                              <input id="sex" type="text" class="form-control form-control-sm sex" formControlName="sex" [(ngModel)]="addOrModifyRowData.sex">
+                                <select id="sex" class="form-control form-control-sm sex" formControlName="sex" [(ngModel)]="addOrModifyRowData.sex">
+                                    <option selected>男</option>
+                                    <option>女</option>
+                                  </select>
                               <div *ngIf="formErrors.sex" class="showerr alert-danger" >{{ formErrors.sex }}</div>
                             </div>
                         </div>

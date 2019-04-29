@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { validateRex } from '../validate-register';
 
 @Component({
@@ -13,11 +13,12 @@ export class UserManagementComponent implements OnInit {
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
   private isAdd = true;
-  private addOrModifyRowData: User = {
+  private addOrModifyRowData: AddOrModifyRowData = {
     id: null,
     username: '',
     psd: '',
-    authority: ''
+    authority: '',
+    psd2: ''
   };
 
 
@@ -27,7 +28,7 @@ export class UserManagementComponent implements OnInit {
   private formErrors = {
     userName: '',
     userPsd: '',
-    userPsdRepeat: ''
+    userPsd2: ''
   };
 
   // 为每一项表单验证添加说明文字
@@ -36,10 +37,12 @@ export class UserManagementComponent implements OnInit {
       'required': '请填写用户名'
     },
     'userPsd': {
-      'required': '请填写密码'
+      'required': '请填写密码',
+      'psdConfirm': '两次密码输入不一致'
     },
-    'userPsdRepeat': {
-      'required': '请确认密码'
+    'userPsd2': {
+      'required': '请确认密码',
+      'psdConfirm': '两次密码输入不一致'
     }
   };
   constructor(private formBuilder: FormBuilder) { }
@@ -52,6 +55,7 @@ export class UserManagementComponent implements OnInit {
         id: null,
         username: '',
         psd: '',
+        psd2: '',
         authority: ''
       };
       this.userForm.reset(this.addOrModifyRowData);
@@ -143,15 +147,33 @@ export class UserManagementComponent implements OnInit {
     this.isAdd = isAdd;
     if (isAdd) {
       this.addModifyDialogTitle = '新增用户';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改用户';
       this.addOrModifyRowData = $('#userMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
-      this.modal.find('#psdConfirmInput').val(this.addOrModifyRowData.psd);
+      this.addOrModifyRowData.psd2 = this.addOrModifyRowData.psd;
+      $('#submit-btn').removeClass('disabled');
     }
     this.modal.modal('show');
   }
 
   private buildForm() {
+    const psdValidate = (control:AbstractControl) => {
+      if(control.value && this.addOrModifyRowData.psd2 && control.value !== this.addOrModifyRowData.psd2){
+        return {'psdConfirm': {value:control.value}}
+      }else{
+        return null;
+      }
+    }
+
+    const psd2Validate = (control:AbstractControl) => {
+      if(this.addOrModifyRowData.psd && control.value && this.addOrModifyRowData.psd !== control.value){
+        return {'psdConfirm': {value:control.value}}
+      }else{
+        return null;
+      }
+    }
+
     // 通过 formBuilder构建表单
     this.userForm = this.formBuilder.group({
       'userName': ['', [
@@ -161,10 +183,12 @@ export class UserManagementComponent implements OnInit {
         Validators.required
       ]],
       'userPsd': ['', [
-        Validators.required
+        Validators.required,
+        psdValidate
       ]],
-      'userPsdRepeat': ['', [
-        Validators.required
+      'userPsd2': ['', [
+        Validators.required,
+        psd2Validate
       ]]
     });
 
@@ -203,6 +227,14 @@ export class UserManagementComponent implements OnInit {
         }
       }
     }
+    if(this.addOrModifyRowData.username && this.addOrModifyRowData.authority && this.addOrModifyRowData.psd && this.addOrModifyRowData.psd2){
+      $('#submit-btn').removeClass('disabled');
+    }
+    Object.keys(this.formErrors).forEach((key)=>{
+      if(this.formErrors[key]){
+        $('#submit-btn').addClass('disabled');
+      }
+    });
   }
   onSubmit() {
     if(this.addOrModifyRowData){
@@ -221,7 +253,7 @@ export class UserManagementComponent implements OnInit {
         return;
       }
     }
-   if(this.modal.find('#psdConfirmInput').val() !== this.addOrModifyRowData.psd) {
+   if(this.addOrModifyRowData.psd2 !== this.addOrModifyRowData.psd) {
     document.dispatchEvent(new CustomEvent('show-toast-error', {
       detail: {
         msg: '两次密码不一致，请重新输入'
@@ -272,4 +304,8 @@ export class UserManagementComponent implements OnInit {
     $('#userMngTable').bootstrapTable('destroy');
   }
 
+}
+
+interface AddOrModifyRowData extends User{
+  psd2: string;
 }
