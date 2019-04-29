@@ -227,14 +227,17 @@ export class UserManagementComponent implements OnInit {
         }
       }
     }
-    if(this.addOrModifyRowData.username && this.addOrModifyRowData.authority && this.addOrModifyRowData.psd && this.addOrModifyRowData.psd2){
-      $('#submit-btn').removeClass('disabled');
-    }
-    Object.keys(this.formErrors).forEach((key)=>{
-      if(this.formErrors[key]){
-        $('#submit-btn').addClass('disabled');
+    setTimeout(() => {
+      if(this.addOrModifyRowData.username && this.addOrModifyRowData.authority && this.addOrModifyRowData.psd && this.addOrModifyRowData.psd2){
+        $('#submit-btn').removeClass('disabled');
       }
-    });
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+   
   }
   onSubmit() {
     if(this.addOrModifyRowData){

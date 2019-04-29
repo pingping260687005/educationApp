@@ -177,6 +177,17 @@ private addOrModifyRowData: Course = {
         }
       }
     }
+    setTimeout(() => {
+      if(this.addOrModifyRowData.courseTeacher && this.addOrModifyRowData.hours && this.addOrModifyRowData.rate && this.addOrModifyRowData.cost){
+        $('#submit-btn').removeClass('disabled');
+      }
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+  
   }
 
   private getCourseList(): Course[] {
@@ -201,9 +212,11 @@ private addOrModifyRowData: Course = {
     const modal = $('#addOrModifyModal');
     if (isAdd) {
       this.addModifyDialogTitle = '添加课程';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改课程';
       this.addOrModifyRowData = $('#courseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      $('#submit-btn').removeClass('disabled');
     }
     modal.modal('show');
   }

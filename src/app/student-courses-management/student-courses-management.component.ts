@@ -217,6 +217,20 @@ private addOrModifyRowData: StudentCourse = {
         }
       }
     }
+    setTimeout(() => {
+      if(this.addOrModifyRowData.name && this.addOrModifyRowData.course 
+        && this.addOrModifyRowData.teacherName && this.addOrModifyRowData.applyDate
+        && this.addOrModifyRowData.availableTimes && this.addOrModifyRowData.score
+        && this.addOrModifyRowData.feedback){
+        $('#submit-btn').removeClass('disabled');
+      }
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+   
   }
   
   private getStudentList(): StudentCourse[] {
@@ -244,9 +258,11 @@ private addOrModifyRowData: StudentCourse = {
     const modal = $('#addOrModifyModal');
     if (isAdd) {
       this.addModifyDialogTitle = '添加学生课程';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改学生课程';
       this.addOrModifyRowData = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      $('#submit-btn').removeClass('disabled');
     }
    
     modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');

@@ -164,6 +164,20 @@ private addOrModifyRowData: Student = {
         }
       }
     }
+    setTimeout(() => {
+      if(this.addOrModifyRowData.name && this.addOrModifyRowData.sex 
+        && this.addOrModifyRowData.age && this.addOrModifyRowData.phone
+        && this.addOrModifyRowData.parentPhone && this.addOrModifyRowData.address
+        && this.addOrModifyRowData.course){
+        $('#submit-btn').removeClass('disabled');
+      }
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+    
   }
 
   ngAfterViewInit() {
@@ -256,9 +270,11 @@ private addOrModifyRowData: Student = {
     const modal = $('#addOrModifyModal');
     if (isAdd) {
       this.addModifyDialogTitle = '添加学生信息';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改学生信息';
       this.addOrModifyRowData = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      $('#submit-btn').removeClass('disabled');
     }
     modal.modal('show');
   }

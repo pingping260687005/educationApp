@@ -162,6 +162,20 @@ private addOrModifyRowData: Teacher = {
         }
       }
     }
+    setTimeout(() => {
+      if(this.addOrModifyRowData.teacherNum && this.addOrModifyRowData.name 
+        && this.addOrModifyRowData.sex && this.addOrModifyRowData.age
+        && this.addOrModifyRowData.phone && this.addOrModifyRowData.address
+        && this.addOrModifyRowData.issueDate && this.addOrModifyRowData.fullTime){
+        $('#submit-btn').removeClass('disabled');
+      }
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+    
   }
 
   ngAfterViewInit() {
@@ -258,9 +272,11 @@ private addOrModifyRowData: Teacher = {
     const modal = $('#addOrModifyModal');
     if (isAdd) {
       this.addModifyDialogTitle = '添加教师';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师';
       this.addOrModifyRowData = $('#teacherMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      $('#submit-btn').removeClass('disabled');
     }
     modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
     modal.modal('show');

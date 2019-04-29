@@ -177,10 +177,12 @@ private updateToolbarIconsStatus() {
     let selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = '添加教师财务';
+      $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师财务';
       selection = $('#studentFinanceMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
       this.addOrModifyRowData = selection;
+      $('#submit-btn').removeClass('disabled');
     }
     modal.modal('show');
   }
@@ -246,6 +248,19 @@ onValueChanged(data?: any) {
      }
     }
     }
+    setTimeout(() => {
+      if(this.addOrModifyRowData.name && this.addOrModifyRowData.paidTuition 
+        && this.addOrModifyRowData.shouldPaidTuition && this.addOrModifyRowData.arrearage
+        && this.addOrModifyRowData.date && this.addOrModifyRowData.period){
+        $('#submit-btn').removeClass('disabled');
+      }
+      Object.keys(this.formErrors).forEach((key)=>{
+        if(this.formErrors[key]){
+          $('#submit-btn').addClass('disabled');
+        }
+      });
+    }, 0);
+    
    }
    onSubmit () {
     const table = $('#studentMngTable');
