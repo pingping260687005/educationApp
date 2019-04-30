@@ -123,7 +123,7 @@ private addOrModifyRowData: IStudentFinance = {
         data: this.getData(),
         search: true,
         pagination: true,
-        pageSize: 15,
+        pageSize: 10,
         idField: 'id',
         uniqueId: 'id',
         smartDisplay: true,

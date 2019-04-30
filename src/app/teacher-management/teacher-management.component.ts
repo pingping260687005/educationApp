@@ -229,7 +229,7 @@ private addOrModifyRowData: Teacher = {
       data: this.getStudentList(),
       search: true,
       pagination: true,
-      pageSize: 15,
+      pageSize: 10,
       idField: 'id',
       uniqueId: 'id',
       smartDisplay: true,

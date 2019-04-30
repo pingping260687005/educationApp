@@ -17,6 +17,13 @@ html,body{
     pointer-events: none;
 }
 
+.modal-dialog .modal-content{
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    position: absolute;
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 750px !important;
@@ -123,16 +130,20 @@ html,body{
         .bootstrap-table .pagination-detail .btn:focus{
             box-shadow: none;
         }
-
+        @-webkit-keyframes showErrAnimation
+            {
+            from {opacity: 0;}
+            to { opacity: 1;}
+            }
         .alert-danger{
-            position: relative;
+            position: absolute;
             background-color: #fff;
             border-color: #fff;
-            transition: all 0.5s;
             color: #ff0000;
+            animation: showErrAnimation 0.5s;
         }
 
-            .modal-body .col-form-label{
-                padding-right: 0;
-                text-align: right;
+            
+            .modal-body{
+                padding: 22px;
             }

@@ -108,7 +108,7 @@ private addOrModifyRowData: Course = {
       data: this.getCourseList(),
       search: true,
       pagination: true,
-      pageSize: 15,
+      pageSize: 10,
       idField: 'id',
       uniqueId: 'id',
       smartDisplay: true,

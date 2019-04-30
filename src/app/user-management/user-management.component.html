@@ -9,7 +9,7 @@
 
       <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
+          <div class="modal-content user-add-modify-dialog-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalCenterTitle">{{addModifyDialogTitle}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,18 +17,18 @@
               </button>
             </div>
             <form [formGroup]="userForm" >
-              <div class="modal-body">
+              <div class="modal-body user-form">
                 <div class="container-fluid">
                   <div class="form-group row">
-                      <label for="usernameInput" class="col-sm-2 col-form-label col-form-label-sm">用户名</label>
-                      <div class="col-sm-10">
+                      <label for="usernameInput" class="col-form-label col-form-label-sm">用户名</label>
+                      <div class="col-form-control">
                         <input type="text" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName" [(ngModel)]="addOrModifyRowData.username">
                         <div *ngIf="formErrors.userName" class="showerr alert-danger" >{{ formErrors.userName }}</div>
                       </div>
                   </div>
                   <div class="form-group row">
-                      <label for="authoritySelect" class="col-sm-2 col-form-label col-form-label-sm">权限</label>
-                      <div class="col-sm-10">
+                      <label for="authoritySelect" class="col-form-label col-form-label-sm">权限</label>
+                      <div class="col-form-control">
                           <select id="authoritySelect" class="form-control form-control-sm" formControlName="authority" [(ngModel)]="addOrModifyRowData.authority">
                               <option selected>可读/可写</option>
                               <option>只读</option>
@@ -36,15 +36,15 @@
                       </div>
                   </div>
                   <div class="form-group row">
-                      <label for="psdInput" class="col-sm-2 col-form-label col-form-label-sm">密码</label>
-                      <div class="col-sm-10">
+                      <label for="psdInput" class="col-form-label col-form-label-sm">密码</label>
+                      <div class="col-form-control">
                         <input type="password" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd" [(ngModel)]="addOrModifyRowData.psd">
                       <div *ngIf="formErrors.userPsd" class="showerr alert-danger" >{{ formErrors.userPsd }}</div>
                       </div>
                   </div>
                   <div class="row">
-                        <label for="psdConfirmInput" class="col-sm-2 col-form-label col-form-label-sm">确认密码</label>
-                        <div class="col-sm-10">
+                        <label for="psdConfirmInput" class="col-form-label col-form-label-sm">确认密码</label>
+                        <div class="col-form-control">
                       <input type="password" id="psdConfirmInput" class="form-control form-control-sm userPsdRepeat"  formControlName="userPsd2" [(ngModel)]="addOrModifyRowData.psd2">
                       <div *ngIf="formErrors.userPsd2" class="showerr alert-danger" >{{ formErrors.userPsd2 }}</div>
                       </div>
