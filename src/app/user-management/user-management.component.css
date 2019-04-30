@@ -7,14 +7,14 @@
     margin-right: 0;
 }
 
-.user-add-modify-dialog-content .user-form .col-form-label{
+.user-add-modify-dialog-content .col-form-label{
     margin-right: 20px;
     text-align: right;
     display: inline-block;
     width: 70px;
 }
 
-.user-add-modify-dialog-content .user-form .col-form-control{
+.user-add-modify-dialog-content .col-form-control{
     display: inline-block;
     flex: 1;
 }

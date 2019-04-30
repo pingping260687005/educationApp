@@ -11,7 +11,7 @@
 
   <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content teacher-add-modify-dialog-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">{{addModifyDialogTitle}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,8 +24,8 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="row">
-                            <label for="teacherNum" class="col-sm-3 col-form-label col-form-label-sm">工号</label>
-                        <div class="col-sm-9">
+                            <label for="teacherNum" class="col-form-label col-form-label-sm">工号</label>
+                        <div class="col-form-control">
                            <input id="teacherNum" type="text" class="form-control form-control-sm teacherNum" formControlName="teacherNum" [(ngModel)]="addOrModifyRowData.teacherNum">
                            <div *ngIf="formErrors.teacherNum" class="showerr alert-danger" >{{ formErrors.teacherNum }}</div>
                         </div>
@@ -33,8 +33,8 @@
                       </div>
                       <div class="col-md-6">
                           <div class="row">
-                              <label for="phone" class="col-sm-3 col-form-label col-form-label-sm">手机</label>
-                          <div class="col-sm-9">
+                              <label for="phone" class="col-form-label col-form-label-sm">手机</label>
+                          <div class="col-form-control">
                              <input id="phone" type="text" class="form-control form-control-sm phone" formControlName="phone" [(ngModel)]="addOrModifyRowData.phone">
                              <div *ngIf="formErrors.phone" class="showerr alert-danger" >{{ formErrors.phone }}</div>
                           </div>
@@ -45,8 +45,8 @@
                  <div class="form-group row">
                     <div class="col-md-6">
                         <div class="row">
-                            <label for="name" class="col-sm-3 col-form-label col-form-label-sm">姓名</label>
-                        <div class="col-sm-9">
+                            <label for="name" class="col-form-label col-form-label-sm">姓名</label>
+                        <div class="col-form-control">
                            <input id="name" type="text" class="form-control form-control-sm name" formControlName="name" [(ngModel)]="addOrModifyRowData.name">
                            <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
                         </div>
@@ -54,8 +54,8 @@
                       </div>
                       <div class="col-md-6">
                           <div class="row">
-                              <label for="address" class="col-sm-3 col-form-label col-form-label-sm">地址</label>
-                          <div class="col-sm-9">
+                              <label for="address" class="col-form-label col-form-label-sm">地址</label>
+                          <div class="col-form-control">
                              <input id="address" type="text" class="form-control form-control-sm address" formControlName="address" [(ngModel)]="addOrModifyRowData.address">
                              <div *ngIf="formErrors.address" class="showerr alert-danger" >{{ formErrors.address }}</div>
                           </div>
@@ -66,8 +66,8 @@
                  <div class="form-group row">
                     <div class="col-md-6">
                         <div class="row">
-                            <label for="sex" class="col-sm-3 col-form-label col-form-label-sm">性别</label>
-                        <div class="col-sm-9">
+                            <label for="sex" class="col-form-label col-form-label-sm">性别</label>
+                        <div class="col-form-control">
                            <input id="sex" type="text" class="form-control form-control-sm sex" formControlName="sex" [(ngModel)]="addOrModifyRowData.sex">
                            <div *ngIf="formErrors.sex" class="showerr alert-danger" >{{ formErrors.sex }}</div>
                         </div>
@@ -75,8 +75,8 @@
                       </div>
                       <div class="col-md-6">
                           <div class="row">
-                              <label for="issueDate" class="col-sm-3 col-form-label col-form-label-sm">入职日期</label>
-                          <div class="col-sm-9">
+                              <label for="issueDate" class="col-form-label col-form-label-sm">入职日期</label>
+                          <div class="col-form-control">
                              <input id="issueDate" type="text" class="form-control form-control-sm issueDate" formControlName="issueDate" [(ngModel)]="addOrModifyRowData.issueDate">
                              <div *ngIf="formErrors.issueDate" class="showerr alert-danger" >{{ formErrors.issueDate }}</div>
                           </div>

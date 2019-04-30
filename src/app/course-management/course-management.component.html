@@ -15,7 +15,7 @@
 
   <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content course-add-modify-dialog-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">{{addModifyDialogTitle}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -28,8 +28,8 @@
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="row">
-                            <label for="courseTeacher" class="col-sm-3 col-form-label col-form-label-sm">课程-教师</label>
-                        <div class="col-sm-9">
+                            <label for="courseTeacher" class="col-form-label col-form-label-sm">课程-教师</label>
+                        <div class="col-form-control">
                            <input id="courseTeacher" type="text" class="form-control form-control-sm courseTeacher" formControlName="courseTeacher" [(ngModel)]="addOrModifyRowData.courseTeacher">
                            <div *ngIf="formErrors.courseTeacher" class="showerr alert-danger" >{{ formErrors.courseTeacher }}</div>
                         </div>
@@ -37,8 +37,8 @@
                       </div>
                       <div class="col-md-6">
                           <div class="row">
-                              <label for="hours" class="col-sm-3 col-form-label col-form-label-sm">学时</label>
-                          <div class="col-sm-9">
+                              <label for="hours" class="col-form-label col-form-label-sm">学时</label>
+                          <div class="col-form-control">
                              <input id="hours" type="text" class="form-control form-control-sm hours" formControlName="hours" [(ngModel)]="addOrModifyRowData.hours">
                              <div *ngIf="formErrors.hours" class="showerr alert-danger" >{{ formErrors.hours }}</div>
                           </div>
@@ -49,8 +49,8 @@
                  <div class="form-group row">
                     <div class="col-md-6">
                         <div class="row">
-                            <label for="cost" class="col-sm-3 col-form-label col-form-label-sm">费用</label>
-                        <div class="col-sm-9">
+                            <label for="cost" class="col-form-label col-form-label-sm">费用</label>
+                        <div class="col-form-control">
                            <input id="cost" type="text" class="form-control form-control-sm cost" formControlName="cost" [(ngModel)]="addOrModifyRowData.cost">
                            <div *ngIf="formErrors.cost" class="showerr alert-danger" >{{ formErrors.cost }}</div>
                         </div>
@@ -58,8 +58,8 @@
                       </div>
                       <div class="col-md-6">
                           <div class="row">
-                              <label for="rate" class="col-sm-3 col-form-label col-form-label-sm">评论</label>
-                          <div class="col-sm-9">
+                              <label for="rate" class="col-form-label col-form-label-sm">评论</label>
+                          <div class="col-form-control">
                              <input id="rate" type="text" class="form-control form-control-sm rate" formControlName="rate" [(ngModel)]="addOrModifyRowData.rate">
                              <div *ngIf="formErrors.rate" class="showerr alert-danger" >{{ formErrors.rate }}</div>
                           </div>

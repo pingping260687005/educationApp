@@ -32,3 +32,25 @@
 .form-control form-control-sm-right {
     width: calc(100% - 100px);
 }
+
+
+.student-course-add-modify-dialog-content{
+    width: 700px;
+}
+
+.student-course-add-modify-dialog-content .row{
+    display: flex;
+    margin-right: 0;
+}
+
+.student-course-add-modify-dialog-content .col-form-label{
+    margin-right: 20px;
+    text-align: right;
+    display: inline-block;
+    width: 70px;
+}
+
+.student-course-add-modify-dialog-content .col-form-control{
+    display: inline-block;
+    flex: 1;
+}
