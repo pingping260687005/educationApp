@@ -217,19 +217,11 @@ private addOrModifyRowData: StudentCourse = {
         }
       }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.name && this.addOrModifyRowData.course 
-        && this.addOrModifyRowData.teacherName && this.addOrModifyRowData.applyDate
-        && this.addOrModifyRowData.availableTimes && this.addOrModifyRowData.score
-        && this.addOrModifyRowData.feedback){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
    
   }
   

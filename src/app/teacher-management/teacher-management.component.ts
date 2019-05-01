@@ -162,19 +162,11 @@ private addOrModifyRowData: Teacher = {
         }
       }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.teacherNum && this.addOrModifyRowData.name 
-        && this.addOrModifyRowData.sex && this.addOrModifyRowData.age
-        && this.addOrModifyRowData.phone && this.addOrModifyRowData.address
-        && this.addOrModifyRowData.issueDate && this.addOrModifyRowData.fullTime){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
     
   }
 

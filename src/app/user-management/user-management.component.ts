@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { validateRex } from '../validate-register';
 
 @Component({
   selector: 'app-user-management',
@@ -227,16 +226,11 @@ export class UserManagementComponent implements OnInit {
         }
       }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.username && this.addOrModifyRowData.authority && this.addOrModifyRowData.psd && this.addOrModifyRowData.psd2){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
    
   }
   onSubmit() {

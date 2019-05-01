@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { validateRex } from '../validate-register';
 
 @Component({
   selector: 'app-student-finance-management',
@@ -32,13 +31,16 @@ export class StudentFinanceManagementComponent implements OnInit {
     'required': '请填写姓名'
   },
   'paidSalary': {
-    'required': '请填写已付费用'
+    'required': '请填写已付费用',
+    'pattern': '请输入数字'
   },
   'shouldPaidSalary': {
-    'required': '请填写应付费用'
+    'required': '请填写应付费用',
+    'pattern': '请输入数字'
   },
   'arrearage': {
     'required': '请填写欠款',
+    'pattern': '请输入数字'
   },
   'date': {
     'required': '请填写收费日期',
@@ -195,15 +197,15 @@ private updateToolbarIconsStatus() {
     ]],
     'paidTuition': [ '', [
         Validators.required,
-        validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'shouldPaidTuition': [ '', [
         Validators.required,
-   validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'arrearage': [ '', [
         Validators.required,
-   validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'date': [ '', [
         Validators.required
@@ -248,18 +250,11 @@ onValueChanged(data?: any) {
      }
     }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.name && this.addOrModifyRowData.paidTuition 
-        && this.addOrModifyRowData.shouldPaidTuition && this.addOrModifyRowData.arrearage
-        && this.addOrModifyRowData.date && this.addOrModifyRowData.period){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
     
    }
    onSubmit () {

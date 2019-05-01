@@ -177,16 +177,11 @@ private addOrModifyRowData: Course = {
         }
       }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.courseTeacher && this.addOrModifyRowData.hours && this.addOrModifyRowData.rate && this.addOrModifyRowData.cost){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
   
   }
 

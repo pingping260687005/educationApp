@@ -6,7 +6,6 @@ import { Observable, from } from 'rxjs/index';
 import { StudentService } from './student.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { isNumberValidator } from '../shared/is-number-validation.directive';
 
 @Component({
   selector: 'app-student-management',
@@ -20,7 +19,7 @@ export class StudentManagementComponent implements OnInit {
   private isAdd = true;
    // 定义表单
    private modal;
-   private form;
+   private form: FormGroup;
    private formErrors = {
     studentNum: '',
     name: '',
@@ -34,7 +33,8 @@ export class StudentManagementComponent implements OnInit {
  // 为每一项表单验证添加说明文字
  validationMessage = {
   'studentNum': {
-    'required': '请填写学号'
+    'required': '请填写学号',
+    'pattern': '请输入数字'
   },
   'name': {
     'required': '请填写姓名'
@@ -44,13 +44,15 @@ export class StudentManagementComponent implements OnInit {
   },
   'age': {
     'required': '请填写年龄',
-    'isNotNumber': '请输入数字'
+    'pattern': '请输入数字'
   },
   'phone': {
-    'required': '请填写手机'
+    'required': '请填写手机',
+    'pattern': '请填写正确的手机号'
   },
   'parentPhone': {
-    'required': '请填写父母手机'
+    'required': '请填写父母手机',
+    'pattern': '请填写正确的手机号'
   },
   'address': {
     'required': '请填写地址'
@@ -78,18 +80,7 @@ private addOrModifyRowData: Student = {
     this.buildForm();
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        studentNum: '',
-        name: '',
-        sex: '',
-        age: null,
-        phone: '',
-        parentPhone: '',
-        address: '',
-        course: ''
-      };
-      this.form.reset(this.addOrModifyRowData);
+      this.form.reset();
     });
   }
 
@@ -102,8 +93,11 @@ private addOrModifyRowData: Student = {
   private buildForm() {
     // 通过 formBuilder构建表单
     this.form = this.formBuilder.group({ 
+      'id': ['', [
+      ]],
       'studentNum': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^\d+$/)
       ]],
       'name': ['',[
         Validators.required
@@ -113,13 +107,15 @@ private addOrModifyRowData: Student = {
       ]],
       'age': ['', [
         Validators.required,
-        isNumberValidator()
+        Validators.pattern(/^\d+$/)
       ]],
       'phone': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^1[34578]\d{9}$/)
       ]],
       'parentPhone': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^1[34578]\d{9}$/)
       ]],
       'address': ['', [
         Validators.required
@@ -127,7 +123,7 @@ private addOrModifyRowData: Student = {
       'course': ['', [
         Validators.required
       ]]
-    });
+    },{'updateOn':"blur"});
 
     // 每次表单数据发生变化的时候更新错误信息
     this.form.valueChanges
@@ -164,20 +160,11 @@ private addOrModifyRowData: Student = {
         }
       }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.name && this.addOrModifyRowData.sex 
-        && this.addOrModifyRowData.age && this.addOrModifyRowData.phone
-        && this.addOrModifyRowData.parentPhone && this.addOrModifyRowData.address
-        && this.addOrModifyRowData.course){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
-    
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
   }
 
   ngAfterViewInit() {
@@ -234,6 +221,7 @@ private addOrModifyRowData: Student = {
       checkboxHeader: true,
       clickToSelect: true,
       toolbar: '#toolbar',
+      cache: false,
       onCheck: () => {
         this.updateToolbarIconsStatus();
       },
@@ -273,7 +261,29 @@ private addOrModifyRowData: Student = {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改学生信息';
-      this.addOrModifyRowData = $('#studentMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      /**
+       *  id: null,
+ studentNum: '',
+ name: '',
+ sex: '',
+ age: null,
+ phone: '',
+ parentPhone: '',
+ address: '',
+ course: ''
+       */
+     let {id,studentNum,name,sex,age,phone,parentPhone,address,course} = $('#studentMngTable').bootstrapTable('getSelections', null)[0];
+      this.form.setValue({
+        id: id,
+        studentNum: studentNum,
+        name: name,
+        sex: sex,
+        age: age,
+        phone: phone,
+        parentPhone: parentPhone,
+        address: address,
+        course: course
+      }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
     }
     modal.modal('show');
@@ -317,25 +327,10 @@ private addOrModifyRowData: Student = {
 
   onSubmit () {
     const table = $('#studentMngTable');
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
+    let data = this.form.value;
     if (this.isAdd) {
-      this.addOrModifyRowData.id = Math.random() + ''; // TO be deleted
-      $('#studentMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
+      data.id = Math.random() + ''; // TO be deleted
+      $('#studentMngTable').bootstrapTable('insertRow',{index:0,row:data} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -355,8 +350,9 @@ private addOrModifyRowData: Student = {
       // });
     } else {
       // edit
-      this.form.value.id = this.addOrModifyRowData.id;
-      $('#studentMngTable').bootstrapTable('updateByUniqueId', this.addOrModifyRowData.id, this.addOrModifyRowData);
+      const index = $('#studentMngTable .selected').attr('data-index');
+           $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: data});
+      //$('#studentMngTable').bootstrapTable('updateByUniqueId', data.id, data);
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
       //     const index = $('#studentMngTable .selected').attr('data-index');

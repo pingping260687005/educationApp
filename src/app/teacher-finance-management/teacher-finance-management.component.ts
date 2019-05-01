@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { validateRex } from '../validate-register';
 
 @Component({
   selector: 'app-teacher-finance-management',
@@ -33,13 +32,16 @@ export class TeacherFinanceManagementComponent implements OnInit {
         'required': '请填写教师'
       },
       'paidSalary': {
-        'required': '请填写已付工资'
+        'required': '请填写已付工资',
+        'pattern': '请输入数字'
       },
       'unpaidSalary': {
-        'required': '请填写未付工资'
+        'required': '请填写未付工资',
+        'pattern': '请输入数字'
       },
       'arrearage': {
-        'required': '请填写欠款'
+        'required': '请填写欠款',
+        'pattern': '请输入数字'
       },
       'date': {
         'required': '请填写发放日期',
@@ -196,15 +198,15 @@ private updateToolbarIconsStatus() {
     ]],
     'paidSalary': [ '', [
         Validators.required,
-        validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'unPaidSalary': [ '', [
         Validators.required,
-        validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'arrearage': [ '', [
         Validators.required,
-        validateRex('isNumber', /^[0-9]*$/)
+        Validators.pattern(/^\d+$/)
        ]],
        'date': [ '', [
         Validators.required
@@ -249,18 +251,11 @@ onValueChanged(data?: any) {
      }
     }
     }
-    setTimeout(() => {
-      if(this.addOrModifyRowData.name && this.addOrModifyRowData.paidSalary 
-        && this.addOrModifyRowData.unPaidSalary && this.addOrModifyRowData.arrearage
-        && this.addOrModifyRowData.date && this.addOrModifyRowData.period){
-        $('#submit-btn').removeClass('disabled');
-      }
-      Object.keys(this.formErrors).forEach((key)=>{
-        if(this.formErrors[key]){
-          $('#submit-btn').addClass('disabled');
-        }
-      });
-    }, 0);
+    if(form.invalid){
+      $('#submit-btn').addClass('disabled');
+    }else{
+      $('#submit-btn').removeClass('disabled');
+    }
    
    }
    onSubmit () {
