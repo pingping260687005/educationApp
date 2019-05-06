@@ -1,3 +1,4 @@
+import { from } from 'rxjs/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
@@ -12,14 +13,6 @@ export class UserManagementComponent implements OnInit {
   private isModifyBtnDisabled = true;
   private isDeleteBtnDisabled = true;
   private isAdd = true;
-  private addOrModifyRowData: AddOrModifyRowData = {
-    id: null,
-    username: '',
-    psd: '',
-    authority: '',
-    psd2: ''
-  };
-
 
   // 定义表单
   private userForm;
@@ -50,15 +43,7 @@ export class UserManagementComponent implements OnInit {
     this.buildForm();
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        username: '',
-        psd: '',
-        psd2: '',
-        authority: ''
-      };
-      this.userForm.reset(this.addOrModifyRowData);
-      this.modal.find('#psdConfirmInput').val('');
+      this.userForm.reset();
     });
   }
   // tslint:disable-next-line:use-life-cycle-interface
@@ -75,11 +60,11 @@ export class UserManagementComponent implements OnInit {
           title: 'Item ID',
           visible: false
         }, {
-          field: 'username',
+          field: 'userName',
           title: '用户名'
         }, {
           // unshown
-          field: 'password',
+          field: 'userPsd',
           title: '密码',
           visible: false
         }, {
@@ -111,14 +96,14 @@ export class UserManagementComponent implements OnInit {
     const userList: User[] = [];
     const user1: User = {
       id: Math.random() + '',
-      username: 'admin',
-      psd: '123',
+      userName: 'admin',
+      userPsd: '123',
       authority: '可读/可写'
     };
     const user2: User = {
       id: Math.random() + '',
-      username: 'root',
-      psd: '123',
+      userName: 'root',
+      userPsd: '123',
       authority: '只读'
     };
     userList.push(user1);
@@ -149,16 +134,22 @@ export class UserManagementComponent implements OnInit {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改用户';
-      this.addOrModifyRowData = $('#userMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
-      this.addOrModifyRowData.psd2 = this.addOrModifyRowData.psd;
-      $('#submit-btn').removeClass('disabled');
+      let {id,userName,userPsd,authority} = $('#userMngTable').bootstrapTable('getSelections', null)[0];
+      this.userForm.setValue({
+        id: id,
+        userName: userName,
+        userPsd: userPsd,
+        userPsd2: userPsd,
+        authority: authority
+      }); // 修改只能是一条数据，所以直接用第一个
+      
     }
     this.modal.modal('show');
   }
 
   private buildForm() {
     const psdValidate = (control:AbstractControl) => {
-      if(control.value && this.addOrModifyRowData.psd2 && control.value !== this.addOrModifyRowData.psd2){
+      if(this.userForm && control.value && this.userForm.value.userPsd2 && control.value !== this.userForm.value.userPsd2){
         return {'psdConfirm': {value:control.value}}
       }else{
         return null;
@@ -166,7 +157,7 @@ export class UserManagementComponent implements OnInit {
     }
 
     const psd2Validate = (control:AbstractControl) => {
-      if(this.addOrModifyRowData.psd && control.value && this.addOrModifyRowData.psd !== control.value){
+      if(this.userForm && this.userForm.value.userPsd && control.value && this.userForm.value.userPsd !== control.value){
         return {'psdConfirm': {value:control.value}}
       }else{
         return null;
@@ -175,6 +166,8 @@ export class UserManagementComponent implements OnInit {
 
     // 通过 formBuilder构建表单
     this.userForm = this.formBuilder.group({
+      'id': ['', [
+      ]],
       'userName': ['', [
         Validators.required
       ]],
@@ -222,7 +215,7 @@ export class UserManagementComponent implements OnInit {
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
           // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] += messages[key] + '\n';
+          this.formErrors[field] = messages[key];
         }
       }
     }
@@ -234,40 +227,17 @@ export class UserManagementComponent implements OnInit {
    
   }
   onSubmit() {
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
-   if(this.addOrModifyRowData.psd2 !== this.addOrModifyRowData.psd) {
-    document.dispatchEvent(new CustomEvent('show-toast-error', {
-      detail: {
-        msg: '两次密码不一致，请重新输入'
-      }
-    }));
-    return;
-   }
     if(this.isAdd) {
-      this.addOrModifyRowData.id = Math.random() + ''; // TO be deleted
-      $('#userMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
+      this.userForm.value.id = Math.random() + ''; // TO be deleted
+      $('#userMngTable').bootstrapTable('insertRow',{index:0,row:this.userForm.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
         }
       }));
     } else {
-      $('#userMngTable').bootstrapTable('updateByUniqueId', this.addOrModifyRowData.id, this.addOrModifyRowData);
+      const index = $('#userMngTable .selected').attr('data-index');
+      $('#userMngTable').bootstrapTable('updateRow', {index: Number(index), row: this.userForm.value});
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
@@ -303,6 +273,3 @@ export class UserManagementComponent implements OnInit {
 
 }
 
-interface AddOrModifyRowData extends User{
-  psd2: string;
-}

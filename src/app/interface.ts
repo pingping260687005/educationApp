@@ -1,7 +1,7 @@
 interface User {
   id: string;
-  username: string;
-  psd: string;
+  userName: string;
+  userPsd: string;
   authority: string;
 }
 

@@ -20,7 +20,7 @@ export class TeacherFinanceManagementComponent implements OnInit {
     private formErrors = {
       name: '',
       paidSalary: '',
-      unpaidSalary: '',
+      unPaidSalary: '',
       arrearage: '',
       date: '',
       period: '',
@@ -33,15 +33,18 @@ export class TeacherFinanceManagementComponent implements OnInit {
       },
       'paidSalary': {
         'required': '请填写已付工资',
-        'pattern': '请输入数字'
+        'pattern': '请输入有效值',
+        'min': '请输入有效值'
       },
-      'unpaidSalary': {
+      'unPaidSalary': {
         'required': '请填写未付工资',
-        'pattern': '请输入数字'
+        'pattern': '请输入有效值',
+        'min': '请输入有效值'
       },
       'arrearage': {
         'required': '请填写欠款',
-        'pattern': '请输入数字'
+        'pattern': '请输入有效值',
+        'min': '请输入有效值'
       },
       'date': {
         'required': '请填写发放日期',
@@ -58,31 +61,13 @@ export class TeacherFinanceManagementComponent implements OnInit {
     date: string;
     period: string;
      */
-    private addOrModifyRowData: ITeacherFinance = {
-      id: null,
-      name: '',
-      paidSalary: null,
-      unPaidSalary: null,
-      arrearage: null,
-      date: '',
-      period: ''
-    };
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildForm();
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        name: '',
-        paidSalary: null,
-        unPaidSalary: null,
-        arrearage: null,
-        date: '',
-        period: ''
-      };
-      this.form.reset(this.addOrModifyRowData);
+      this.form.reset();
     });
   }
   // tslint:disable-next-line:use-life-cycle-interface
@@ -183,8 +168,16 @@ private updateToolbarIconsStatus() {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师财务';
-      selection = $('#teacherFinanceMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
-      this.addOrModifyRowData = selection;
+      let {id,name,paidSalary,unPaidSalary,arrearage,date,period} = $('#teacherFinanceMngTable').bootstrapTable('getSelections', null)[0];
+      this.form.setValue({
+        id: id,
+        name: name,
+        paidSalary: paidSalary,
+        unPaidSalary: unPaidSalary,
+        arrearage: arrearage,
+        date: date,
+        period: period
+      }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
     }
     modal.modal('show');
@@ -193,20 +186,25 @@ private updateToolbarIconsStatus() {
   private buildForm() {
        // 通过 formBuilder构建表单
  this.form = this.formBuilder.group({
+  'id': [ '', [
+   ]],
     'name': [ '', [
      Validators.required
     ]],
     'paidSalary': [ '', [
         Validators.required,
-        Validators.pattern(/^\d+$/)
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
+        Validators.min(0)
        ]],
        'unPaidSalary': [ '', [
         Validators.required,
-        Validators.pattern(/^\d+$/)
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
+        Validators.min(0)
        ]],
        'arrearage': [ '', [
         Validators.required,
-        Validators.pattern(/^\d+$/)
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
+        Validators.min(0)
        ]],
        'date': [ '', [
         Validators.required
@@ -247,7 +245,7 @@ onValueChanged(data?: any) {
      // tslint:disable-next-line:forin
      for (const key in control.errors) {
      // 把所有验证不通过项的说明文字拼接成错误消息
-     this.formErrors[field] += messages[key] + '\n';
+     this.formErrors[field] = messages[key];
      }
     }
     }
@@ -260,22 +258,6 @@ onValueChanged(data?: any) {
    }
    onSubmit () {
     const table = $('#studentMngTable');
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
     if (this.isAdd) {
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
@@ -296,7 +278,6 @@ onValueChanged(data?: any) {
       // });
     } else {
       // edit
-      this.form.value.id = this.addOrModifyRowData.id;
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
@@ -334,7 +315,13 @@ onValueChanged(data?: any) {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
   }
+
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
+  }
+
 
 }
 

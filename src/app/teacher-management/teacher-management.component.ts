@@ -24,7 +24,8 @@ export class TeacherManagementComponentComponent implements OnInit {
     phone: '',
     address: '',
     issueDate: '',
-    fulltime: ''
+    fullTime: '',
+    course: ''
   };
 
   // 为每一项表单验证添加说明文字
@@ -40,9 +41,12 @@ export class TeacherManagementComponentComponent implements OnInit {
   },
   'age': {
     'required': '请填写年龄',
+    'pattern': '请输入有效年龄',
+    'min': '请输入有效年龄'
   },
   'phone': {
-    'required': '请填写电话'
+    'required': '请填写电话',
+    'pattern': '请填写合法的手机号'
   },
   'address': {
     'required': '请填写地址'
@@ -52,18 +56,10 @@ export class TeacherManagementComponentComponent implements OnInit {
   },
   'fulltime': {
     'required': '请填写是否全职'
+  },
+  'course': {
+    'required': '请填写课程'
   }
-};
-private addOrModifyRowData: Teacher = {
- id: null,
- name: null,
- teacherNum: null,
- issueDate: null,
- age: null,
- address: null,
- sex: null,
- fullTime: null,
- phone: null
 };
   constructor(private http: Http,private formBuilder: FormBuilder) {
     // 用http请求
@@ -83,24 +79,15 @@ private addOrModifyRowData: Teacher = {
     // });
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        name: null,
-        teacherNum: null,
-        issueDate: null,
-        age: null,
-        address: null,
-        sex: null,
-        fullTime: null,
-        phone: null
-      };
-      this.form.reset(this.addOrModifyRowData);
+      this.form.reset();
     });
   }
 
   private buildForm() {
     // 通过 formBuilder构建表单
     this.form = this.formBuilder.group({ 
+      'id': ['', [
+      ]],
       'name': ['', [
         Validators.required
       ]],
@@ -112,6 +99,8 @@ private addOrModifyRowData: Teacher = {
       ]],
       'age': ['', [
         Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.min(1)
       ]],
       'sex': ['', [
         Validators.required
@@ -123,6 +112,10 @@ private addOrModifyRowData: Teacher = {
         Validators.required
       ]],
       'phone': ['', [
+        Validators.required,
+        Validators.pattern(/^1[34578]\d{9}$/)
+      ]],
+      'course': ['', [
         Validators.required
       ]]
     });
@@ -158,7 +151,7 @@ private addOrModifyRowData: Teacher = {
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
           // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] += messages[key] + '\n';
+          this.formErrors[field] = messages[key];
         }
       }
     }
@@ -240,10 +233,10 @@ private addOrModifyRowData: Teacher = {
 
   private getStudentList(): Teacher[] {
     //////// hard code////////////////
-    const studentList: Teacher[] = [];
-    let student: Teacher;
+    const list: Teacher[] = [];
+    let teacher: Teacher;
     for (let i = 0; i < 100; i++) {
-      student = {
+      teacher = {
         id: i.toString(),
         teacherNum: i.toString(),
         name: '随机 ' + i,
@@ -252,11 +245,12 @@ private addOrModifyRowData: Teacher = {
         phone: '13992288771',
         address: '丹阳市黄金路25弄16号201室',
         issueDate: '2018-4-4',
-        fullTime: true
+        fullTime: i%2===0?"全职":"兼职",
+        course: '钢琴'
       };
-      studentList.push(student);
+      list.push(teacher);
     }
-    return studentList;
+    return list;
   }
 
   private showModal(isAdd: boolean) {
@@ -267,10 +261,21 @@ private addOrModifyRowData: Teacher = {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师';
-      this.addOrModifyRowData = $('#teacherMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
-      $('#submit-btn').removeClass('disabled');
+      let {id,teacherNum,name,sex,age,phone,address,issueDate,fullTime,course} = $('#teacherMngTable').bootstrapTable('getSelections', null)[0];
+      this.form.setValue({
+        id: id,
+        teacherNum: teacherNum,
+        name: name,
+        sex: sex,
+        age: age,
+        phone: phone,
+        address: address,
+        issueDate: issueDate,
+        fullTime: fullTime,
+        course: course
+      }); // 修改只能是一条数据，所以直接用第一个
     }
-    modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
+    modal.find('.address').attr('title', this.form.value ? this.form.value['address'] : '');
     modal.modal('show');
   }
 
@@ -302,6 +307,7 @@ private addOrModifyRowData: Teacher = {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
   }
 
   ngOnDestroy() {
@@ -309,23 +315,7 @@ private addOrModifyRowData: Teacher = {
   }
 
   onSubmit () {
-    const table = $('#studentMngTable');
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
+    const table = $('#teacherMngTable');
     if (this.isAdd) {
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
@@ -346,11 +336,10 @@ private addOrModifyRowData: Teacher = {
       // });
     } else {
       // edit
-      this.form.value.id = this.addOrModifyRowData.id;
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
-      //     const index = $('#studentMngTable .selected').attr('data-index');
-      //     $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: res});
+          const index = $('#teacherMngTable .selected').attr('data-index');
+          $('#teacherMngTable').bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
       //   } else {
       //     // res.message === 'failed'
       //     // TODO:  error
@@ -368,6 +357,10 @@ private addOrModifyRowData: Teacher = {
    
   }
 
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
+  }
+
 }
 
 interface Teacher {
@@ -379,5 +372,6 @@ interface Teacher {
   phone: string;
   address: string;
   issueDate: string;
-  fullTime: boolean;
+  fullTime: string;
+  course: string;
 }

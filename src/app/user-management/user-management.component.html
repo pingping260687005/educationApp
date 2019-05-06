@@ -22,14 +22,14 @@
                   <div class="form-group row">
                       <label for="usernameInput" class="col-form-label col-form-label-sm">用户名</label>
                       <div class="col-form-control">
-                        <input type="text" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName" [(ngModel)]="addOrModifyRowData.username">
+                        <input type="text" autocomplete="off" id="usernameInput" class="form-control form-control-sm form-control form-control-sm-sm"  formControlName="userName">
                         <div *ngIf="formErrors.userName" class="showerr alert-danger" >{{ formErrors.userName }}</div>
                       </div>
                   </div>
                   <div class="form-group row">
                       <label for="authoritySelect" class="col-form-label col-form-label-sm">权限</label>
                       <div class="col-form-control">
-                          <select id="authoritySelect" class="form-control form-control-sm" formControlName="authority" [(ngModel)]="addOrModifyRowData.authority">
+                          <select id="authoritySelect" class="form-control form-control-sm" formControlName="authority">
                               <option selected>可读/可写</option>
                               <option>只读</option>
                             </select>
@@ -38,14 +38,14 @@
                   <div class="form-group row">
                       <label for="psdInput" class="col-form-label col-form-label-sm">密码</label>
                       <div class="col-form-control">
-                        <input type="password" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd" [(ngModel)]="addOrModifyRowData.psd">
+                        <input type="password" autocomplete="off" id="psdInput" class="form-control form-control-sm userPsd"  formControlName="userPsd">
                       <div *ngIf="formErrors.userPsd" class="showerr alert-danger" >{{ formErrors.userPsd }}</div>
                       </div>
                   </div>
                   <div class="row">
                         <label for="psdConfirmInput" class="col-form-label col-form-label-sm">确认密码</label>
                         <div class="col-form-control">
-                      <input type="password" id="psdConfirmInput" class="form-control form-control-sm userPsdRepeat"  formControlName="userPsd2" [(ngModel)]="addOrModifyRowData.psd2">
+                      <input type="password" id="psdConfirmInput" autocomplete="off" class="form-control form-control-sm userPsdRepeat"  formControlName="userPsd2">
                       <div *ngIf="formErrors.userPsd2" class="showerr alert-danger" >{{ formErrors.userPsd2 }}</div>
                       </div>
                   </div>
@@ -80,5 +80,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 

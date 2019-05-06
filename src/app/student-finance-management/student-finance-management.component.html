@@ -4,7 +4,7 @@
   <div id="toolbar">
       <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
       <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
-      <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="removeItems()"><a class="fa fa-times"></a> 删除</span>
+      <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="openConfirmDeleteDialog()"><a class="fa fa-times"></a> 删除</span>
     </div>
 
     <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" (hidden.bs.modal)="alert(1)">
@@ -24,7 +24,7 @@
                           <div class="row">
                               <label for="name" class="col-form-label col-form-label-sm">姓名</label>
                           <div class="col-form-control">
-                             <input id="name" type="text" class="form-control form-control-sm name" formControlName="name" [(ngModel)]="addOrModifyRowData.name">
+                             <input id="name" type="text" autocomplete="off" class="form-control form-control-sm name" formControlName="name">
                              <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
                           </div>
                           </div>
@@ -33,7 +33,7 @@
                             <div class="row">
                                 <label for="paidTuition" class="col-form-label col-form-label-sm">已付学费</label>
                             <div class="col-form-control">
-                               <input id="paidTuition" type="text" class="form-control form-control-sm paidTuition" formControlName="paidTuition" [(ngModel)]="addOrModifyRowData.paidTuition">
+                               <input id="paidTuition" autocomplete="off" type="text" class="form-control form-control-sm paidTuition" formControlName="paidTuition">
                                <div *ngIf="formErrors.paidTuition" class="showerr alert-danger" >{{ formErrors.paidTuition }}</div>
                             </div>
                             </div>
@@ -45,7 +45,7 @@
                           <div class="row">
                               <label for="shouldPaidTuition" class="col-form-label col-form-label-sm">应付学费</label>
                           <div class="col-form-control">
-                             <input id="shouldPaidTuition" type="text" class="form-control form-control-sm shouldPaidTuition" formControlName="shouldPaidTuition" [(ngModel)]="addOrModifyRowData.shouldPaidTuition">
+                             <input id="shouldPaidTuition" autocomplete="off" type="text" class="form-control form-control-sm shouldPaidTuition" formControlName="shouldPaidTuition">
                              <div *ngIf="formErrors.shouldPaidTuition" class="showerr alert-danger" >{{ formErrors.shouldPaidTuition }}</div>
                           </div>
                           </div>
@@ -54,7 +54,7 @@
                             <div class="row">
                                 <label for="arrearage" class="col-form-label col-form-label-sm">欠款</label>
                             <div class="col-form-control">
-                               <input id="arrearage" type="text" class="form-control form-control-sm arrearage" formControlName="arrearage" [(ngModel)]="addOrModifyRowData.arrearage">
+                               <input id="arrearage" autocomplete="off" type="text" class="form-control form-control-sm arrearage" formControlName="arrearage">
                                <div *ngIf="formErrors.arrearage" class="showerr alert-danger" >{{ formErrors.arrearage }}</div>
                             </div>
                             </div>
@@ -66,7 +66,7 @@
                           <div class="row">
                               <label for="date" class="col-form-label col-form-label-sm">发放日期</label>
                           <div class="col-form-control">
-                             <input id="date" type="text" class="form-control form-control-sm date" formControlName="date" [(ngModel)]="addOrModifyRowData.date">
+                             <input id="date" autocomplete="off" type="text" class="form-control form-control-sm date" formControlName="date">
                              <div *ngIf="formErrors.date" class="showerr alert-danger" >{{ formErrors.date }}</div>
                           </div>
                           </div>
@@ -75,7 +75,7 @@
                             <div class="row">
                                 <label for="period" class="col-form-label col-form-label-sm">间隔(月/年)</label>
                             <div class="col-form-control">
-                               <input id="period" type="text" class="form-control form-control-sm period" formControlName="period" [(ngModel)]="addOrModifyRowData.period">
+                               <input id="period" autocomplete="off" type="text" class="form-control form-control-sm period" formControlName="period">
                                <div *ngIf="formErrors.period" class="showerr alert-danger" >{{ formErrors.period }}</div>
                             </div>
                             </div>
@@ -97,4 +97,26 @@
         </div>
       </div>
 </div>
+
+<!-- 删除前的警告框 -->
+<div class="modal fade" id="confirmDeleteDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog confirm-delete-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">提示</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          确认删除吗？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-sm" (click)="removeItems()">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 

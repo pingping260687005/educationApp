@@ -31,22 +31,20 @@ export class CourseManagementComponentComponent implements OnInit {
     'required': '请填写教师'
   },
   'hours': {
-    'required': '请填写学时'
+    'required': '请填写学时',
+    'pattern': '请填写有效学时',
+    'min': '请填写有效学时'
   },
   'cost': {
-    'required': '请填写费用'
+    'required': '请填写费用',
+    'pattern': '请填写有效费用',
+    'min': '请填写有效费用'
   },
   'rate': {
     'required': '请填写评论',
   }
 };
-private addOrModifyRowData: Course = {
- id: null,
- courseTeacher: '',
- hours: null,
- cost: null,
- rate: ''
-};
+
   constructor(private http: Http,private formBuilder: FormBuilder) {
       // 用http请求
      // this.dataSource = this.http.get('/api/courses');
@@ -64,14 +62,7 @@ private addOrModifyRowData: Course = {
     // });
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        courseTeacher: '',
-        hours: null,
-        cost: null,
-        rate: ''
-      };
-      this.form.reset(this.addOrModifyRowData);
+      this.form.reset();
     });
   }
   ngAfterViewInit() {
@@ -128,14 +119,20 @@ private addOrModifyRowData: Course = {
   private buildForm() {
     // 通过 formBuilder构建表单
     this.form = this.formBuilder.group({ 
+      'id': ['', [
+      ]],
       'courseTeacher': ['', [
         Validators.required
       ]],
       'hours': ['',[
-        Validators.required
+        Validators.required,
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
+        Validators.min(0)
       ]],
       'cost': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
+        Validators.min(0)
       ]],
       'rate': ['', [
         Validators.required,
@@ -173,7 +170,7 @@ private addOrModifyRowData: Course = {
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
           // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] += messages[key] + '\n';
+          this.formErrors[field] = messages[key];
         }
       }
     }
@@ -210,8 +207,16 @@ private addOrModifyRowData: Course = {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改课程';
-      this.addOrModifyRowData = $('#courseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      let {id,courseTeacher,hours,cost,rate} = $('#courseMngTable').bootstrapTable('getSelections', null)[0];
+      this.form.setValue({
+        id: id,
+        courseTeacher: courseTeacher,
+        hours: hours,
+        cost: cost,
+        rate: rate
+      }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
+
     }
     modal.modal('show');
   }
@@ -244,28 +249,13 @@ private addOrModifyRowData: Course = {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
   }
 
   onSubmit () {
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
     if (this.isAdd) {
-      this.addOrModifyRowData.id = Math.random() + '';
-      $('#courseMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
+      this.form.value.id = Math.random() + '';
+      $('#courseMngTable').bootstrapTable('insertRow',{index:0,row:this.form.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -285,8 +275,7 @@ private addOrModifyRowData: Course = {
       // });
     } else {
       // edit
-      this.form.value.id = this.addOrModifyRowData.id;
-      $('#courseMngTable').bootstrapTable('updateByUniqueId',{id:this.addOrModifyRowData.id,row:this.addOrModifyRowData} );
+      $('#courseMngTable').bootstrapTable('updateByUniqueId',{id:this.form.value.id,row:this.form.value} );
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
       //     const index = $('#studentMngTable .selected').attr('data-index');
@@ -309,6 +298,10 @@ private addOrModifyRowData: Course = {
 
   ngOnDestroy() {
     $('#courseMngTable').bootstrapTable('destroy');
+  }
+
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
   }
 }
 

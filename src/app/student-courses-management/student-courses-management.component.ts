@@ -43,26 +43,18 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
     'required': '请填写报班日期',
   },
   'availableTimes': {
-    'required': '请填写可用次数'
+    'required': '请填写可用次数',
+    'pattern': '请填写有效数字'
   },
   'score': {
-    'required': '请填写成绩'
+    'required': '请填写成绩',
+    'pattern': '请填写有效分数'
   },
   'feedback': {
     'required': '请填写反馈'
   }
 };
 
-private addOrModifyRowData: StudentCourse = {
-  id: null,
- name: '',
- teacherName: '',
- applyDate: '',
- availableTimes: '',
- score: '',
- feedback: '',
- course: ''
-};
   constructor(private http: Http,private formBuilder: FormBuilder) {
       // 用http请求
       this.dataSource = this.http.get('/api/students');
@@ -80,17 +72,7 @@ private addOrModifyRowData: StudentCourse = {
     });
     this.modal = $('#addOrModifyModal');
     this.modal.on('hide.bs.modal', () => {
-      this.addOrModifyRowData = {
-        id: null,
-        name: '',
-        teacherName: '',
-        applyDate: '',
-        availableTimes: '',
-        score: '',
-        feedback: '',
-        course: ''
-      };
-      this.form.reset(this.addOrModifyRowData);
+      this.form.reset();
     });
   }
   ngAfterViewInit() {
@@ -158,7 +140,9 @@ private addOrModifyRowData: StudentCourse = {
 
   private buildForm() {
     // 通过 formBuilder构建表单
-    this.form = this.formBuilder.group({ 
+    this.form = this.formBuilder.group({
+      'id': ['', [
+      ]],
       'name': ['', [
         Validators.required
       ]],
@@ -172,10 +156,12 @@ private addOrModifyRowData: StudentCourse = {
         Validators.required,
       ]],
       'availableTimes': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^\d+$/)
       ]],
       'score': ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/)
       ]],
       'feedback': ['', [
         Validators.required
@@ -213,7 +199,7 @@ private addOrModifyRowData: StudentCourse = {
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
           // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] += messages[key] + '\n';
+          this.formErrors[field] = messages[key];
         }
       }
     }
@@ -253,11 +239,21 @@ private addOrModifyRowData: StudentCourse = {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改学生课程';
-      this.addOrModifyRowData = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0]; // 修改只能是一条数据，所以直接用第一个
+      let {id,name,course,teacherName,applyDate,availableTimes,score,feedback} = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0];
+      this.form.setValue({
+        id: id,
+        name: name,
+        course: course,
+        teacherName: teacherName,
+        applyDate: applyDate,
+        availableTimes: availableTimes,
+        score: score,
+        feedback: feedback
+      }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
     }
    
-    modal.find('.address').attr('title', this.addOrModifyRowData ? this.addOrModifyRowData['address'] : '');
+    modal.find('.address').attr('title', this.form.value ? this.form.value['address'] : '');
     modal.modal('show');
   }
 
@@ -289,6 +285,7 @@ private addOrModifyRowData: StudentCourse = {
         msg: '删除成功'
       }
     }));
+    $("#confirmDeleteDialog").modal("hide");
   }
   ngOnDestroy() {
     $('#studentCourseMngTable').bootstrapTable('destroy');
@@ -296,25 +293,9 @@ private addOrModifyRowData: StudentCourse = {
 
   onSubmit () {
     const table = $('#studentCourseMngTable');
-    if(this.addOrModifyRowData){
-      let unfinished = false;
-      Object.keys(this.addOrModifyRowData).forEach(key => {
-        if(!this.addOrModifyRowData[key] && this.addOrModifyRowData[key] !== 0 && key !== 'id'){
-          unfinished = true;
-        }
-      });
-      if(unfinished){
-        document.dispatchEvent(new CustomEvent('show-toast-error', {
-          detail: {
-            msg: '输入信息不完整'
-          }
-        }));
-        return;
-      }
-    }
+  
     if (this.isAdd) {
-      this.addOrModifyRowData.id = Math.random() + '';
-      $('#studentCourseMngTable').bootstrapTable('insertRow',{index:0,row:this.addOrModifyRowData} );
+      $('#studentCourseMngTable').bootstrapTable('insertRow',{index:0,row:this.form.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -334,8 +315,7 @@ private addOrModifyRowData: StudentCourse = {
       // });
     } else {
       // edit
-      this.form.value.id = this.addOrModifyRowData.id;
-      $('#studentCourseMngTable').bootstrapTable('updateByUniqueId',{index:this.addOrModifyRowData.id,row:this.addOrModifyRowData} );
+      $('#studentCourseMngTable').bootstrapTable('updateByUniqueId',{index:this.form.value.id,row:this.form.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
@@ -354,6 +334,10 @@ private addOrModifyRowData: StudentCourse = {
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
+  }
+
+  openConfirmDeleteDialog(){
+    $("#confirmDeleteDialog").modal("show");
   }
 
 }

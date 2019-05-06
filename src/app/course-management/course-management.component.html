@@ -7,7 +7,7 @@
       <a class="fa fa-plus"></a> 新增</span>
     <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)">
       <a class="fa fa-pencil-alt"></a> 修改</span>
-    <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="removeItems()">
+    <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="openConfirmDeleteDialog()">
       <a class="fa fa-times"></a> 删除</span>
   </div>
 
@@ -30,7 +30,7 @@
                         <div class="row">
                             <label for="courseTeacher" class="col-form-label col-form-label-sm">课程-教师</label>
                         <div class="col-form-control">
-                           <input id="courseTeacher" type="text" class="form-control form-control-sm courseTeacher" formControlName="courseTeacher" [(ngModel)]="addOrModifyRowData.courseTeacher">
+                           <input id="courseTeacher" autocomplete="off" type="text" class="form-control form-control-sm courseTeacher" formControlName="courseTeacher">
                            <div *ngIf="formErrors.courseTeacher" class="showerr alert-danger" >{{ formErrors.courseTeacher }}</div>
                         </div>
                         </div>
@@ -39,7 +39,7 @@
                           <div class="row">
                               <label for="hours" class="col-form-label col-form-label-sm">学时</label>
                           <div class="col-form-control">
-                             <input id="hours" type="text" class="form-control form-control-sm hours" formControlName="hours" [(ngModel)]="addOrModifyRowData.hours">
+                             <input id="hours" autocomplete="off" type="text" class="form-control form-control-sm hours" formControlName="hours">
                              <div *ngIf="formErrors.hours" class="showerr alert-danger" >{{ formErrors.hours }}</div>
                           </div>
                           </div>
@@ -51,7 +51,7 @@
                         <div class="row">
                             <label for="cost" class="col-form-label col-form-label-sm">费用</label>
                         <div class="col-form-control">
-                           <input id="cost" type="text" class="form-control form-control-sm cost" formControlName="cost" [(ngModel)]="addOrModifyRowData.cost">
+                           <input id="cost" autocomplete="off" type="text" class="form-control form-control-sm cost" formControlName="cost">
                            <div *ngIf="formErrors.cost" class="showerr alert-danger" >{{ formErrors.cost }}</div>
                         </div>
                         </div>
@@ -60,7 +60,7 @@
                           <div class="row">
                               <label for="rate" class="col-form-label col-form-label-sm">评论</label>
                           <div class="col-form-control">
-                             <input id="rate" type="text" class="form-control form-control-sm rate" formControlName="rate" [(ngModel)]="addOrModifyRowData.rate">
+                             <input id="rate" autocomplete="off" type="text" class="form-control form-control-sm rate" formControlName="rate">
                              <div *ngIf="formErrors.rate" class="showerr alert-danger" >{{ formErrors.rate }}</div>
                           </div>
                           </div>
@@ -77,4 +77,24 @@
     </div>
   </div>
 
+   <!-- 删除前的警告框 -->
+<div class="modal fade" id="confirmDeleteDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog confirm-delete-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">提示</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          确认删除吗？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-sm" (click)="removeItems()">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>

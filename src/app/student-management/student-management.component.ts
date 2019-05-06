@@ -44,15 +44,16 @@ export class StudentManagementComponent implements OnInit {
   },
   'age': {
     'required': '请填写年龄',
-    'pattern': '请输入数字'
+    'pattern': '请输入有效年龄',
+    'min': '请输入有效年龄'
   },
   'phone': {
     'required': '请填写手机',
-    'pattern': '请填写正确的手机号'
+    'pattern': '请填写合法的手机号'
   },
   'parentPhone': {
     'required': '请填写父母手机',
-    'pattern': '请填写正确的手机号'
+    'pattern': '请填写合法的手机号'
   },
   'address': {
     'required': '请填写地址'
@@ -60,17 +61,6 @@ export class StudentManagementComponent implements OnInit {
   'course': {
     'required': '请填写课程'
   }
-};
-private addOrModifyRowData: Student = {
-  id: null,
- studentNum: '',
- name: '',
- sex: '',
- age: null,
- phone: '',
- parentPhone: '',
- address: '',
- course: ''
 };
 
   constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder) { }
@@ -107,7 +97,8 @@ private addOrModifyRowData: Student = {
       ]],
       'age': ['', [
         Validators.required,
-        Validators.pattern(/^\d+$/)
+        Validators.pattern(/^\d+$/),
+        Validators.min(1)
       ]],
       'phone': ['', [
         Validators.required,
@@ -156,7 +147,7 @@ private addOrModifyRowData: Student = {
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
           // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] += messages[key] + '\n';
+          this.formErrors[field] = messages[key];
         }
       }
     }

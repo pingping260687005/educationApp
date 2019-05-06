@@ -27,7 +27,7 @@
                         <div class="row">
                             <label for="studentNum" class="col-form-label col-form-label-sm">学号</label>
                         <div class="col-form-control">
-                           <input id="studentNum" type="text" class="form-control form-control-sm studentNum" formControlName="studentNum">
+                           <input id="studentNum" autocomplete="off" type="text" class="form-control form-control-sm studentNum" formControlName="studentNum">
                            <div *ngIf="formErrors.studentNum" class="showerr alert-danger" >{{ formErrors.studentNum }}</div>
                         </div>
                         </div>
@@ -36,7 +36,7 @@
                           <div class="row">
                               <label for="phone" class="col-form-label col-form-label-sm">手机</label>
                               <div class="col-form-control">
-                                <input id="phone" type="text" class="form-control form-control-sm form-control form-control-sm-right phone" formControlName="phone">
+                                <input id="phone" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right phone" formControlName="phone">
                                 <div *ngIf="formErrors.phone" class="showerr alert-danger" >{{ formErrors.phone }}</div>
                               </div>
                           </div>
@@ -47,7 +47,7 @@
                         <div class="row">
                             <label for="name" class="col-form-label col-form-label-sm">姓名</label>
                             <div class="col-form-control">
-                            <input id="name" type="text" class="form-control form-control-sm name" formControlName="name">
+                            <input id="name" autocomplete="off" type="text" class="form-control form-control-sm name" formControlName="name">
                             <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                         <div class="row">
                       <label for="parentPhone" class="col-form-label col-form-label-sm">父母手机</label>
                       <div class="col-form-control">
-                      <input id="parentPhone" type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone" formControlName="parentPhone">
+                      <input id="parentPhone" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone" formControlName="parentPhone">
                       <div *ngIf="formErrors.parentPhone" class="showerr alert-danger" >{{ formErrors.parentPhone }}</div>
                     </div>
                     </div>
@@ -80,7 +80,7 @@
                         <div class="row">
                             <label for="address" class="col-form-label col-form-label-sm">地址</label>
                             <div class="col-form-control">
-                        <input id="address" type="text" class="form-control form-control-sm form-control form-control-sm-right address" formControlName="address">
+                        <input id="address" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right address" formControlName="address">
                         <div *ngIf="formErrors.address" class="showerr alert-danger" >{{ formErrors.address }}</div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                           <div class="row">
                               <label for="age" class="col-form-label col-form-label-sm">年龄</label>
                               <div class="col-form-control">
-                              <input id="age" type="text" class="form-control form-control-sm age" formControlName="age">
+                              <input id="age" type="text" autocomplete="off" class="form-control form-control-sm age" formControlName="age">
                               <div *ngIf="formErrors.age" class="showerr alert-danger" >{{ formErrors.age }}</div>
                               </div>
                           </div>
@@ -103,7 +103,7 @@
                           <div class="row">
                               <label for="course" class="col-form-label col-form-label-sm">课程</label>
                               <div class="col-form-control">
-                              <input id="course" type="text" class="form-control form-control-sm form-control form-control-sm-right" formControlName="course">
+                              <input id="course" type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm-right" formControlName="course">
                               <div *ngIf="formErrors.course" class="showerr alert-danger" >{{ formErrors.course }}</div>
                             </div>
                           </div>
