@@ -12,6 +12,8 @@ private appName = '乐尔夫培训系统后台';
 private username = '';
 private psd = '';
 private form;
+private loginFormErrMsg = '用户名或密码不正确';
+private canLogin = false;
 
   constructor(private route: Router, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -39,6 +41,9 @@ private form;
     if(this.username === 'admin' && this.psd === 'admin'){
       this.route.navigate(['/home']);
       sessionStorage.setItem('token', "test")
+    }else{
+      this.canLogin = true;
+      $('#loginErrMsg').addClass('login-error-msg-show');
     }
   }
 

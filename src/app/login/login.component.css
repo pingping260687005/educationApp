@@ -85,9 +85,32 @@
 
 .login-form .form-group {
     padding: 10px 0;
+    position: relative;
 }
 
 .login-form .btn {
     width: 100%;
     margin-top: 15px;
+}
+
+@-webkit-keyframes showErrAnimation
+    {
+        from {opacity: 0;}
+        to { opacity: 1;}
+    }
+
+.login-form .login-error-msg{
+    display: inline-block;
+    height: 0;
+    transition: all 0.3s;
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    top: 46px;
+    animation: showErrAnimation 0.3s;
+}
+
+.login-form .login-error-msg-show{
+    height: 12px;
 }
