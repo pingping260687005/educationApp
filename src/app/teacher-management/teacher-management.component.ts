@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-teacher-management',
   templateUrl: './teacher-management.component.html',
-  styleUrls: ['./teacher-management.component.css']
+  styleUrls: ['./teacher-management.component.scss']
 })
 export class TeacherManagementComponentComponent implements OnInit {
   dataSource: Observable<any>;

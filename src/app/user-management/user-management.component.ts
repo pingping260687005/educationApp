@@ -5,7 +5,7 @@ import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css']
+  styleUrls: ['./user-management.component.scss']
 })
 export class UserManagementComponent implements OnInit {
   private modal: JQuery<HTMLElement> = null;

@@ -10,7 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Component({
   selector: 'app-student-management',
   templateUrl: './student-management.component.html',
-  styleUrls: ['./student-management.component.css']
+  styleUrls: ['./student-management.component.scss']
 })
 export class StudentManagementComponent implements OnInit {
   private addModifyDialogTitle = '';

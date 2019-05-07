@@ -4,7 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 @Component({
   selector: 'app-teacher-finance-management',
   templateUrl: './teacher-finance-management.component.html',
-  styleUrls: ['./teacher-finance-management.component.css']
+  styleUrls: ['./teacher-finance-management.component.scss']
 })
 export class TeacherFinanceManagementComponent implements OnInit {
     private addModifyDialogTitle = '';

@@ -1,0 +1,18 @@
+
+.student-add-modify-dialog-content{
+    width: 700px;
+    .row{
+        display: flex;
+        margin-right: 0;
+    }
+    .col-form-label{
+        margin-right: 20px;
+        text-align: right;
+        display: inline-block;
+        width: 70px;
+    }
+    .col-form-control{
+        display: inline-block;
+        flex: 1;
+    }
+}

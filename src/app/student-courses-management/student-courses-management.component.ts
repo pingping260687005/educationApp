@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 @Component({
   selector: 'app-student-courses-management',
   templateUrl: './student-courses-management.component.html',
-  styleUrls: ['./student-courses-management.component.css']
+  styleUrls: ['./student-courses-management.component.scss']
 })
 export class StudentCoursesManagementComponentComponent implements OnInit {
   dataSource: Observable<any>;
