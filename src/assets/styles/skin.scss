@@ -1,0 +1,80 @@
+.skin-black{
+    background-color: #262533;
+    .navbar.navbar-expand-lg.navbar-light.bg-light{
+        background-color: #2c2e42 !important;
+        height: 70px;
+    }
+    .navbar-nav .nav-link {
+        color: rgba($color: #ffffff, $alpha: 0.7);
+        font-size: 14px;
+        line-height: 70px;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: white;
+        font-size: 14px;
+    }
+
+    .navbar-brand:hover {
+        color: white;
+    }
+
+    .navbar-brand {
+        color: white;
+        float: left;
+    }
+
+    #sidebar{
+        background: #2c2e42;
+        color: #5a647f;
+        .active-link{
+            color: #409EFF;
+
+        }
+        .sidebar-header{
+            background: #262D35;
+
+        }
+        .toggleSidebarIcon{
+            background-color: #2c2e42;
+
+        }
+    }
+    main{
+        background-color: #2c2e42;
+        .bootstrap-table{
+            color: rgba($color: #ffffff, $alpha: 0.7);
+            .table{
+                color: rgba($color: #ffffff, $alpha: 0.7);
+                    tr:hover{
+                        color: inherit;
+                        background-color: inherit;
+                    }
+            }
+        }
+    }
+
+    .btn{
+        color: #409EFF;
+        border-color: #409EFF; 
+        &:hover{
+            background-color: rgba($color: #409EFF, $alpha: 0.3) !important;
+        }
+    }
+    .table-bordered{
+        border: 1px solid #676a78 !important;
+        th{
+            border-bottom: 2px solid #676a78 !important;
+        }
+        td{
+            border-bottom: 1px solid #676a78;
+        }
+    }
+
+}
+
+.skin-white{}
+
+.skin-red{
+
+}

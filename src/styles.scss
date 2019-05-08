@@ -1,8 +1,13 @@
+@import "./assets/styles/skin.scss";
+
 html,body{
     height:100%;
     width:100%;
     margin:0;
-    padding: 0;
+}
+
+body{
+    padding: 8px;
 }
 
 .container-fluid{
@@ -133,4 +138,10 @@ html,body{
             
             .modal-body{
                 padding: 22px;
+            }
+
+            .table-bordered{
+                th,td{
+                    border: none;
+                }
             }
