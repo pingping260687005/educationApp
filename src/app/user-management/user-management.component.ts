@@ -134,7 +134,7 @@ export class UserManagementComponent implements OnInit {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改用户';
-      let {id,userName,userPsd,authority} = $('#userMngTable').bootstrapTable('getSelections', null)[0];
+      const {id, userName, userPsd, authority} = $('#userMngTable').bootstrapTable('getSelections', null)[0];
       this.userForm.setValue({
         id: id,
         userName: userName,
@@ -142,27 +142,27 @@ export class UserManagementComponent implements OnInit {
         userPsd2: userPsd,
         authority: authority
       }); // 修改只能是一条数据，所以直接用第一个
-      
+
     }
     this.modal.modal('show');
   }
 
   private buildForm() {
-    const psdValidate = (control:AbstractControl) => {
-      if(this.userForm && control.value && this.userForm.value.userPsd2 && control.value !== this.userForm.value.userPsd2){
-        return {'psdConfirm': {value:control.value}}
-      }else{
+    const psdValidate = (control: AbstractControl) => {
+      if (this.userForm && control.value && this.userForm.value.userPsd2 && control.value !== this.userForm.value.userPsd2) {
+        return {'psdConfirm': {value: control.value}};
+      } else {
         return null;
       }
-    }
+    };
 
-    const psd2Validate = (control:AbstractControl) => {
-      if(this.userForm && this.userForm.value.userPsd && control.value && this.userForm.value.userPsd !== control.value){
-        return {'psdConfirm': {value:control.value}}
-      }else{
+    const psd2Validate = (control: AbstractControl) => {
+      if (this.userForm && this.userForm.value.userPsd && control.value && this.userForm.value.userPsd !== control.value) {
+        return {'psdConfirm': {value: control.value}};
+      } else {
         return null;
       }
-    }
+    };
 
     // 通过 formBuilder构建表单
     this.userForm = this.formBuilder.group({
@@ -171,7 +171,7 @@ export class UserManagementComponent implements OnInit {
       'userName': ['', [
         Validators.required
       ]],
-      'authority': ['',[
+      'authority': ['', [
         Validators.required
       ]],
       'userPsd': ['', [
@@ -219,17 +219,17 @@ export class UserManagementComponent implements OnInit {
         }
       }
     }
-    if(form.invalid){
+    if (form.invalid) {
       $('#submit-btn').addClass('disabled');
-    }else{
+    } else {
       $('#submit-btn').removeClass('disabled');
     }
-   
+
   }
   onSubmit() {
-    if(this.isAdd) {
+    if (this.isAdd) {
       this.userForm.value.id = Math.random() + ''; // TO be deleted
-      $('#userMngTable').bootstrapTable('insertRow',{index:0,row:this.userForm.value} );
+      $('#userMngTable').bootstrapTable('insertRow', {index: 0, row: this.userForm.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -260,11 +260,11 @@ export class UserManagementComponent implements OnInit {
         msg: '删除成功'
       }
     }));
-    $("#confirmDeleteDialog").modal("hide");
+    $('#confirmDeleteDialog').modal('hide');
   }
 
-  openConfirmDeleteDialog(){
-    $("#confirmDeleteDialog").modal("show");
+  openConfirmDeleteDialog() {
+    $('#confirmDeleteDialog').modal('show');
   }
 
   ngOnDestroy() {

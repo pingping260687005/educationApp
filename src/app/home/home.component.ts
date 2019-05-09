@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
       $('#sidebar').toggleClass('active');
     });
     document.addEventListener('show-toast-success', (e: any) => {
-      if(e.detail){
+      if (e.detail) {
         $('.toast-success').html(e.detail.msg);
       }
       $('.toast-success').addClass('toast-show');
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
       }, 3000);
     });
     document.addEventListener('show-toast-error', (e: any) => {
-      if(e.detail){
+      if (e.detail) {
         $('.toast-error').html(e.detail.msg);
       }
       $('.toast-error').addClass('toast-show');

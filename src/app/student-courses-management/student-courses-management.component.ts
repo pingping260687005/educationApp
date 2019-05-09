@@ -55,7 +55,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
   }
 };
 
-  constructor(private http: Http,private formBuilder: FormBuilder) {
+  constructor(private http: Http, private formBuilder: FormBuilder) {
       // 用http请求
       this.dataSource = this.http.get('/api/students');
       // .map(res=> res.json());
@@ -146,7 +146,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       'name': ['', [
         Validators.required
       ]],
-      'course': ['',[
+      'course': ['', [
         Validators.required
       ]],
       'teacherName': ['', [
@@ -203,20 +203,20 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
         }
       }
     }
-    if(form.invalid){
+    if (form.invalid) {
       $('#submit-btn').addClass('disabled');
-    }else{
+    } else {
       $('#submit-btn').removeClass('disabled');
     }
-   
+
   }
-  
+
   private getStudentList(): StudentCourse[] {
     //////// hard code////////////////
     const studentList: StudentCourse[] = [];
-    let StudentCourse: StudentCourse;
+    let studentCourse: StudentCourse;
     for (let i = 0; i < 100; i++) {
-      StudentCourse = {
+      studentCourse = {
         id: i.toString(),
         name: '随机 ' + i,
         course: '钢琴',
@@ -226,7 +226,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
         score: '100',
         feedback: '123'
       };
-      studentList.push(StudentCourse);
+      studentList.push(studentCourse);
     }
     return studentList;
   }
@@ -239,7 +239,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改学生课程';
-      let {id,name,course,teacherName,applyDate,availableTimes,score,feedback} = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0];
+      const {id, name, course, teacherName, applyDate, availableTimes, score, feedback} = $('#studentCourseMngTable').bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
         name: name,
@@ -252,7 +252,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
     }
-   
+
     modal.find('.address').attr('title', this.form.value ? this.form.value['address'] : '');
     modal.modal('show');
   }
@@ -285,7 +285,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
         msg: '删除成功'
       }
     }));
-    $("#confirmDeleteDialog").modal("hide");
+    $('#confirmDeleteDialog').modal('hide');
   }
   ngOnDestroy() {
     $('#studentCourseMngTable').bootstrapTable('destroy');
@@ -293,9 +293,9 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
 
   onSubmit () {
     const table = $('#studentCourseMngTable');
-  
+
     if (this.isAdd) {
-      $('#studentCourseMngTable').bootstrapTable('insertRow',{index:0,row:this.form.value} );
+      $('#studentCourseMngTable').bootstrapTable('insertRow', {index: 0, row: this.form.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -315,7 +315,7 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
       // });
     } else {
       // edit
-      $('#studentCourseMngTable').bootstrapTable('updateByUniqueId',{index:this.form.value.id,row:this.form.value} );
+      $('#studentCourseMngTable').bootstrapTable('updateByUniqueId', {index: this.form.value.id, row: this.form.value} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
@@ -336,8 +336,8 @@ export class StudentCoursesManagementComponentComponent implements OnInit {
     modal.modal('hide');
   }
 
-  openConfirmDeleteDialog(){
-    $("#confirmDeleteDialog").modal("show");
+  openConfirmDeleteDialog() {
+    $('#confirmDeleteDialog').modal('show');
   }
 
 }

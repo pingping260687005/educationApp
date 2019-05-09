@@ -162,13 +162,13 @@ private updateToolbarIconsStatus() {
   private showModal(isAdd: boolean) {
     this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
-    let selection = null;
+    const selection = null;
     if (isAdd) {
       this.addModifyDialogTitle = '添加教师财务';
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师财务';
-      let {id,name,paidTuition,shouldPaidTuition,arrearage,date,period} = $('#studentFinanceMngTable').bootstrapTable('getSelections', null)[0];
+      const {id, name, paidTuition, shouldPaidTuition, arrearage, date, period} = $('#studentFinanceMngTable').bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
         name: name,
@@ -249,17 +249,17 @@ onValueChanged(data?: any) {
      }
     }
     }
-    if(form.invalid){
+    if (form.invalid) {
       $('#submit-btn').addClass('disabled');
-    }else{
+    } else {
       $('#submit-btn').removeClass('disabled');
     }
-    
+
    }
    onSubmit () {
     const table = $('#studentMngTable');
     if (this.isAdd) {
-    
+
       // add
       // this.studentService.addStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
@@ -316,11 +316,11 @@ onValueChanged(data?: any) {
         msg: '删除成功'
       }
     }));
-    $("#confirmDeleteDialog").modal("hide");
+    $('#confirmDeleteDialog').modal('hide');
   }
 
-  openConfirmDeleteDialog(){
-    $("#confirmDeleteDialog").modal("show");
+  openConfirmDeleteDialog() {
+    $('#confirmDeleteDialog').modal('show');
   }
 
 }

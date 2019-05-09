@@ -82,14 +82,14 @@ export class StudentManagementComponent implements OnInit {
 
   private buildForm() {
     // 通过 formBuilder构建表单
-    this.form = this.formBuilder.group({ 
+    this.form = this.formBuilder.group({
       'id': ['', [
       ]],
       'studentNum': ['', [
         Validators.required,
         Validators.pattern(/^\d+$/)
       ]],
-      'name': ['',[
+      'name': ['', [
         Validators.required
       ]],
       'sex': ['', [
@@ -114,7 +114,7 @@ export class StudentManagementComponent implements OnInit {
       'course': ['', [
         Validators.required
       ]]
-    },{'updateOn':"blur"});
+    }, {'updateOn': 'blur'});
 
     // 每次表单数据发生变化的时候更新错误信息
     this.form.valueChanges
@@ -151,9 +151,9 @@ export class StudentManagementComponent implements OnInit {
         }
       }
     }
-    if(form.invalid){
+    if (form.invalid) {
       $('#submit-btn').addClass('disabled');
-    }else{
+    } else {
       $('#submit-btn').removeClass('disabled');
     }
   }
@@ -237,7 +237,7 @@ export class StudentManagementComponent implements OnInit {
         phone: '13992288771',
         parentPhone: '13992288771',
         address: '丹阳市黄金路25弄16号201室',
-        course: "xxx"
+        course: 'xxx'
       };
       studentList.push(student);
     }
@@ -263,7 +263,7 @@ export class StudentManagementComponent implements OnInit {
  address: '',
  course: ''
        */
-     let {id,studentNum,name,sex,age,phone,parentPhone,address,course} = $('#studentMngTable').bootstrapTable('getSelections', null)[0];
+     const {id, studentNum, name, sex, age, phone, parentPhone, address, course} = $('#studentMngTable').bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
         studentNum: studentNum,
@@ -313,15 +313,15 @@ export class StudentManagementComponent implements OnInit {
         msg: '删除成功'
       }
     }));
-    $("#confirmDeleteDialog").modal("hide");
+    $('#confirmDeleteDialog').modal('hide');
   }
 
   onSubmit () {
     const table = $('#studentMngTable');
-    let data = this.form.value;
+    const data = this.form.value;
     if (this.isAdd) {
       data.id = Math.random() + ''; // TO be deleted
-      $('#studentMngTable').bootstrapTable('insertRow',{index:0,row:data} );
+      $('#studentMngTable').bootstrapTable('insertRow', {index: 0, row: data} );
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '添加成功'
@@ -343,7 +343,7 @@ export class StudentManagementComponent implements OnInit {
       // edit
       const index = $('#studentMngTable .selected').attr('data-index');
            $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: data});
-      //$('#studentMngTable').bootstrapTable('updateByUniqueId', data.id, data);
+      // $('#studentMngTable').bootstrapTable('updateByUniqueId', data.id, data);
       // this.studentService.updateStudent(this.form.value).subscribe(res => {
       //   if ( res.message === 'succeed') {
       //     const index = $('#studentMngTable .selected').attr('data-index');
@@ -364,8 +364,8 @@ export class StudentManagementComponent implements OnInit {
     modal.modal('hide');
   }
 
-  openConfirmDeleteDialog(){
-    $("#confirmDeleteDialog").modal("show");
+  openConfirmDeleteDialog() {
+    $('#confirmDeleteDialog').modal('show');
   }
 
   ngOnDestroy() {

@@ -61,7 +61,7 @@ export class TeacherManagementComponentComponent implements OnInit {
     'required': '请填写课程'
   }
 };
-  constructor(private http: Http,private formBuilder: FormBuilder) {
+  constructor(private http: Http, private formBuilder: FormBuilder) {
     // 用http请求
     // this.dataSource = this.http.get('/api/teachers');
     // .map(res=> res.json());
@@ -85,13 +85,13 @@ export class TeacherManagementComponentComponent implements OnInit {
 
   private buildForm() {
     // 通过 formBuilder构建表单
-    this.form = this.formBuilder.group({ 
+    this.form = this.formBuilder.group({
       'id': ['', [
       ]],
       'name': ['', [
         Validators.required
       ]],
-      'teacherNum': ['',[
+      'teacherNum': ['', [
         Validators.required
       ]],
       'issueDate': ['', [
@@ -155,12 +155,12 @@ export class TeacherManagementComponentComponent implements OnInit {
         }
       }
     }
-    if(form.invalid){
+    if (form.invalid) {
       $('#submit-btn').addClass('disabled');
-    }else{
+    } else {
       $('#submit-btn').removeClass('disabled');
     }
-    
+
   }
 
   ngAfterViewInit() {
@@ -245,7 +245,7 @@ export class TeacherManagementComponentComponent implements OnInit {
         phone: '13992288771',
         address: '丹阳市黄金路25弄16号201室',
         issueDate: '2018-4-4',
-        fullTime: i%2===0?"全职":"兼职",
+        fullTime: i % 2 === 0 ? '全职' : '兼职',
         course: '钢琴'
       };
       list.push(teacher);
@@ -261,7 +261,7 @@ export class TeacherManagementComponentComponent implements OnInit {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师';
-      let {id,teacherNum,name,sex,age,phone,address,issueDate,fullTime,course} = $('#teacherMngTable').bootstrapTable('getSelections', null)[0];
+      const {id, teacherNum, name, sex, age, phone, address, issueDate, fullTime, course} = $('#teacherMngTable').bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
         teacherNum: teacherNum,
@@ -307,7 +307,7 @@ export class TeacherManagementComponentComponent implements OnInit {
         msg: '删除成功'
       }
     }));
-    $("#confirmDeleteDialog").modal("hide");
+    $('#confirmDeleteDialog').modal('hide');
   }
 
   ngOnDestroy() {
@@ -354,11 +354,11 @@ export class TeacherManagementComponentComponent implements OnInit {
     }
     const modal = $('#addOrModifyModal');
     modal.modal('hide');
-   
+
   }
 
-  openConfirmDeleteDialog(){
-    $("#confirmDeleteDialog").modal("show");
+  openConfirmDeleteDialog() {
+    $('#confirmDeleteDialog').modal('show');
   }
 
 }

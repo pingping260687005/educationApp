@@ -19,7 +19,7 @@ private canLogin = false;
     this.form = this.formBuilder.group({
       'username': ['', [
       ]],
-      'psd': ['',[
+      'psd': ['', [
       ]],
     });
     window.addEventListener('resize', (e) => {
@@ -37,11 +37,11 @@ private canLogin = false;
     (<any>targetDom).style.setProperty('--paddingVertical', (window.document.body.clientHeight - 400) / 2 + 'px');
   }
 
-  onSubmit(){
-    if(this.username === 'admin' && this.psd === 'admin'){
+  onSubmit() {
+    if (this.username === 'admin' && this.psd === 'admin') {
       this.route.navigate(['/home']);
-      sessionStorage.setItem('token', "test")
-    }else{
+      sessionStorage.setItem('token', 'test');
+    } else {
       this.canLogin = true;
       $('#loginErrMsg').addClass('login-error-msg-show');
     }

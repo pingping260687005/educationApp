@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import * as $ from 'jquery'; // import Jquery here
 import * as bootstrap from 'bootstrap';
-require("bootstrap-table");
+import 'bootstrap-table';
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
