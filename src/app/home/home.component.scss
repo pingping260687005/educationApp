@@ -5,11 +5,9 @@
 .wrapper {
     display: flex;
     align-items: stretch;
-    height:calc(100% - 78px);
+    height:calc(100% - 70px);
     position: relative;
     overflow: hidden;
-    margin-top: 8px;
-    border-radius: 5px;
 }
 
 
@@ -21,7 +19,6 @@ main {
     width: calc(100% - 88px);
     padding: 20px;
     transition: all 0.3s;
-    margin-left: 8px;
 }
 
 .toast-info{

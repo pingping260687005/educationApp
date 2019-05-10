@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <table id="userMngTable" data-toggle="table">
+    <table id="table" data-toggle="table">
     </table>
     <div id="toolbar">
         <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
@@ -16,7 +16,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form [formGroup]="userForm" >
+            <form [formGroup]="form">
               <div class="modal-body user-form">
                 <div class="container-fluid">
                   <div class="form-group row">
