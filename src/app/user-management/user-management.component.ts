@@ -2,6 +2,7 @@ import { from } from 'rxjs/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { BaseView } from '../baseView';
+import { async } from 'q';
 
 @Component({
   selector: 'app-user-management',
@@ -52,6 +53,32 @@ export class UserManagementComponent extends BaseView implements OnInit {
       'psdConfirm': '两次密码输入不一致'
     }
   };
+
+  listCb = () => {
+        //////// hard code////////////////
+     const list: User[] = [];
+     const user1: User = {
+       id: Math.random() + '',
+       userName: 'admin',
+       userPsd: '123',
+       authority: '可读/可写'
+     };
+     const user2: User = {
+       id: Math.random() + '',
+       userName: 'root',
+       userPsd: '123',
+       authority: '只读'
+     };
+     list.push(user1);
+     list.push(user2);
+     return list;
+  };
+
+  addCb = (data) => {};
+
+  modifyCb = (data) => {};
+
+  deleteCb = (data) => {};
   constructor(private formBuilder: FormBuilder) {
     super(formBuilder);
   }
@@ -62,26 +89,6 @@ export class UserManagementComponent extends BaseView implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
     this.initTable();
-  }
-  refreshTableData() {
-    //////// hard code////////////////
-    const list: User[] = [];
-    const user1: User = {
-      id: Math.random() + '',
-      userName: 'admin',
-      userPsd: '123',
-      authority: '可读/可写'
-    };
-    const user2: User = {
-      id: Math.random() + '',
-      userName: 'root',
-      userPsd: '123',
-      authority: '只读'
-    };
-    list.push(user1);
-    list.push(user2);
-    this.tableData = list;
-    this.$table.bootstrapTable('load', list);
   }
 
    buildForm() {

@@ -1,5 +1,3 @@
-import { from } from 'rxjs/index';
-import { Component, OnInit, Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 export class BaseView {
@@ -10,11 +8,12 @@ export class BaseView {
    isAdd = true;
    columns = [];
    $table = null;
-   tableData: any[] = [];
+   tableData = null;
   // 定义表单
    form: FormGroup;
 
    formErrors = {};
+   listCb: Function;
    addCb: Function;
    modifyCb: Function;
    deleteCb: Function;
@@ -35,16 +34,17 @@ export class BaseView {
   }
 
   initTable() {
+
     this.$table = $('#table');
     this.$table.bootstrapTable({
       columns: this.columns,
-      data: this.tableData,
+      data: this.tableData || [],
       search: true,
       pagination: true,
       pageSize: 10,
       idField: 'id',
       uniqueId: 'id',
-      locale: 'zh-CN',
+      data_locale: 'zh-CN',
       smartDisplay: true,
       checkboxHeader: true,
       clickToSelect: true,
@@ -61,7 +61,17 @@ export class BaseView {
   }
 
   refreshTableData() {
-    this.tableData = [];
+   const p = new Promise((resolve,reject) => {
+     try {
+       resolve(this.listCb());
+     } catch (error) {
+       reject(error);
+     }
+    });
+    p.then((res)=>{
+      this.tableData = res;
+      this.$table.bootstrapTable('load', res);
+    });
   }
 
    updateToolbarIconsStatus() {
@@ -83,10 +93,10 @@ export class BaseView {
    showModal(isAdd: boolean) {
     this.isAdd = isAdd;
     if (isAdd) {
-      this.addModifyDialogTitle = '新增用户';
+      this.addModifyDialogTitle = this.addModifyDialogTitle || '新增';
       $('#submit-btn').addClass('disabled');
     } else {
-      this.addModifyDialogTitle = '修改用户';
+      this.addModifyDialogTitle = this.addModifyDialogTitle || '修改';
       this.form.setValue(this.$table.bootstrapTable('getSelections', null)[0]); // 修改只能是一条数据，所以直接用第一个
     }
     this.modal.modal('show');
@@ -141,38 +151,45 @@ export class BaseView {
   onSubmit() {
     if (this.isAdd) {
       this.form.value.id = Math.random() + ''; // TO be deleted
-      this.$table.bootstrapTable('insertRow', {index: 0, row: this.form.value} );
-      document.dispatchEvent(new CustomEvent('show-toast-success', {
-        detail: {
-          msg: '添加成功'
-        }
-      }));
+      Promise.resolve(this.addCb(this.form.value)).then(()=>{
+        this.$table.bootstrapTable('insertRow', {index: 0, row: this.form.value} );
+        document.dispatchEvent(new CustomEvent('show-toast-success', {
+          detail: {
+            msg: '添加成功'
+          }
+        }));
+          this.modal.modal('hide');
+      }); 
     } else {
       const index = $('#table .selected').attr('data-index');
-      this.$table.bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
+      Promise.resolve(this.modifyCb(this.form.value)).then(()=>{
+        this.$table.bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
           msg: '修改成功'
         }
       }));
+      this.modal.modal('hide');
+      });
     }
-    this.modal.modal('hide');
   }
 
   removeItems() {
-    const selections = this.$table.bootstrapTable('getSelections', null).map((x) => {
+    const ids = this.$table.bootstrapTable('getSelections', null).map((x) => {
       return x.id;
     });
-    selections.forEach(x => {
-      this.$table.bootstrapTable('removeByUniqueId', x);
+    Promise.resolve(this.deleteCb(ids)).then(()=>{
+      ids.forEach(x => {
+        this.$table.bootstrapTable('removeByUniqueId', x);
+      });
+      this.updateToolbarIconsStatus();
+      document.dispatchEvent(new CustomEvent('show-toast-success', {
+        detail: {
+          msg: '删除成功'
+        }
+      }));
+      $('#confirmDeleteDialog').modal('hide');
     });
-    this.updateToolbarIconsStatus();
-    document.dispatchEvent(new CustomEvent('show-toast-success', {
-      detail: {
-        msg: '删除成功'
-      }
-    }));
-    $('#confirmDeleteDialog').modal('hide');
   }
 
   openConfirmDeleteDialog() {

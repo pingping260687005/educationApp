@@ -85,6 +85,15 @@
 
 .skin-white{
     background-color: #ffffff;
+    .login-view{
+        .login-form{
+            .btn{
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+        }
+    }
     .navbar.navbar-expand-lg.navbar-light.bg-light{
         background-color: #262d35 !important;
         height: 70px;

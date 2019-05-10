@@ -1,3 +1,4 @@
+import { BaseView } from './../baseView';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
@@ -6,17 +7,42 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
   templateUrl: './student-finance-management.component.html',
   styleUrls: ['./student-finance-management.component.scss']
 })
-export class StudentFinanceManagementComponent implements OnInit {
-    private addModifyDialogTitle = '';
-    private isModifyBtnDisabled = true;
-    private isDeleteBtnDisabled = true;
-
-    // 定义表单
-
-    private isAdd = true;
-    private modal;
-  private form;
-  private formErrors = {
+export class StudentFinanceManagementComponent extends BaseView implements OnInit {
+  columns = [
+    {
+        checkbox: true,
+        visiable: true
+      },
+      {
+    // unshown
+    field: 'id',
+    title: 'Item ID',
+    visible: false
+}, {
+    field: 'name',
+    title: '姓名'
+}, {
+    // unshown
+    field: 'paidTuition',
+    title: '已付学费',
+}, {
+    field: 'shouldPaidTuition',
+    title: '应付学费'
+},
+{
+  field: 'arrearage',
+  title: '欠款'
+},
+{
+field: 'date',
+title: '发放日期'
+},
+{
+field: 'period',
+title: '间隔(月/年)'
+}
+];
+ formErrors = {
     name: '',
     paidTuition: '',
     shouldPaidTuition: '',
@@ -53,98 +79,40 @@ export class StudentFinanceManagementComponent implements OnInit {
   }
 };
 
-/**
- *   studentId: string;
-    paidSalary: number;
-    shouldPaidSalary: number;
-    arrearage: number;
-    date: string;
-    period: string;
- */
+listCb = () => {
+   //////// hard code////////////////
+   const list: IStudentFinance[] = [];
+   const tf: IStudentFinance = {
+       id: '1',
+       name: 'XXX',
+       paidTuition: 1000,
+       shouldPaidTuition: 2000,
+       arrearage: 1000,
+       date: new Date().getTime().toString(),
+       period: '111'
+   };
+   list.push(tf);
+   return list;
+};
 
-  constructor(private formBuilder: FormBuilder) { }
+addCb = (data) => {};
+modifyCb = (data) => {};
+deleteCb = (data) => {};
+
+  constructor(private formBuilder: FormBuilder) { 
+    super(formBuilder);
+  }
 
   ngOnInit() {
-    this.buildForm();
-    this.modal = $('#addOrModifyModal');
-    this.modal.on('hide.bs.modal', () => {
-      this.form.reset();
-    });
+    this.initView();
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    $('#studentFinanceMngTable').bootstrapTable({
-        columns: [
-            {
-                checkbox: true,
-                visiable: true
-              },
-              {
-            // unshown
-            field: 'id',
-            title: 'Item ID',
-            visible: false
-        }, {
-            field: 'name',
-            title: '姓名'
-        }, {
-            // unshown
-            field: 'paidTuition',
-            title: '已付学费',
-        }, {
-            field: 'shouldPaidTuition',
-            title: '应付学费'
-        },
-        {
-          field: 'arrearage',
-          title: '欠款'
-      },
-      {
-        field: 'date',
-        title: '发放日期'
-    },
-    {
-      field: 'period',
-      title: '间隔(月/年)'
-  }
-      ],
-        data: this.getData(),
-        search: true,
-        pagination: true,
-        pageSize: 10,
-        idField: 'id',
-        uniqueId: 'id',
-        smartDisplay: true,
-        checkboxHeader: true,
-        clickToSelect: true,
-        toolbar: '#toolbar',
-        onCheck: () => {
-            this.updateToolbarIconsStatus();
-          },
-          onUncheck: () => {
-            this.updateToolbarIconsStatus();
-          }
-    });
-this.updateToolbarIconsStatus();
-}
-  private getData(): IStudentFinance[] {
-    //////// hard code////////////////
-    const dataList: IStudentFinance[] = [];
-    const tf: IStudentFinance = {
-        id: '1',
-        name: 'XXX',
-        paidTuition: 1000,
-        shouldPaidTuition: 2000,
-        arrearage: 1000,
-        date: new Date().getTime().toString(),
-        period: '111'
-    };
-   dataList.push(tf);
-    return dataList;
+    this.initTable();
 }
 
 private updateToolbarIconsStatus() {
-    const selectionsLength = $('#studentFinanceMngTable').bootstrapTable('getSelections', null).length;
+    const selectionsLength = this.$table.bootstrapTable('getSelections', null).length;
     this.isModifyBtnDisabled = selectionsLength !== 1;
     this.isDeleteBtnDisabled = selectionsLength === 0;
     if (this.isModifyBtnDisabled) {
@@ -159,7 +127,7 @@ private updateToolbarIconsStatus() {
     }
   }
 
-  private showModal(isAdd: boolean) {
+ showModal(isAdd: boolean) {
     this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
     const selection = null;
@@ -168,7 +136,7 @@ private updateToolbarIconsStatus() {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改教师财务';
-      const {id, name, paidTuition, shouldPaidTuition, arrearage, date, period} = $('#studentFinanceMngTable').bootstrapTable('getSelections', null)[0];
+      const {id, name, paidTuition, shouldPaidTuition, arrearage, date, period} = this.$table.bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
         name: name,
@@ -183,7 +151,7 @@ private updateToolbarIconsStatus() {
     modal.modal('show');
   }
 
-  private buildForm() {
+ buildForm() {
        // 通过 formBuilder构建表单
  this.form = this.formBuilder.group({
   'id': [ '', [
@@ -221,108 +189,6 @@ private updateToolbarIconsStatus() {
     // 初始化错误信息
     this.onValueChanged();
   }
-
-  // 每次数据发生改变时触发此方法
-onValueChanged(data?: any) {
-    // 如果表单不存在则返回
-    if (!this.form) { return; }
-    // 获取当前的表单
-    const form = this.form;
-
-    // 遍历错误消息对象
-    // tslint:disable-next-line:forin
-    for (const field in this.formErrors) {
-    // 清空当前的错误消息
-    this.formErrors[field] = '';
-    // 获取当前表单的控件
-    const control = form.get(field);
-
-    // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
-    if (control && control.dirty && !control.valid) {
-     // 获取验证不通过的控件名，为了获取更详细的不通过信息
-     const messages = this.validationMessage[field];
-     // 遍历当前控件的错误对象，获取到验证不通过的属性
-     // tslint:disable-next-line:forin
-     for (const key in control.errors) {
-     // 把所有验证不通过项的说明文字拼接成错误消息
-     this.formErrors[field] = messages[key];
-     }
-    }
-    }
-    if (form.invalid) {
-      $('#submit-btn').addClass('disabled');
-    } else {
-      $('#submit-btn').removeClass('disabled');
-    }
-
-   }
-   onSubmit () {
-    const table = $('#studentMngTable');
-    if (this.isAdd) {
-
-      // add
-      // this.studentService.addStudent(this.form.value).subscribe(res => {
-      //   if ( res.message === 'succeed') {
-
-          // append is append to the bottom, prepend is appending to the top.
-          table.bootstrapTable('append', {index: 1, row: this.form.value});
-      //   } else {
-      //     // res.message === 'failed'
-      //     // TODO:  error
-      //     window.alert('add student failed');
-      //   }
-      // });
-      document.dispatchEvent(new CustomEvent('show-toast-success', {
-        detail: {
-          msg: '添加成功'
-        }
-      }));
-    } else {
-      // edit
-      // this.studentService.updateStudent(this.form.value).subscribe(res => {
-      //   if ( res.message === 'succeed') {
-          const index = $('#studentMngTable .selected').attr('data-index');
-          $('#studentMngTable').bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
-      //   } else {
-      //     // res.message === 'failed'
-      //     // TODO:  error
-      //     window.alert('add student failed');
-      //   }
-      // });
-      document.dispatchEvent(new CustomEvent('show-toast-success', {
-        detail: {
-          msg: '修改成功'
-        }
-      }));
-    }
-    const modal = $('#addOrModifyModal');
-    modal.modal('hide');
-  }
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy () {
-    $('#studentFinanceMngTable').bootstrapTable('destroy');
-  }
-
-  removeItems() {
-    const selections = $('#studentFinanceMngTable').bootstrapTable('getSelections', null).map((x) => {
-      return x.id;
-    });
-    selections.forEach(x => {
-      $('#studentFinanceMngTable').bootstrapTable('removeByUniqueId', x);
-    });
-    this.updateToolbarIconsStatus();
-    document.dispatchEvent(new CustomEvent('show-toast-success', {
-      detail: {
-        msg: '删除成功'
-      }
-    }));
-    $('#confirmDeleteDialog').modal('hide');
-  }
-
-  openConfirmDeleteDialog() {
-    $('#confirmDeleteDialog').modal('show');
-  }
-
 }
 
 interface IStudentFinance {
