@@ -21,7 +21,7 @@
         }
     }
     .page-item.active{
-        background-color: #007bff;
+        background-color: #007bff47;
     }
 }
 
@@ -269,6 +269,19 @@
         }
     }
 }
+.notificationServiceToast{
+    .alart-msg{
+        vertical-align: middle;
+    }
+    .text-btn{
+        color: #409EFF;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.65;
+        }
+    }
+}
+
 }
 
 .skin-red{
