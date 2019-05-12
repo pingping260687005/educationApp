@@ -121,7 +121,7 @@ addCb = (data) => {};
 
   deleteCb = (data) => {};
 
-  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder) { 
+  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder) {
     super(formBuilder);
   }
   ngOnInit() {

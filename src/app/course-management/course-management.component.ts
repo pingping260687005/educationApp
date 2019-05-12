@@ -78,7 +78,7 @@ listCb = () => {
      list.push(course);
    }
    return list;
-};
+}
 
 addCb = (data) => {};
 modifyCb = (data) => {};

@@ -42,7 +42,7 @@ export class BaseView {
       search: true,
       pagination: true,
       pageSize: 10,
-      pageList: ['10',"20",'50','100'],
+      pageList: ['10', '20', '50', '100'],
       classes: 'table table-hover',
       showColumns: true,
       uniqueId: 'id',
@@ -65,14 +65,14 @@ export class BaseView {
   }
 
   refreshTableData() {
-   const p = new Promise((resolve,reject) => {
+   const p = new Promise((resolve, reject) => {
      try {
        resolve(this.listCb());
      } catch (error) {
        reject(error);
      }
     });
-    p.then((res)=>{
+    p.then((res) => {
       this.tableData = res;
       this.$table.bootstrapTable('load', res);
     });
@@ -155,7 +155,7 @@ export class BaseView {
   onSubmit() {
     if (this.isAdd) {
       this.form.value.id = Math.random() + ''; // TO be deleted
-      Promise.resolve(this.addCb(this.form.value)).then(()=>{
+      Promise.resolve(this.addCb(this.form.value)).then(() => {
         this.$table.bootstrapTable('insertRow', {index: 0, row: this.form.value} );
         document.dispatchEvent(new CustomEvent('show-toast-success', {
           detail: {
@@ -163,10 +163,10 @@ export class BaseView {
           }
         }));
           this.modal.modal('hide');
-      }); 
+      });
     } else {
       const index = $('#table .selected').attr('data-index');
-      Promise.resolve(this.modifyCb(this.form.value)).then(()=>{
+      Promise.resolve(this.modifyCb(this.form.value)).then(() => {
         this.$table.bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
       document.dispatchEvent(new CustomEvent('show-toast-success', {
         detail: {
@@ -182,7 +182,7 @@ export class BaseView {
     const ids = this.$table.bootstrapTable('getSelections', null).map((x) => {
       return x.id;
     });
-    Promise.resolve(this.deleteCb(ids)).then(()=>{
+    Promise.resolve(this.deleteCb(ids)).then(() => {
       ids.forEach(x => {
         this.$table.bootstrapTable('removeByUniqueId', x);
       });

@@ -67,7 +67,7 @@ export class UserManagementComponent extends BaseView implements OnInit {
      list.push(user1);
      list.push(user2);
      return list;
-  };
+  }
 
   addCb = (data) => {};
 

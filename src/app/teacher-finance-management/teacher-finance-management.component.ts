@@ -12,7 +12,7 @@ export class TeacherFinanceManagementComponent extends BaseView implements OnIni
     {
         checkbox: true,
         visiable: true
-      }, 
+      },
       {
     field: 'name',
     title: '姓名'
@@ -88,7 +88,7 @@ title: '间隔(月/年)'
     };
     list.push(tf);
     return list;
-   };
+   }
    addCb = (data) => {};
    modifyCb = (data) => {};
    deleteCb = (data) => {};

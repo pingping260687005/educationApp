@@ -88,13 +88,13 @@ listCb = () => {
    };
    list.push(tf);
    return list;
-};
+}
 
 addCb = (data) => {};
 modifyCb = (data) => {};
 deleteCb = (data) => {};
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder) {
     super(formBuilder);
   }
 

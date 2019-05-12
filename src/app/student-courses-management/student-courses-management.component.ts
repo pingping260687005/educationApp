@@ -103,7 +103,7 @@ listCb = () => {
       list.push(studentCourse);
     }
     return list;
-};
+}
 
 modifyCb = (data) => {};
 addCb = (data) => {};

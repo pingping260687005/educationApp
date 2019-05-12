@@ -119,7 +119,7 @@ listCb = () => {
       list.push(teacher);
     }
     return list;
-};
+}
 
 addCb = (data) => {};
 modifyCb = (data) => {};

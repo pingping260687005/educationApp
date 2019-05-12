@@ -18,12 +18,19 @@ html,body{
     pointer-events: none;
 }
 
-.modal-dialog .modal-content{
-    top: 50%;
-    transform: translate(-50%,-50%);
-    left: 50%;
-    position: absolute;
-}
+.modal-dialog{   
+    .modal-content{
+        top: 50%;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        position: absolute;
+        .modal-footer{
+            .btn{
+                border: none;
+            }
+        }
+    }
+} 
 
 @media (min-width: 576px) {
     .modal-dialog {
@@ -70,18 +77,11 @@ html,body{
 }
 
 .fixed-table-container{
-    max-height: calc(100vh - 216px);
+    max-height: calc(100vh - 236px);
     overflow: auto;
     height: fit-content !important;
     padding-bottom: 0 !important;
     }
-
-    .fixed-table-container .selected td{
-        }
-
-        .modal{
-            color:black;
-        }
 
         .bootstrap-table{
             font-size: 0.875rem;
@@ -125,9 +125,7 @@ html,body{
             }
         .alert-danger{
             position: absolute;
-            background-color: #fff;
-            border-color: #fff;
-            color: #ff0000;
+           
             animation: showErrAnimation 0.5s;
         }
 
@@ -153,7 +151,7 @@ html,body{
                 }
                 .btn-secondary.dropdown-toggle{
                     color: #409EFF !important;
-                    border-color: #409EFF !important;
+                    border: none;
                     background-color: transparent !important;
                 }
                 .fixed-table-toolbar{
@@ -162,9 +160,19 @@ html,body{
                             height: calc(1.5em + 0.75rem - 1px);
                         }
                     }
+                    .dropdown-menu{
+                        font-size: 0.75rem;
+                        .dropdown-item{
+                            input{
+                                vertical-align: middle;
+                            }
+                            span{
+                                vertical-align: middle;
+                            }
+                        }
+                    }
                 }
                 .fixed-table-container{
-                    border-bottom: 2px solid #dee2e6;
                         tr{
                                 .bs-checkbox{
                                     label{
@@ -186,6 +194,10 @@ html,body{
             .btn-primary:not(:disabled):not(.disabled):active:focus{
                 box-shadow: none;
             }
+            .dropdown-menu{
+                font-size: 0.875rem;
+            }
+           
 
             
 
