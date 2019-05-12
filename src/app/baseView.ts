@@ -42,13 +42,17 @@ export class BaseView {
       search: true,
       pagination: true,
       pageSize: 10,
-      idField: 'id',
+      pageList: ['10',"20",'50','100'],
+      classes: 'table table-hover',
+      showColumns: true,
       uniqueId: 'id',
       data_locale: 'zh-CN',
+      locale: 'zh-CN',
       smartDisplay: true,
       checkboxHeader: true,
       clickToSelect: true,
       toolbar: '#toolbar',
+      iconSize: 'sm',
       onCheck: () => {
         this.updateToolbarIconsStatus();
       },

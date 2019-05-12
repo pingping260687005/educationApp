@@ -136,8 +136,61 @@ html,body{
                 padding: 22px;
             }
 
-            .table-bordered{
-                th,td{
-                    border: none;
+            .bootstrap-table{
+                .btn-secondary{
+                    background-color: transparent;
+                    &:active{
+                        color: #409EFF !important;
+                        border-color: #409EFF !important;
+                        background-color: transparent !important;
+                    }
+                    &:focus{
+                        color: #409EFF !important;
+                        border-color: #409EFF !important;
+                        background-color: transparent !important;
+                        box-shadow: none !important;
+                    }
                 }
+                .btn-secondary.dropdown-toggle{
+                    color: #409EFF !important;
+                    border-color: #409EFF !important;
+                    background-color: transparent !important;
+                }
+                .fixed-table-toolbar{
+                    .search{
+                        .form-control{
+                            height: calc(1.5em + 0.75rem - 1px);
+                        }
+                    }
+                }
+                .fixed-table-container{
+                    border-bottom: 2px solid #dee2e6;
+                        tr{
+                                .bs-checkbox{
+                                    label{
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            
+                        }
+                }
+
             }
+
+            .btn-primary:focus{
+                box-shadow: none;
+            }
+            .btn-primary:active{
+                box-shadow: none;
+            }
+            .btn-primary:not(:disabled):not(.disabled):active:focus{
+                box-shadow: none;
+            }
+
+            
+
+            // .table-bordered{
+            //     th,td{
+            //         border: none;
+            //     }
+            // }

@@ -1,3 +1,17 @@
+.login-view{
+    .login-form{
+        .btn{
+            border: none;
+            color: #fff;
+            background-color: rgba($color: #409EFF, $alpha: 0.3);
+            border-color: #007bff;
+            &:active{
+                background-color: rgba($color: #409EFF, $alpha: 0.3);
+            }
+        }
+    }
+}
+
 .skin-black{
     padding: 8px;
     background-color: #262533;
@@ -28,7 +42,7 @@
 
     #sidebar{
         border-radius: 5px;
-        background: #2c2e42;
+        background-color: #2c2e42;
         color: #5a647f;
         .active-link{
             color: #409EFF;
@@ -40,7 +54,6 @@
         }
         .toggleSidebarIcon{
             background-color: #2c2e42;
-
         }
     }
     .wrapper {
@@ -85,15 +98,6 @@
 
 .skin-white{
     background-color: #ffffff;
-    .login-view{
-        .login-form{
-            .btn{
-                color: #fff;
-                background-color: #007bff;
-                border-color: #007bff;
-            }
-        }
-    }
     .navbar.navbar-expand-lg.navbar-light.bg-light{
         background-color: #262d35 !important;
         height: 70px;
@@ -119,7 +123,7 @@
     }
 
     #sidebar{
-        background: #f8f8f8;
+        background-color: #f8f8f8;
         .active-link{
             color: #409EFF;
 
@@ -129,7 +133,7 @@
 
         }
         .toggleSidebarIcon{
-            background-color: #2c2e42;
+            background-color: #f8f8f8;
 
         }
     }

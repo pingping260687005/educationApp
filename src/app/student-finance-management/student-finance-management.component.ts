@@ -13,12 +13,7 @@ export class StudentFinanceManagementComponent extends BaseView implements OnIni
         checkbox: true,
         visiable: true
       },
-      {
-    // unshown
-    field: 'id',
-    title: 'Item ID',
-    visible: false
-}, {
+     {
     field: 'name',
     title: '姓名'
 }, {
@@ -110,22 +105,6 @@ deleteCb = (data) => {};
   ngAfterViewInit() {
     this.initTable();
 }
-
-private updateToolbarIconsStatus() {
-    const selectionsLength = this.$table.bootstrapTable('getSelections', null).length;
-    this.isModifyBtnDisabled = selectionsLength !== 1;
-    this.isDeleteBtnDisabled = selectionsLength === 0;
-    if (this.isModifyBtnDisabled) {
-      $('#modifyBtn').addClass('disabled');
-    } else {
-      $('#modifyBtn').removeClass('disabled');
-    }
-    if (this.isDeleteBtnDisabled) {
-      $('#deleteBtn').addClass('disabled');
-    } else {
-      $('#deleteBtn').removeClass('disabled');
-    }
-  }
 
  showModal(isAdd: boolean) {
     this.isAdd = isAdd;

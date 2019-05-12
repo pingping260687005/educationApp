@@ -29,12 +29,6 @@ export class StudentManagementComponent extends BaseView implements OnInit {
   columns = [{
     checkbox: true,
     visiable: true
-  },
-  {
-    field: 'id',
-    title: 'Item ID',
-    visible: false,
-    sortable: true
   }, {
     field: 'studentNum',
     title: '学号',

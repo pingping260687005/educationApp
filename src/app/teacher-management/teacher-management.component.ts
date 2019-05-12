@@ -15,12 +15,7 @@ export class TeacherManagementComponentComponent extends BaseView implements OnI
     checkbox: true,
     visiable: true
   },
-  {
-    field: 'id',
-    title: 'Item ID',
-    visible: false,
-    sortable: true
-  }, {
+   {
     field: 'teacherNum',
     title: '工号',
     sortable: true

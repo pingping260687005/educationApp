@@ -15,12 +15,6 @@ export class CourseManagementComponentComponent extends BaseView implements OnIn
     checkbox: true,
     visiable: true
   },
-  {
-    field: 'id',
-    title: 'Item ID',
-    visible: false,
-    sortable: true
-  },
    {
     field: 'courseTeacher',
     title: '课程-教师',

@@ -16,12 +16,6 @@ export class StudentCoursesManagementComponentComponent extends BaseView impleme
     checkbox: true,
     visiable: true
   },
-  {
-    field: 'id',
-    title: 'Item ID',
-    visible: false,
-    sortable: true
-  },
    {
     field: 'name',
     title: '姓名',

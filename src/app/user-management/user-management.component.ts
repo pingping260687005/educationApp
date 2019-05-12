@@ -21,12 +21,7 @@ export class UserManagementComponent extends BaseView implements OnInit {
       checkbox: true,
       visiable: true
     },
-    {
-      // unshown
-      field: 'id',
-      title: 'Item ID',
-      visible: false
-    }, {
+   {
       field: 'userName',
       title: '用户名'
     }, {
