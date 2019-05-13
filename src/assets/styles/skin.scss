@@ -322,35 +322,31 @@
 
 }
 
-.skin-red {}
-
-.skin-purple {
-  $scrollBarThumbColor: #9f9ead;
-  $scrollBarTrackColor: #f7f7f7; // purpleTransparent is also a good choice
-  $purple: #563d7c;
-  $purpleTransparent: #563d7c44;
+@mixin baseWhite($baseColor, $baseColorTransparent) {
+  $scrollBarThumbColor: #0e0957;
+  $scrollBarTrackColor: #f6f6f6; // purpleTransparent is also a good choice
   @extend .skin-white;
   // nav bar
   .navbar.navbar-expand-lg.navbar-light.bg-light {
-    background-color: $purple !important;
+    background-color: $baseColor !important;
   }
   // font and button
   .btn-outline-primary {
-    color: $purple !important;
-    border-color: $purple !important;
+    color: $baseColor !important;
+    border-color: $baseColor !important;
     &:hover {
-      background-color: $purpleTransparent  !important;
+      background-color: $baseColorTransparent  !important;
     }
   }
   .bootstrap-table .btn-secondary.dropdown-toggle{
-    color: $purple !important;
+    color: $baseColor !important;
   }
   // pagination
   .pagination .page-item.active {
-    background-color: $purpleTransparent;
+    background-color: $baseColorTransparent;
   }
   #sidebar .active-link {
-    color: $purple;
+    color: $baseColor;
   }
   // table
   #table {
@@ -374,7 +370,24 @@
 
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: $scrollBarThumbColor;
-
+    background-color: $baseColor;
   }
+}
+.skin-purple {
+  $purple: #563d7c;
+  $purpleTransparent: #563d7c44;
+  @include baseWhite($purple, $purpleTransparent);
+}
+
+.skin-blue {
+  $blue: #3498db;
+  $blueTransparent: #3498db15;
+  @include baseWhite($blue, $blueTransparent);
+}
+
+
+.skin-red {
+  $red:#800000;
+  $redransparent: #80000015;
+  @include baseWhite($red, $redransparent);
 }
