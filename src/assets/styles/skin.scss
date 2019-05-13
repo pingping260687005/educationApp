@@ -1,290 +1,380 @@
-.login-view{
-    .login-form{
-        .btn{
-            border: none;
-            color: #fff;
-            background-color: rgba($color: #409EFF, $alpha: 0.3);
-            border-color: #007bff;
-            &:active{
-                background-color: rgba($color: #409EFF, $alpha: 0.3);
-            }
-        }
+.login-view {
+  .login-form {
+    .btn {
+      border: none;
+      color: #fff;
+      background-color: rgba($color: #409EFF, $alpha: 0.3);
+      border-color: #007bff;
+
+      &:active {
+        background-color: rgba($color: #409EFF, $alpha: 0.3);
+      }
     }
+  }
 }
 
-.pagination{
-    .page-item,.page-item.disabled{
-        .page-link{
-            background-color: inherit;
-            border: none;
-            color: inherit;
-        }
+.pagination {
+
+  .page-item,
+  .page-item.disabled {
+    .page-link {
+      background-color: inherit;
+      border: none;
+      color: inherit;
     }
-    .page-item.active{
-        background-color: #007bff47;
-    }
+  }
+
+  .page-item.active {
+    background-color: #007bff47;
+  }
 }
 
-.alert-danger{
-    background-color: transparent;
+.alert-danger {
+  background-color: transparent;
+  border: none;
+  color: rgba($color: #ff0000, $alpha: 0.8);
+}
+
+.skin-black {
+  $scrollBarThumbColor: #555;
+  $scrollBarTrackColor: #5e7288;
+  padding: 8px;
+  background-color: #262533;
+  color: rgba($color: #ffffff, $alpha: 0.7);
+
+  .form-control {
+    background-color: #3C495F;
     border: none;
-    color: rgba($color: #ff0000, $alpha: 0.8);
-}
+    color: #ffffff;
+  }
 
-.skin-black{
-    $scrollBarThumbColor: #555;
-    $scrollBarTrackColor: #5e7288;
-    padding: 8px;
-    background-color: #262533;
+  .dropdown-menu {
+    background-color: #3C495F;
+
+    .dropdown-item {
+      background-color: #3C495F;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #345d88;
+      }
+    }
+  }
+
+  .navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: #2c2e42 !important;
+    height: 70px;
+    border-radius: 5px;
+  }
+
+  .navbar-nav .nav-link {
     color: rgba($color: #ffffff, $alpha: 0.7);
-    .form-control{
-        background-color: #3C495F;
-        border: none;
-        color: #ffffff;
+    font-size: 14px;
+    line-height: 70px;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: white;
+    font-size: 14px;
+  }
+
+  .navbar-brand:hover {
+    color: white;
+  }
+
+  .navbar-brand {
+    color: white;
+    float: left;
+  }
+
+  #sidebar {
+    border-radius: 5px;
+    background-color: #2c2e42;
+    color: rgba(255, 255, 255, 0.6);
+
+    .active-link {
+      color: #409EFF;
+
     }
-    .dropdown-menu{
-        background-color: #3C495F;
-        .dropdown-item{
-            background-color: #3C495F;
-            color: #ffffff;
-            &:hover{
-                background-color: #345d88;
-            }
-        }
+
+    .sidebar-header {
+      background: #262D35;
+
     }
-    .navbar.navbar-expand-lg.navbar-light.bg-light{
-        background-color: #2c2e42 !important;
-        height: 70px;
-        border-radius: 5px;
+
+    .toggleSidebarIcon {
+      background-color: #3C495F;
+      opacity: 0.7;
     }
-    .navbar-nav .nav-link {
+  }
+
+  .wrapper {
+    height: calc(100% - 78px) !important;
+    margin-top: 8px;
+    border-radius: 5px;
+
+    main {
+      margin-left: 8px;
+      background-color: #2c2e42;
+
+      .bootstrap-table {
         color: rgba($color: #ffffff, $alpha: 0.7);
-        font-size: 14px;
-        line-height: 70px;
-    }
 
-    .navbar-nav .nav-link:hover {
-        color: white;
-        font-size: 14px;
-    }
+        .table {
+          color: rgba($color: #ffffff, $alpha: 0.7);
 
-    .navbar-brand:hover {
-        color: white;
-    }
-
-    .navbar-brand {
-        color: white;
-        float: left;
-    }
-
-    #sidebar{
-        border-radius: 5px;
-        background-color: #2c2e42;
-        color: rgba(255, 255, 255, 0.6);
-        .active-link{
-            color: #409EFF;
-
+          tr:hover {
+            color: inherit;
+            background-color: inherit;
+          }
         }
-        .sidebar-header{
-            background: #262D35;
+      }
+    }
+  }
 
-        }
-        .toggleSidebarIcon{
-            background-color: #3C495F;
-            opacity: 0.7;
-        }
-    }
-    .wrapper {
-        height: calc(100% - 78px) !important;
-        margin-top: 8px;
-        border-radius: 5px;
-        main{
-            margin-left: 8px;
-            background-color: #2c2e42;
-            .bootstrap-table{
-                color: rgba($color: #ffffff, $alpha: 0.7);
-                .table{
-                    color: rgba($color: #ffffff, $alpha: 0.7);
-                        tr:hover{
-                            color: inherit;
-                            background-color: inherit;
-                        }
-                }
-            }
-        }
-    }
-    
 
-    .btn{
-        color: #409EFF;
-        border-color: #409EFF; 
-        &:hover{
-            background-color: rgba($color: #409EFF, $alpha: 0.3) !important;
-        }
-    }
-    .fixed-table-container{
-        border-bottom: 2px solid #ffffff2e;
-        .table{
-            thead{
-                tr{
-                    th{
-                        border-top: 1px solid #ffffff2e;
-                        border-bottom: 2px solid #ffffff2e;
-                    }
-                }
-            }
-            tbody{
-                tr{
-                    td{
-                        border:none;
-                    }
-                }
-            }
-        }
-    }
-  
+  .btn {
+    color: #409EFF;
+    border-color: #409EFF;
 
-    .pagination{
-        background-color: #3C495F;
+    &:hover {
+      background-color: rgba($color: #409EFF, $alpha: 0.3) !important;
     }
+  }
 
-    .modal-dialog{
-        .modal-content{
-            background-color: #2c2e42;
-            .modal-header{
-                .close{
-                    color: inherit;
-                }
-            }
-            .modal-footer{
-                .btn{
-                    background-color: rgba(64, 158, 255, 0.3);
-                    color: inherit;
-                }
-            }
+  .fixed-table-container {
+    border-bottom: 2px solid #ffffff2e;
+
+    .table {
+      thead {
+        tr {
+          th {
+            border-top: 1px solid #ffffff2e;
+            border-bottom: 2px solid #ffffff2e;
+          }
         }
+      }
+
+      tbody {
+        tr {
+          td {
+            border: none;
+          }
+        }
+      }
     }
+  }
+
+
+  .pagination {
+    background-color: #3C495F;
+  }
+
+  .modal-dialog {
+    .modal-content {
+      background-color: #2c2e42;
+
+      .modal-header {
+        .close {
+          color: inherit;
+        }
+      }
+
+      .modal-footer {
+        .btn {
+          background-color: rgba(64, 158, 255, 0.3);
+          color: inherit;
+        }
+      }
+    }
+  }
 }
 
-.skin-white{
-    $scrollBarThumbColor: #9f9ead;
-    $scrollBarTrackColor: #97c8ff;
-    background-color: #ffffff;
-    .navbar.navbar-expand-lg.navbar-light.bg-light{
-        background-color: #262d35 !important;
-        height: 70px;
-    }
-    .navbar-nav .nav-link {
-        color: rgba($color: #ffffff, $alpha: 0.7);
-        font-size: 14px;
-        line-height: 70px;
+.skin-white {
+  $scrollBarThumbColor: #9f9ead;
+  $scrollBarTrackColor: #97c8ff;
+  background-color: #ffffff;
+
+  .navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: #262d35 !important;
+    height: 70px;
+  }
+
+  .navbar-nav .nav-link {
+    color: rgba($color: #ffffff, $alpha: 0.7);
+    font-size: 14px;
+    line-height: 70px;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #ffffff;
+    font-size: 14px;
+  }
+
+  .navbar-brand:hover {
+    color: #ffffff;
+  }
+
+  .navbar-brand {
+    color: #ffffff;
+    float: left;
+  }
+
+  #sidebar {
+    background-color: #f8f8f8;
+
+    .active-link {
+      color: #409EFF;
+
     }
 
-    .navbar-nav .nav-link:hover {
-        color: #ffffff;
-        font-size: 14px;
+    .sidebar-header {
+      background: #262D35;
+
     }
 
-    .navbar-brand:hover {
-        color: #ffffff;
+    .toggleSidebarIcon {
+      background-color: #f8f8f8;
+
+    }
+  }
+
+  .bootstrap-table .btn,
+  .btn-outline-primary {
+    color: #409EFF;
+    border-color: #409EFF;
+
+    &:hover {
+      background-color: rgba($color: #409EFF, $alpha: 0.3);
     }
 
-    .navbar-brand {
-        color: #ffffff;
-        float: left;
+    &:focus {
+      box-shadow: none;
     }
+  }
 
-    #sidebar{
-        background-color: #f8f8f8;
-        .active-link{
-            color: #409EFF;
+  .btn-outline-primary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: none;
+  }
 
+  .fixed-table-container {
+    border-bottom: 2px solid #dee2e6;
+
+    .table-bordered {
+      border: 1px solid #676a78 !important;
+
+      th {
+        border-bottom: 2px solid #676a78 !important;
+      }
+
+      td {
+        border-bottom: 1px solid #676a78;
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: $scrollBarTrackColor;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $scrollBarThumbColor;
+
+  }
+
+  .modal-dialog {
+    .modal-content {
+      .modal-footer {
+        .btn {
+          background-color: transparent;
+          color: #409EFF;
         }
-        .sidebar-header{
-            background: #262D35;
 
+        .btn:hover {
+          background-color: transparent;
+          opacity: 0.65;
         }
-        .toggleSidebarIcon{
-            background-color: #f8f8f8;
+      }
+    }
+  }
 
-        }
+  .notificationServiceToast {
+    .alart-msg {
+      vertical-align: middle;
     }
 
-    .bootstrap-table .btn,.btn-outline-primary{
-        color: #409EFF;
-        border-color: #409EFF; 
-        &:hover{
-            background-color: rgba($color: #409EFF, $alpha: 0.3);
-        }
-        &:focus{
-            box-shadow: none;
-        }
-    }
-    .btn-outline-primary:not(:disabled):not(.disabled):active:focus{
-        box-shadow: none;
-    }
-    .fixed-table-container{
-        border-bottom: 2px solid #dee2e6;
-        .table-bordered{
-            border: 1px solid #676a78 !important;
-            th{
-                border-bottom: 2px solid #676a78 !important;
-            }
-            td{
-                border-bottom: 1px solid #676a78;
-            }
-        }
-    }
-   
-    ::-webkit-scrollbar 
-{ 
-    width: 16px; 
-    height: 16px; 
-} 
-   
-::-webkit-scrollbar-track 
-{ 
-    border-radius: 10px; 
-    background-color: $scrollBarTrackColor; 
-} 
-   
-::-webkit-scrollbar-thumb 
-{ 
-    border-radius: 10px; 
-    background-color: $scrollBarThumbColor; 
+    .text-btn {
+      color: #409EFF;
+      cursor: pointer;
 
-}
-
-.modal-dialog{
-    .modal-content{
-        .modal-footer{
-            .btn{
-                background-color: transparent;
-                color: #409EFF;
-            }
-            .btn:hover{
-                background-color: transparent;
-                opacity: 0.65;
-            }
-        }
+      &:hover {
+        opacity: 0.65;
+      }
     }
-}
-.notificationServiceToast{
-    .alart-msg{
-        vertical-align: middle;
-    }
-    .text-btn{
-        color: #409EFF;
-        cursor: pointer;
-        &:hover{
-            opacity: 0.65;
-        }
-    }
-}
+  }
 
 }
 
-.skin-red{
+.skin-red {}
 
+.skin-purple {
+  $scrollBarThumbColor: #9f9ead;
+  $scrollBarTrackColor: #f0f0f0; // purpleTransparent is also a good choice
+  $purple: #563d7c;
+  $purpleTransparent: #563d7c44;
+  @extend .skin-white;
+  // nav bar
+  .navbar.navbar-expand-lg.navbar-light.bg-light {
+    background-color: $purple !important;
+  }
+  // font and button
+  .btn-outline-primary {
+    color: $purple !important;
+    border-color: $purple !important;
+    &:hover {
+      background-color: $purpleTransparent  !important;
+    }
+  }
+  .bootstrap-table .btn-secondary.dropdown-toggle{
+    color: $purple !important;
+  }
+  // pagination
+  .pagination .page-item.active {
+    background-color: $purpleTransparent;
+  }
+  #sidebar .active-link {
+    color: $purple;
+  }
+  // table
+  #table {
+    border-right: 1px solid $scrollBarTrackColor;
+    border-left:  1px solid $scrollBarTrackColor;
+    thead {
+      th {
+        border-bottom: 1px solid rgb(45, 45, 46);
+      }
+    }
+    tbody{
+      tr:nth-child(2n-1) {
+        background-color:$scrollBarTrackColor;
+      }
+    }
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: $scrollBarTrackColor;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $scrollBarThumbColor;
+
+  }
 }
-
