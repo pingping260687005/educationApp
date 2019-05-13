@@ -5,6 +5,8 @@ import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from } from 'rxjs/index';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import * as CommonService from '../common-service/commonService';
+
 @Component({
   selector: 'app-student-courses-management',
   templateUrl: './student-courses-management.component.html',
@@ -109,8 +111,8 @@ modifyCb = (data) => {};
 addCb = (data) => {};
 deleteCb = (data) => {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder) {
-    super(formBuilder);
+  constructor(private http: Http, private formBuilder: FormBuilder,private toastMessageService: CommonService.ToastMessageService) {
+    super(formBuilder,toastMessageService);
       // 用http请求
       this.dataSource = this.http.get('/api/students');
       // .map(res=> res.json());

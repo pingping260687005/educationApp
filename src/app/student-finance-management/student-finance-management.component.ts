@@ -1,6 +1,7 @@
 import { BaseView } from './../baseView';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import * as CommonService from '../common-service/commonService';
 
 @Component({
   selector: 'app-student-finance-management',
@@ -94,8 +95,8 @@ addCb = (data) => {};
 modifyCb = (data) => {};
 deleteCb = (data) => {};
 
-  constructor(private formBuilder: FormBuilder) {
-    super(formBuilder);
+  constructor(private formBuilder: FormBuilder,private toastMessageService:CommonService.ToastMessageService) {
+    super(formBuilder,toastMessageService);
   }
 
   ngOnInit() {

@@ -24,7 +24,7 @@ import { TeacherFinanceManagementComponent } from './teacher-finance-management/
 import { StudentFinanceManagementComponent } from './student-finance-management/student-finance-management.component';
 import { OtherFinanceManagementComponent } from './other-finance-management/other-finance-management.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import {NotificationService} from './notificationService';
+import * as CommonService from './common-service/commonService';
 
 
 
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule
   ],
-   providers: [NotificationService], // [{provide: LocationStrategy, useClass: HashLocationStrategy}] 后端路经匹配 刷新
+   providers: [CommonService.ToastMessageService,CommonService.NotificationService], // [{provide: LocationStrategy, useClass: HashLocationStrategy}] 后端路经匹配 刷新
   bootstrap: [AppComponent]
 })
 export class AppModule { }

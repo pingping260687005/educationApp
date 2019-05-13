@@ -1,18 +1,17 @@
 
-import * as moment from 'moment';
 export class NotificationService {
     courseEventList = [
         {
             id: '123',
             teacher: '马云',
             courseName: '钢琴一班',
-            alartTime: new Date('2019-05-12 23:18').getTime()
+            alartTime: new Date('2019-05-13 22:20').getTime()
         },
         {
             id: '222',
             teacher: '马化腾',
             courseName: '钢琴二班',
-            alartTime: new Date('2019-05-12 23:08').getTime()
+            alartTime: new Date('2019-05-13 22:20').getTime()
         }
     ];
     alartList = null;
@@ -46,5 +45,38 @@ export class NotificationService {
             this.alartList = null;
         }
     }
+}
+
+export class ToastMessageService{
+    isShow = false;
+    isSuccess = true;
+    message = '';
+    constructor(){}
+    showToastMessage(message, type){
+        this.message = message;
+    switch (type) {
+        case ToastMessageType.Success:
+            this.isSuccess = true;
+            break;
+        case ToastMessageType.Warning:
+            this.isSuccess = false;
+            break;
+        default:
+            this.isSuccess = true;
+            break;
+        }
+        this.isShow = true;
+        setTimeout(() => {
+            this.isShow = false;
+            setTimeout(() => {
+                this.message = '';
+            }, 300);
+          }, 3000);
+    }
+}
+
+export enum ToastMessageType{
+    Success,
+    Warning
 }
 

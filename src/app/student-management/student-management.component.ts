@@ -1,12 +1,9 @@
 import { BaseView } from './../baseView';
 import { Component, OnInit } from '@angular/core';
-// import { Observable } from 'rxjs';
 import { Http } from '@angular/http';
-// import 'rxjs/Rx';
-import { Observable, from } from 'rxjs/index';
 import { StudentService } from './student.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
+import * as CommonService from '../common-service/commonService';
 
 @Component({
   selector: 'app-student-management',
@@ -121,8 +118,8 @@ addCb = (data) => {};
 
   deleteCb = (data) => {};
 
-  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder) {
-    super(formBuilder);
+  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder,private toastMessageService:CommonService.ToastMessageService) {
+    super(formBuilder,toastMessageService);
   }
   ngOnInit() {
     this.initView();

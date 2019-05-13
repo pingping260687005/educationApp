@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { Http } from '@angular/http';
 // import 'rxjs/Rx';
-import { Observable, from } from 'rxjs/index';
+import { Observable, from, observable } from 'rxjs/index';
 import { FormBuilder, Validators } from '@angular/forms';
+import * as CommonService from '../common-service/commonService'
+
 @Component({
   selector: 'app-course-management',
   templateUrl: './course-management.component.html',
@@ -84,11 +86,11 @@ addCb = (data) => {};
 modifyCb = (data) => {};
 deleteCb = (data) => {};
 
-  constructor(private http: Http, private formBuilder: FormBuilder) {
+  constructor(private http: Http, private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
       // 用http请求
      // this.dataSource = this.http.get('/api/courses');
       // .map(res=> res.json());
-      super(formBuilder);
+      super(formBuilder,toastMessageService);
    }
 
   ngOnInit() {

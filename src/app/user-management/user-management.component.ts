@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { BaseView } from '../baseView';
 import { async } from 'q';
+import * as CommonService from '../common-service/commonService';
 
 @Component({
   selector: 'app-user-management',
@@ -74,8 +75,8 @@ export class UserManagementComponent extends BaseView implements OnInit {
   modifyCb = (data) => {};
 
   deleteCb = (data) => {};
-  constructor(private formBuilder: FormBuilder) {
-    super(formBuilder);
+  constructor(private formBuilder: FormBuilder, private toastMessageService:CommonService.ToastMessageService) {
+    super(formBuilder,toastMessageService);
   }
 
   ngOnInit() {

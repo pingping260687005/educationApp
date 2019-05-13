@@ -2,28 +2,28 @@
   <app-app-header></app-app-header>
 </header>
 <div class="wrapper">
-    <div class="toast-info toast-success">
-      </div>
-      <div class="toast-info toast-error">
- 
-       </div>
+  <div
+    [ngClass]="{'toast-info': true,'toast-success': toastMessageService.isShow && toastMessageService.isSuccess,'toast-error': toastMessageService.isShow && !toastMessageService.isSuccess}">
+    {{toastMessageService.message}}
+  </div>
   <app-nav-bar></app-nav-bar>
   <main>
     <router-outlet></router-outlet>
   </main>
- 
-  <div *ngIf='notificationService.alartList' class="toast notificationServiceToast" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <strong class="mr-auto">消息</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body">
-        <div *ngFor="let alart of notificationService.alartList">
-          <span class="alart-msg">{{alart.teacher + '老师的' + alart.courseName}} 已结束</span>
-          <span class="btn btn-sm text-btn" (click)="handleAlart(alart.id)">处理</span>
-        </div>
+
+  <div *ngIf='notificationService.alartList' class="toast notificationServiceToast" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="toast-header">
+      <strong class="mr-auto">消息</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      <div *ngFor="let alart of notificationService.alartList">
+        <span class="alart-msg">{{alart.teacher + '老师的' + alart.courseName}} 已结束</span>
+        <span class="btn btn-sm text-btn" (click)="handleAlart(alart.id)">处理</span>
       </div>
     </div>
+  </div>
 </div>

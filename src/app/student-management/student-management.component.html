@@ -1,15 +1,19 @@
 <div>
   <table id="table" data-toggle="table">
-     
+
   </table>
   <div id="toolbar">
-    <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a> 新增</span>
-    <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)"><a class="fa fa-pencil-alt"></a> 修改</span>
-    <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="openConfirmDeleteDialog()"><a class="fa fa-times"></a> 删除</span>
+    <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(true)"><a class="fa fa-plus"></a>
+      新增</span>
+    <span id="modifyBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="showModal(false)"><a
+        class="fa fa-pencil-alt"></a> 修改</span>
+    <span id="deleteBtn" class="btn btn-outline-primary btn-sm toolbar-icon" (click)="openConfirmDeleteDialog()"><a
+        class="fa fa-times"></a> 删除</span>
   </div>
 
 
-  <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="addOrModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered student-management-dialog" role="document">
       <div class="modal-content student-add-modify-dialog-content">
         <div class="modal-header">
@@ -23,104 +27,118 @@
             <div class="container-fluid">
               <div class="">
                 <div class="form-group row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <label for="studentNum" class="col-form-label col-form-label-sm">学号</label>
-                        <div class="col-form-control">
-                           <input id="studentNum" autocomplete="off" type="text" class="form-control form-control-sm studentNum" formControlName="studentNum">
-                           <div *ngIf="formErrors.studentNum" class="showerr alert-danger" >{{ formErrors.studentNum }}</div>
-                        </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="studentNum" class="col-form-label col-form-label-sm">学号</label>
+                      <div class="col-form-control">
+                        <input id="studentNum" autocomplete="off" type="text"
+                          class="form-control form-control-sm studentNum" formControlName="studentNum">
+                        <div *ngIf="formErrors.studentNum" class="showerr alert-danger">{{ formErrors.studentNum }}
                         </div>
                       </div>
-                      <div class="col-md-6">
-                          <div class="row">
-                              <label for="phone" class="col-form-label col-form-label-sm">手机</label>
-                              <div class="col-form-control">
-                                <input id="phone" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right phone" formControlName="phone">
-                                <div *ngIf="formErrors.phone" class="showerr alert-danger" >{{ formErrors.phone }}</div>
-                              </div>
-                          </div>
-                        </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <label for="name" class="col-form-label col-form-label-sm">姓名</label>
-                            <div class="col-form-control">
-                            <input id="name" autocomplete="off" type="text" class="form-control form-control-sm name" formControlName="name">
-                            <div *ngIf="formErrors.name" class="showerr alert-danger" >{{ formErrors.name }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                      <label for="parentPhone" class="col-form-label col-form-label-sm">父母手机</label>
-                      <div class="col-form-control">
-                      <input id="parentPhone" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right parentPhone" formControlName="parentPhone">
-                      <div *ngIf="formErrors.parentPhone" class="showerr alert-danger" >{{ formErrors.parentPhone }}</div>
-                    </div>
-                    </div>
                     </div>
                   </div>
-                  <div class="form-group row">
-                      <div class="col-md-6">
-                        <div class="row">
-                            <label for="sex" class="col-form-label col-form-label-sm">性别</label>
-                            <div class="col-form-control">
-                                <select id="sex" class="form-control form-control-sm sex" formControlName="sex">
-                                    <option selected>男</option>
-                                    <option>女</option>
-                                  </select>
-                              <div *ngIf="formErrors.sex" class="showerr alert-danger" >{{ formErrors.sex }}</div>
-                            </div>
-                        </div>
-                       
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="phone" class="col-form-label col-form-label-sm">手机</label>
+                      <div class="col-form-control">
+                        <input id="phone" autocomplete="off" type="text"
+                          class="form-control form-control-sm form-control form-control-sm-right phone"
+                          formControlName="phone">
+                        <div *ngIf="formErrors.phone" class="showerr alert-danger">{{ formErrors.phone }}</div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="row">
-                            <label for="address" class="col-form-label col-form-label-sm">地址</label>
-                            <div class="col-form-control">
-                        <input id="address" autocomplete="off" type="text" class="form-control form-control-sm form-control form-control-sm-right address" formControlName="address">
-                        <div *ngIf="formErrors.address" class="showerr alert-danger" >{{ formErrors.address }}</div>
-                            </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="name" class="col-form-label col-form-label-sm">姓名</label>
+                      <div class="col-form-control">
+                        <input id="name" autocomplete="off" type="text" class="form-control form-control-sm name"
+                          formControlName="name">
+                        <div *ngIf="formErrors.name" class="showerr alert-danger">{{ formErrors.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="parentPhone" class="col-form-label col-form-label-sm">父母手机</label>
+                      <div class="col-form-control">
+                        <input id="parentPhone" autocomplete="off" type="text"
+                          class="form-control form-control-sm form-control form-control-sm-right parentPhone"
+                          formControlName="parentPhone">
+                        <div *ngIf="formErrors.parentPhone" class="showerr alert-danger">{{ formErrors.parentPhone }}
                         </div>
-                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="sex" class="col-form-label col-form-label-sm">性别</label>
+                      <div class="col-form-control">
+                        <select id="sex" class="form-control form-control-sm sex" formControlName="sex">
+                          <option selected>男</option>
+                          <option>女</option>
+                        </select>
+                        <div *ngIf="formErrors.sex" class="showerr alert-danger">{{ formErrors.sex }}</div>
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                          <div class="row">
-                              <label for="age" class="col-form-label col-form-label-sm">年龄</label>
-                              <div class="col-form-control">
-                              <input id="age" type="text" autocomplete="off" class="form-control form-control-sm age" formControlName="age">
-                              <div *ngIf="formErrors.age" class="showerr alert-danger" >{{ formErrors.age }}</div>
-                              </div>
-                          </div>
-                         
-                        </div>
-                        <div class="col-md-6">
-                          <div class="row">
-                              <label for="course" class="col-form-label col-form-label-sm">课程</label>
-                              <div class="col-form-control">
-                              <input id="course" type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm-right" formControlName="course">
-                              <div *ngIf="formErrors.course" class="showerr alert-danger" >{{ formErrors.course }}</div>
-                            </div>
-                          </div>
-                         
-                        </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="address" class="col-form-label col-form-label-sm">地址</label>
+                      <div class="col-form-control">
+                        <input id="address" autocomplete="off" type="text"
+                          class="form-control form-control-sm form-control form-control-sm-right address"
+                          formControlName="address">
+                        <div *ngIf="formErrors.address" class="showerr alert-danger">{{ formErrors.address }}</div>
                       </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="age" class="col-form-label col-form-label-sm">年龄</label>
+                      <div class="col-form-control">
+                        <input id="age" type="text" autocomplete="off" class="form-control form-control-sm age"
+                          formControlName="age">
+                        <div *ngIf="formErrors.age" class="showerr alert-danger">{{ formErrors.age }}</div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label for="course" class="col-form-label col-form-label-sm">课程</label>
+                      <div class="col-form-control">
+                        <input id="course" type="text" autocomplete="off"
+                          class="form-control form-control-sm form-control form-control-sm-right"
+                          formControlName="course">
+                        <div *ngIf="formErrors.course" class="showerr alert-danger">{{ formErrors.course }}</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
-            
-            
-           
+
+
+
 
             </div>
 
           </div>
         </form>
         <div class="modal-footer">
-          <button id="submit-btn" type="submit" class="btn btn-outline-primary btn-sm" (click)="onSubmit()">{{isAdd?'添加':'修改'}}</button>
+          <button id="submit-btn" type="submit" class="btn btn-outline-primary btn-sm"
+            (click)="onSubmit()">{{isAdd?'添加':'修改'}}</button>
         </div>
       </div>
     </div>

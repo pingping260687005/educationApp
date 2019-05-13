@@ -37,14 +37,13 @@ main {
 .toast-success{
     background-color: #d4edda;
     color: #67c23a;
+    top: 10px;
+    opacity: 1;
 }
 
 .toast-error{
     background-color: #f8d7da;
     color:#f56c6c;
-}
-
-.toast-show{
     top: 10px;
     opacity: 1;
 }

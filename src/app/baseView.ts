@@ -1,4 +1,7 @@
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import * as CommonService from './common-service/commonService';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export class BaseView {
    modal: JQuery<HTMLElement> = null;
@@ -18,11 +21,13 @@ export class BaseView {
    modifyCb: Function;
    deleteCb: Function;
    private fb: FormBuilder;
+   private messageService: CommonService.ToastMessageService;
 
   // 为每一项表单验证添加说明文字
   validationMessage = {};
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: FormBuilder, toastMessageService: CommonService.ToastMessageService) {
     this.fb = formBuilder;
+    this.messageService = toastMessageService;
   }
 
   initView() {
@@ -65,14 +70,14 @@ export class BaseView {
   }
 
   refreshTableData() {
-   const p = new Promise((resolve, reject) => {
-     try {
-       resolve(this.listCb());
-     } catch (error) {
-       reject(error);
-     }
-    });
-    p.then((res) => {
+    const p = new Promise((resolve, reject) => {
+      try {
+        resolve(this.listCb());
+      } catch (error) {
+        reject(error);
+      }
+     });
+     p.then((res) => {
       this.tableData = res;
       this.$table.bootstrapTable('load', res);
     });
@@ -157,22 +162,14 @@ export class BaseView {
       this.form.value.id = Math.random() + ''; // TO be deleted
       Promise.resolve(this.addCb(this.form.value)).then(() => {
         this.$table.bootstrapTable('insertRow', {index: 0, row: this.form.value} );
-        document.dispatchEvent(new CustomEvent('show-toast-success', {
-          detail: {
-            msg: '添加成功'
-          }
-        }));
+        this.messageService.showToastMessage('添加成功', CommonService.ToastMessageType.Success);
           this.modal.modal('hide');
       });
     } else {
       const index = $('#table .selected').attr('data-index');
       Promise.resolve(this.modifyCb(this.form.value)).then(() => {
         this.$table.bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
-      document.dispatchEvent(new CustomEvent('show-toast-success', {
-        detail: {
-          msg: '修改成功'
-        }
-      }));
+        this.messageService.showToastMessage('修改成功', CommonService.ToastMessageType.Success);
       this.modal.modal('hide');
       });
     }
@@ -187,11 +184,7 @@ export class BaseView {
         this.$table.bootstrapTable('removeByUniqueId', x);
       });
       this.updateToolbarIconsStatus();
-      document.dispatchEvent(new CustomEvent('show-toast-success', {
-        detail: {
-          msg: '删除成功'
-        }
-      }));
+      this.messageService.showToastMessage('删除成功', CommonService.ToastMessageType.Success);
       $('#confirmDeleteDialog').modal('hide');
     });
   }
