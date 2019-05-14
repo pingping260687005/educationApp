@@ -41,7 +41,7 @@
                     <label for="applyDate" class="col-form-label col-form-label-sm">报班日期</label>
                     <div class="col-form-control">
                       <input id="applyDate" autocomplete="off" type="text"
-                        class="form-control form-control-sm applyDate" formControlName="applyDate">
+                        class="form-control form-control-sm applyDate form_datetime" formControlName="applyDate" readonly placeholder="请选择日期">
                       <div *ngIf="formErrors.applyDate" class="showerr alert-danger">{{ formErrors.applyDate }}</div>
                     </div>
                   </div>

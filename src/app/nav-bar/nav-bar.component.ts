@@ -51,9 +51,15 @@ export class NavBarComponent implements OnInit {
       id: 'teacher'
     },
     {
+      routerLink: '/home/timetable',
+      linkName: '课程表',
+      iconClass: 'sidebarIcon fas fa-newspaper',
+      id: 'course'
+    },
+    {
       routerLink: '/home/course',
       linkName: '课程管理',
-      iconClass: 'sidebarIcon fas fa-newspaper',
+      iconClass: 'sidebarIcon fa fa-book',
       id: 'course'
     },
     {

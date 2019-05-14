@@ -2,6 +2,7 @@ import { TeacherFinanceManagementComponent } from '../teacher-finance-management
 import { StudentFinanceManagementComponent } from '../student-finance-management/student-finance-management.component';
 import { OtherFinanceManagementComponent } from '../other-finance-management/other-finance-management.component';
 import { CourseManagementComponentComponent } from './../course-management/course-management.component';
+import { TimetableManagementComponentComponent } from './../timetable-management/timetable-management.component';
 import { StudentCoursesManagementComponentComponent } from './../student-courses-management/student-courses-management.component';
 import { VedioDetailManagementComponentComponent } from './../vedio-detail-management/vedio-detail-management.component';
 import { TeacherManagementComponentComponent } from '../teacher-management/teacher-management.component';
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
       { path: 'vedioDetail', component: VedioDetailManagementComponentComponent, canActivate: [HomeRouterGuard] },
       { path: 'studentCourses', component: StudentCoursesManagementComponentComponent, canActivate: [HomeRouterGuard] },
       { path: 'course', component: CourseManagementComponentComponent, canActivate: [HomeRouterGuard] },
+      { path: 'timetable', component: TimetableManagementComponentComponent, canActivate: [HomeRouterGuard] }, // timetable
       { path: 'teacherFinance', component: TeacherFinanceManagementComponent, canActivate: [HomeRouterGuard] },
       { path: 'studentFinance', component: StudentFinanceManagementComponent, canActivate: [HomeRouterGuard] },
       { path: 'otherFinance', component: OtherFinanceManagementComponent, canActivate: [HomeRouterGuard] },
