@@ -1,4 +1,4 @@
-import { from } from 'rxjs/index';
+import { from, Observable } from 'rxjs/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { BaseView } from '../baseView';
@@ -67,16 +67,30 @@ export class UserManagementComponent extends BaseView implements OnInit {
      };
      list.push(user1);
      list.push(user2);
-     return list;
+     return new Observable((observer) => {
+      observer.next(list);
+     });
   }
 
-  addCb = (data) => {};
+  addCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+  }
 
-  modifyCb = (data) => {};
+  modifyCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+  }
 
-  deleteCb = (data) => {};
-  constructor(private formBuilder: FormBuilder, private toastMessageService:CommonService.ToastMessageService) {
-    super(formBuilder,toastMessageService);
+  deleteCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+  }
+  constructor(private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
+    super(formBuilder, toastMessageService);
   }
 
   ngOnInit() {

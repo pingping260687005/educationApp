@@ -2,6 +2,7 @@ import { BaseView } from './../baseView';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as CommonService from '../common-service/commonService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-finance-management',
@@ -88,14 +89,28 @@ title: '间隔(月/年)'
         period: '111'
     };
     list.push(tf);
-    return list;
+    return new Observable((observer) => {
+      observer.next(list);
+     });
    }
-   addCb = (data) => {};
-   modifyCb = (data) => {};
-   deleteCb = (data) => {};
+   addCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+   }
+   modifyCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+   }
+   deleteCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+   }
 
-  constructor(private formBuilder: FormBuilder,private toastMessageService:CommonService.ToastMessageService) {
-    super(formBuilder,toastMessageService);
+  constructor(private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
+    super(formBuilder, toastMessageService);
    }
 
   ngOnInit() {

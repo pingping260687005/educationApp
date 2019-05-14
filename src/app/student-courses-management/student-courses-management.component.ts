@@ -104,15 +104,29 @@ listCb = () => {
       };
       list.push(studentCourse);
     }
-    return list;
+    return new Observable((observer) => {
+      observer.next(list);
+     });
 }
 
-modifyCb = (data) => {};
-addCb = (data) => {};
-deleteCb = (data) => {};
+modifyCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
+addCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
+deleteCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
 
-  constructor(private http: Http, private formBuilder: FormBuilder,private toastMessageService: CommonService.ToastMessageService) {
-    super(formBuilder,toastMessageService);
+  constructor(private http: Http, private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
+    super(formBuilder, toastMessageService);
       // 用http请求
       this.dataSource = this.http.get('/api/students');
       // .map(res=> res.json());

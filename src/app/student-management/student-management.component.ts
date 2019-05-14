@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { StudentService } from './student.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import * as CommonService from '../common-service/commonService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-student-management',
@@ -109,17 +110,31 @@ listCb = () => {
     };
     list.push(student);
   }
-  return list;
+  return new Observable((observer) => {
+    observer.next(list);
+   });
 }
 
-addCb = (data) => {};
+addCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
 
-  modifyCb = (data) => {};
+  modifyCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+  }
 
-  deleteCb = (data) => {};
+  deleteCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+     });
+  }
 
-  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder,private toastMessageService:CommonService.ToastMessageService) {
-    super(formBuilder,toastMessageService);
+  constructor(private http: Http, private studentService: StudentService, private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
+    super(formBuilder, toastMessageService);
   }
   ngOnInit() {
     this.initView();

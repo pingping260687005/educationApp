@@ -70,14 +70,7 @@ export class BaseView {
   }
 
   refreshTableData() {
-    const p = new Promise((resolve, reject) => {
-      try {
-        resolve(this.listCb());
-      } catch (error) {
-        reject(error);
-      }
-     });
-     p.then((res) => {
+     this.listCb().subscribe((res) => {
       this.tableData = res;
       this.$table.bootstrapTable('load', res);
     });
@@ -160,14 +153,14 @@ export class BaseView {
   onSubmit() {
     if (this.isAdd) {
       this.form.value.id = Math.random() + ''; // TO be deleted
-      Promise.resolve(this.addCb(this.form.value)).then(() => {
+      this.addCb(this.form.value).subscribe(() => {
         this.$table.bootstrapTable('insertRow', {index: 0, row: this.form.value} );
         this.messageService.showToastMessage('添加成功', CommonService.ToastMessageType.Success);
           this.modal.modal('hide');
       });
     } else {
       const index = $('#table .selected').attr('data-index');
-      Promise.resolve(this.modifyCb(this.form.value)).then(() => {
+      this.modifyCb(this.form.value).subscribe(() => {
         this.$table.bootstrapTable('updateRow', {index: Number(index), row: this.form.value});
         this.messageService.showToastMessage('修改成功', CommonService.ToastMessageType.Success);
       this.modal.modal('hide');
@@ -179,7 +172,7 @@ export class BaseView {
     const ids = this.$table.bootstrapTable('getSelections', null).map((x) => {
       return x.id;
     });
-    Promise.resolve(this.deleteCb(ids)).then(() => {
+    this.deleteCb(ids).subscribe(() => {
       ids.forEach(x => {
         this.$table.bootstrapTable('removeByUniqueId', x);
       });

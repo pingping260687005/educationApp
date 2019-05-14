@@ -10,7 +10,7 @@ import * as CommonService from '../common-service/commonService';
 
 export class HomeComponent implements OnInit {
 
-  constructor(private notificationService: CommonService.NotificationService,private toastMessageService: CommonService.ToastMessageService) { }
+  constructor(private notificationService: CommonService.NotificationService, private toastMessageService: CommonService.ToastMessageService) { }
 
   ngOnInit() {
     $('#sidebarCollapse').on('click', function () {

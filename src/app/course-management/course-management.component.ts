@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from, observable } from 'rxjs/index';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as CommonService from '../common-service/commonService'
+import * as CommonService from '../common-service/commonService';
 
 @Component({
   selector: 'app-course-management',
@@ -79,18 +79,32 @@ listCb = () => {
      };
      list.push(course);
    }
-   return list;
+   return new Observable((observer) => {
+    observer.next(list);
+   });
 }
 
-addCb = (data) => {};
-modifyCb = (data) => {};
-deleteCb = (data) => {};
+addCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
+modifyCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
+deleteCb = (data) => {
+  return new Observable((observer) => {
+    observer.next();
+   });
+}
 
   constructor(private http: Http, private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
       // 用http请求
      // this.dataSource = this.http.get('/api/courses');
       // .map(res=> res.json());
-      super(formBuilder,toastMessageService);
+      super(formBuilder, toastMessageService);
    }
 
   ngOnInit() {

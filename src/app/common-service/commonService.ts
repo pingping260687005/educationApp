@@ -1,3 +1,7 @@
+export enum ToastMessageType {
+    Success,
+    Warning
+}
 
 export class NotificationService {
     courseEventList = [
@@ -32,6 +36,7 @@ export class NotificationService {
 
     addToAlartList(courseEvent) {
         if (!this.alartList) { this.alartList = []; }
+// tslint:disable-next-line: no-unused-expression
         this.alartList.filter(x => x.id === courseEvent.id).length === 0 && this.alartList.push({
             id: courseEvent.id,
             teacher: courseEvent.teacher,
@@ -47,12 +52,12 @@ export class NotificationService {
     }
 }
 
-export class ToastMessageService{
+export class ToastMessageService {
     isShow = false;
     isSuccess = true;
     message = '';
-    constructor(){}
-    showToastMessage(message, type){
+    constructor() {}
+    showToastMessage(message, type) {
         this.message = message;
     switch (type) {
         case ToastMessageType.Success:
@@ -74,9 +79,3 @@ export class ToastMessageService{
           }, 3000);
     }
 }
-
-export enum ToastMessageType{
-    Success,
-    Warning
-}
-
