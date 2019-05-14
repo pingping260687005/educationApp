@@ -324,7 +324,7 @@
 
 @mixin baseWhite($baseColor, $baseColorTransparent) {
   $scrollBarThumbColor: #0e0957;
-  $scrollBarTrackColor: #f6f6f6; // purpleTransparent is also a good choice
+  $scrollBarTrackColor: #f6f6f6; // baseColorTransparent is also a good choice
   @extend .skin-white;
   // nav bar
   .navbar.navbar-expand-lg.navbar-light.bg-light {
@@ -338,20 +338,30 @@
       background-color: $baseColorTransparent  !important;
     }
   }
-  .bootstrap-table .btn-secondary.dropdown-toggle{
-    color: $baseColor !important;
-  }
   // pagination
   .pagination .page-item.active {
     background-color: $baseColorTransparent;
   }
+  // side bar
   #sidebar .active-link {
     color: $baseColor;
   }
-  // table
-  #table {
+  // dropdown: active
+  .dropdown-item.active, .dropdown-item:active {
+    background-color: $baseColor;
+  }
+  // bootstrap-table override
+  .bootstrap-table {
     border-right: 1px solid $scrollBarTrackColor;
     border-left:  1px solid $scrollBarTrackColor;
+    .btn-secondary.dropdown-toggle {
+      color: $baseColor !important;
+    }
+    .fixed-table-container {
+      .table tbody tr.selected td {
+        background-color: #d9d9d9;
+      }
+    }
     thead {
       th {
         border-bottom: 1px solid rgb(45, 45, 46);
@@ -363,6 +373,8 @@
       }
     }
   }
+
+  // scroll bar
   ::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: $scrollBarTrackColor;
@@ -372,6 +384,28 @@
     border-radius: 10px;
     background-color: $baseColor;
   }
+
+  // dialog
+  .modal-dialog {
+    .modal-title {
+      color: $baseColor;
+    }
+    .modal-content {
+      .modal-footer {
+        .btn {
+          background-color: transparent;
+          color: $baseColor !important;
+          border: solid $baseColor 1px;
+        }
+
+        .btn:hover {
+          color: white !important;
+          border: solid $baseColor 1px;
+          background-color: $baseColor !important;
+        }
+      }
+    }
+  }
 }
 .skin-purple {
   $purple: #563d7c;
@@ -380,14 +414,14 @@
 }
 
 .skin-blue {
-  $blue: #3498db;
-  $blueTransparent: #3498db15;
+  $blue: #205081;
+  $blueTransparent: #20508115;
   @include baseWhite($blue, $blueTransparent);
 }
 
 
 .skin-red {
-  $red:#800000;
+  $red:#E50F29;
   $redransparent: #80000015;
   @include baseWhite($red, $redransparent);
 }
