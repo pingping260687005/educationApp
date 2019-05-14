@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6" *ngFor="let info of teacher | keyvalue; let i = index">
+      <div class="row">
+        <div class="col-3 text-muted">{{ i }} {{ info.value.title }}: </div>
+        <div class="col-9 text-dark">{{ info.value.value }}</div>
+      </div>
+    </div>
+  </div>
+</div>
