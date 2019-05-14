@@ -422,6 +422,6 @@
 
 .skin-red {
   $red:#E50F29;
-  $redransparent: #80000015;
+  $redransparent: #E50F2915;
   @include baseWhite($red, $redransparent);
 }
