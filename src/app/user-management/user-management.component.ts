@@ -14,7 +14,8 @@ export class UserManagementComponent extends BaseView implements OnInit {
    formErrors = {
     userName: '',
     userPsd: '',
-    userPsd2: ''
+    userPsd2: '',
+    authority: ''
   };
 
   columns = [
@@ -40,6 +41,9 @@ export class UserManagementComponent extends BaseView implements OnInit {
     'userName': {
       'required': '请填写用户名'
     },
+    'authority': {
+      'required': '请选择权限'
+    },
     'userPsd': {
       'required': '请填写密码',
       'psdConfirm': '两次密码输入不一致'
@@ -57,7 +61,7 @@ export class UserManagementComponent extends BaseView implements OnInit {
        id: Math.random() + '',
        userName: 'admin',
        userPsd: '123',
-       authority: '可读/可写'
+       authority: '可读 可写'
      };
      const user2: User = {
        id: Math.random() + '',

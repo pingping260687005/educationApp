@@ -30,6 +30,7 @@ import * as CommonService from './common-service/commonService';
 
 
 
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

@@ -133,7 +133,6 @@ deleteCb = (data) => {
   }
   ngAfterViewInit() {
     this.initTable();
-    $(".form_datetime").datepicker({format: 'yyyy-mm-dd'});
   }
 
  buildForm() {
@@ -141,7 +140,10 @@ deleteCb = (data) => {
     this.form = this.formBuilder.group({
       'id': ['', [
       ]],
-      'timezone': ['', [
+      'startTime': ['', [
+        Validators.required
+      ]],
+      'endTime': ['', [
         Validators.required
       ]],
       'courseName': ['', [

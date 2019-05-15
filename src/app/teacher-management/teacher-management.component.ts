@@ -55,7 +55,6 @@ export class TeacherManagementComponentComponent extends BaseView implements OnI
   }];
 
  formErrors = {
-    teacherNum: '',
     name: '',
     sex: '',
     age: '',
@@ -70,9 +69,6 @@ export class TeacherManagementComponentComponent extends BaseView implements OnI
  validationMessage = {
   'name': {
     'required': '请填写姓名'
-  },
-  'teacherNum': {
-    'required': '请填写工号'
   },
   'sex': {
     'required': '请填写性别'
@@ -92,7 +88,7 @@ export class TeacherManagementComponentComponent extends BaseView implements OnI
   'issueDate': {
     'required': '请填写入职日期'
   },
-  'fulltime': {
+  'fullTime': {
     'required': '请填写是否全职'
   },
   'course': {
@@ -113,7 +109,7 @@ listCb = () => {
         age: Math.floor(Math.random() * 100),
         phone: '13992288771',
         address: '丹阳市黄金路25弄16号201室',
-        issueDate: '2018-4-4',
+        issueDate: '2018-04-04',
         fullTime: i % 2 === 0 ? '全职' : '兼职',
         course: '钢琴'
       };

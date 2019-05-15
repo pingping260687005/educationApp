@@ -1,5 +1,5 @@
 .course-add-modify-dialog-content{
-    width: 700px;
+    width: 800px;
     .row{
         display: flex;
         margin-right: 0;
@@ -13,6 +13,10 @@
     .col-form-control{
         display: inline-block;
         flex: 1;
+    }
+    .timezone{
+        display: inline-block;
+        width: 132px;
     }
 }
 

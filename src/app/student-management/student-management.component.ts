@@ -14,7 +14,6 @@ import { Observable } from 'rxjs';
 export class StudentManagementComponent extends BaseView implements OnInit {
    // 定义表单
    formErrors = {
-    studentNum: '',
     name: '',
     sex: '',
     age: '',
@@ -62,15 +61,11 @@ export class StudentManagementComponent extends BaseView implements OnInit {
   }];
  // 为每一项表单验证添加说明文字
  validationMessage = {
-  'studentNum': {
-    'required': '请填写学号',
-    'pattern': '请输入数字'
-  },
   'name': {
     'required': '请填写姓名'
   },
   'sex': {
-    'required': '请填写性别'
+    'required': '请选择性别'
   },
   'age': {
     'required': '请填写年龄',
@@ -152,8 +147,6 @@ addCb = (data) => {
       'id': ['', [
       ]],
       'studentNum': ['', [
-        Validators.required,
-        Validators.pattern(/^\d+$/)
       ]],
       'name': ['', [
         Validators.required

@@ -31,7 +31,7 @@
                     <label for="teacherNum" class="col-form-label col-form-label-sm">工号</label>
                     <div class="col-form-control">
                       <input id="teacherNum" autocomplete="off" type="text"
-                        class="form-control form-control-sm teacherNum" formControlName="teacherNum">
+                        class="form-control form-control-sm teacherNum" formControlName="teacherNum" readonly>
                       <div *ngIf="formErrors.teacherNum" class="showerr alert-danger">{{ formErrors.teacherNum }}</div>
                     </div>
                   </div>
@@ -77,7 +77,8 @@
                     <label for="sex" class="col-form-label col-form-label-sm">性别</label>
                     <div class="col-form-control">
                       <select id="sex" class="form-control form-control-sm sex" formControlName="sex">
-                        <option selected>男</option>
+                        <option selected value="">请选择</option>
+                        <option>男</option>
                         <option>女</option>
                       </select>
                       <div *ngIf="formErrors.sex" class="showerr alert-danger">{{ formErrors.sex }}</div>
@@ -88,7 +89,7 @@
                   <div class="row">
                     <label for="issueDate" class="col-form-label col-form-label-sm">入职日期</label>
                     <div class="col-form-control">
-                      <input id="issueDate" autocomplete="off" type="text"
+                      <input id="issueDate" autocomplete="off" type="date"
                         class="form-control form-control-sm issueDate" formControlName="issueDate">
                       <div *ngIf="formErrors.issueDate" class="showerr alert-danger">{{ formErrors.issueDate }}</div>
                     </div>
@@ -112,8 +113,9 @@
                     <label for="fullTime" class="col-form-label col-form-label-sm">兼职/全职</label>
                     <div class="col-form-control">
                       <select id="fullTime" class="form-control form-control-sm fullTime" formControlName="fullTime">
-                        <option selected>全职</option>
-                        <option>兼职</option>
+                        <option selected value="">请选择</option>
+                        <option value='全职'>全职</option>
+                        <option value='兼职'>兼职</option>
                       </select>
                       <div *ngIf="formErrors.fullTime" class="showerr alert-danger">{{ formErrors.fullTime }}</div>
                     </div>

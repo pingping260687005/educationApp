@@ -38,23 +38,29 @@
                   <div class="row">
                     <label for="timezone" class="col-form-label col-form-label-sm">时间</label>
                     <div class="col-form-control">
-                      <input id="courseTeacher" autocomplete="off" type="text"
-                        class="form-control form-control-sm timezone" formControlName="timezone">
-                      <div *ngIf="formErrors.timezone" class="showerr alert-danger">{{ formErrors.timezone }}
+                      <input id="courseTeacher" autocomplete="off" type="date"
+                        class="form-control form-control-sm timezone" formControlName="startTime">
+                         <span> - </span>
+                        <input id="courseTeacher" autocomplete="off" type="date"
+                        class="form-control form-control-sm timezone" formControlName="endTime">
+                        <div *ngIf="formErrors.startTime" class="showerr alert-danger">{{ formErrors.startTime }}
+                        </div>
+                      <div *ngIf="formErrors.endTime" class="showerr alert-danger">{{ formErrors.endTime }}
                       </div>
                     </div>
+                   
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="row">
-                    <label for="courseName" class="col-form-label col-form-label-sm">课程</label>
-                    <div class="col-form-control">
-                      <input id="courseName" autocomplete="off" type="text" class="form-control form-control-sm courseName"
-                        formControlName="courseName">
-                      <div *ngIf="formErrors.courseName" class="showerr alert-danger">{{ formErrors.courseName }}</div>
+                    <div class="row">
+                      <label for="courseName" class="col-form-label col-form-label-sm">课程</label>
+                      <div class="col-form-control">
+                        <input id="courseName" autocomplete="off" type="text" class="form-control form-control-sm courseName"
+                          formControlName="courseName">
+                        <div *ngIf="formErrors.courseName" class="showerr alert-danger">{{ formErrors.courseName }}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
               </div>
 
               <div class="form-group row">
@@ -90,6 +96,7 @@
                     </div>
                   </div>
                 </div>
+               
               </div>
             </div>
           </div>

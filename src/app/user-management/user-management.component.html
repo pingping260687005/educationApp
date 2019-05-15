@@ -35,9 +35,11 @@
                 <label for="authoritySelect" class="col-form-label col-form-label-sm">权限</label>
                 <div class="col-form-control">
                   <select id="authoritySelect" class="form-control form-control-sm" formControlName="authority">
-                    <option selected>可读/可写</option>
-                    <option>只读</option>
+                    <option selected value=''>请选择</option>
+                    <option value='可读 可写'>可读 可写</option>
+                    <option value='只读'>只读</option>
                   </select>
+                  <div *ngIf="formErrors.authority" class="showerr alert-danger">{{ formErrors.authority }}</div>
                 </div>
               </div>
               <div class="form-group row">
