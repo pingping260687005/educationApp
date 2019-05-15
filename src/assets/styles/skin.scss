@@ -35,6 +35,10 @@
   color: rgba($color: #ff0000, $alpha: 0.8);
 }
 
+.input-datepicker:focus,.input-datepicker:hover{
+  border-color: #409EFF;
+}
+
 .skin-black {
   $scrollBarThumbColor: #555;
   $scrollBarTrackColor: #5e7288;

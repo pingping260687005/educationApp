@@ -6,7 +6,6 @@ import { Http } from '@angular/http';
 import { Observable, from } from 'rxjs/index';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import * as CommonService from '../common-service/commonService';
-var moment = require('moment');
 
 @Component({
   selector: 'app-student-courses-management',
@@ -135,12 +134,6 @@ deleteCb = (data) => {
 
   ngOnInit() {
     this.initView();
-    $(".form_datetime").datepicker({format: 'yyyy-mm-dd'}).on('hide', (ev) => {
-     this.form.value.applyDate = new Date(ev.date).getTime();
-     setTimeout(() => {
-     $('#applyDate').val(moment(ev.date).format('YYYY-MM-DD'));
-     }, 0);
-  });
   }
   ngAfterViewInit() {
     this.initTable();
