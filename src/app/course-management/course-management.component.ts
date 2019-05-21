@@ -17,9 +17,9 @@ export class CourseManagementComponentComponent extends BaseView implements OnIn
     checkbox: true,
     visiable: true
   },
-   {
+  {
     field: 'courseTeacher',
-    title: '课程-教师',
+    title: '课程(教师)',
     sortable: true
   },
   {
@@ -32,80 +32,84 @@ export class CourseManagementComponentComponent extends BaseView implements OnIn
     title: '费用',
     sortable: true
   }, {
-    field: 'rate',
+    field: 'comment',
     title: '评价',
     sortable: true
   }];
 
   dataSource: Observable<any>;
- formErrors = {
-    courseTeacher: '',
+  formErrors = {
+    course: '',
+    teacher: '',
     hours: '',
     cost: '',
-    rate: ''
+    comment: ''
   };
 
   // 为每一项表单验证添加说明文字
- validationMessage = {
-  'courseTeacher': {
-    'required': '请填写教师'
-  },
-  'hours': {
-    'required': '请填写学时',
-    'pattern': '请填写有效学时',
-    'min': '请填写有效学时'
-  },
-  'cost': {
-    'required': '请填写费用',
-    'pattern': '请填写有效费用',
-    'min': '请填写有效费用'
-  },
-  'rate': {
-    'required': '请填写评论',
+  validationMessage = {
+    'course': {
+      'required': '请填写课程'
+    },
+    'teacher': {
+      'required': '请选择教师'
+    },
+    'hours': {
+      'required': '请填写学时',
+      'pattern': '请填写有效学时',
+      'min': '请填写有效学时'
+    },
+    'cost': {
+      'required': '请填写费用',
+      'pattern': '请填写有效费用',
+      'min': '请填写有效费用'
+    },
+    'comment': {
+      'required': '请填写评论',
+    }
+  };
+
+  listCb = () => {
+    //////// hard code////////////////
+    const list: Course[] = [];
+    let course: Course;
+    for (let i = 0; i < 100; i++) {
+      course = {
+        id: i.toString(),
+        courseTeacher: `钢琴${i}(马云)`,
+        hours: 50,
+        cost: 1500,
+        comment: '5星'
+      };
+      list.push(course);
+    }
+    return new Observable((observer) => {
+      observer.next(list);
+    });
   }
-};
 
-listCb = () => {
-   //////// hard code////////////////
-   const list: Course[] = [];
-   let course: Course;
-   for (let i = 0; i < 100; i++) {
-     course = {
-       id: i.toString(),
-       courseTeacher: '钢琴-马云' + i,
-       hours: 50,
-       cost: 1500,
-       rate: '5星'
-     };
-     list.push(course);
-   }
-   return new Observable((observer) => {
-    observer.next(list);
-   });
-}
-
-addCb = (data) => {
-  return new Observable((observer) => {
-    observer.next();
-   });
-}
-modifyCb = (data) => {
-  return new Observable((observer) => {
-    observer.next();
-   });
-}
-deleteCb = (data) => {
-  return new Observable((observer) => {
-    observer.next();
-   });
-}
+  addCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+    });
+  }
+  modifyCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+    });
+  }
+  deleteCb = (data) => {
+    return new Observable((observer) => {
+      observer.next();
+    });
+  }
 
   constructor(private http: Http, private formBuilder: FormBuilder, private toastMessageService: CommonService.ToastMessageService) {
-      // 用http请求
-     // this.dataSource = this.http.get('/api/courses');
-      // .map(res=> res.json());
-      super(formBuilder, toastMessageService);
-   }
+    // 用http请求
+    // this.dataSource = this.http.get('/api/courses');
+    // .map(res=> res.json());
+    super(formBuilder, toastMessageService);
+  }
 
   ngOnInit() {
     this.initView();
@@ -114,12 +118,15 @@ deleteCb = (data) => {
     this.initTable();
   }
 
- buildForm() {
+  buildForm() {
     // 通过 formBuilder构建表单
     this.form = this.formBuilder.group({
       'id': ['', [
       ]],
-      'courseTeacher': ['', [
+      'course': ['', [
+        Validators.required
+      ]],
+      'teacher': ['', [
         Validators.required
       ]],
       'hours': ['', [
@@ -132,7 +139,7 @@ deleteCb = (data) => {
         Validators.pattern(/(^\d+$)|(^\d+\.\d{0,}$)/),
         Validators.min(0)
       ]],
-      'rate': ['', [
+      'comment': ['', [
         Validators.required,
       ]]
     });
@@ -145,7 +152,7 @@ deleteCb = (data) => {
     this.onValueChanged();
   }
 
- showModal(isAdd: boolean) {
+  showModal(isAdd: boolean) {
     this.isAdd = isAdd;
     const modal = $('#addOrModifyModal');
     if (isAdd) {
@@ -153,13 +160,14 @@ deleteCb = (data) => {
       $('#submit-btn').addClass('disabled');
     } else {
       this.addModifyDialogTitle = '修改课程';
-      const {id, courseTeacher, hours, cost, rate} = this.$table.bootstrapTable('getSelections', null)[0];
+      const { id, courseTeacher, hours, cost, comment } = this.$table.bootstrapTable('getSelections', null)[0];
       this.form.setValue({
         id: id,
-        courseTeacher: courseTeacher,
+        course: courseTeacher.split('(')[0],
+        teacher: courseTeacher.split('(')[1].split(')')[0],
         hours: hours,
         cost: cost,
-        rate: rate
+        comment: comment
       }); // 修改只能是一条数据，所以直接用第一个
       $('#submit-btn').removeClass('disabled');
 
@@ -174,5 +182,5 @@ interface Course {
   courseTeacher: string;
   hours: number;
   cost: number;
-  rate: string;
+  comment: string;
 }

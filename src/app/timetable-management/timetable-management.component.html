@@ -11,11 +11,15 @@
       <a class="fa fa-times"></a> 删除</span>
       <input type="date" class="form-control form-control-sm toolbar-icon input-datepicker" placeholder="请选择日期">
       <select class="form-control form-control-sm course-select toolbar-icon">
-        <option>Small select</option>
+        <option selected>请选择课程</option>
+        <option>钢琴</option>
       </select>
       <select class="form-control form-control-sm teacher-select toolbar-icon">
-        <option>Small select</option>
+        <option selected>请选择教师</option>
+        <option>马云</option>
       </select>
+      <span class="btn btn-outline-primary btn-sm toolbar-icon" (click)="search()">
+        <a class="fa fa-search"></a> 查询</span>
   </div>
 
 
@@ -41,7 +45,7 @@
                       <input id="courseTeacher" autocomplete="off" type="date"
                         class="form-control form-control-sm timezone" formControlName="startTime">
                          <span> - </span>
-                        <input id="courseTeacher" autocomplete="off" type="date"
+                        <input id="courseTeacher" autocomplete="off" type="date" [min]='form.value.startTime'
                         class="form-control form-control-sm timezone" formControlName="endTime">
                         <div *ngIf="formErrors.startTime" class="showerr alert-danger">{{ formErrors.startTime }}
                         </div>
@@ -55,8 +59,10 @@
                     <div class="row">
                       <label for="courseName" class="col-form-label col-form-label-sm">课程</label>
                       <div class="col-form-control">
-                        <input id="courseName" autocomplete="off" type="text" class="form-control form-control-sm courseName"
-                          formControlName="courseName">
+                          <select class="form-control form-control-sm courseName-select toolbar-icon" formControlName="courseName">
+                            <option selected value=''>请选择课程</option>
+                            <option value="钢琴">钢琴</option>
+                          </select>
                         <div *ngIf="formErrors.courseName" class="showerr alert-danger">{{ formErrors.courseName }}</div>
                       </div>
                     </div>
@@ -68,8 +74,10 @@
                   <div class="row">
                     <label for="teacherName" class="col-form-label col-form-label-sm">教师</label>
                     <div class="col-form-control">
-                      <input id="teacherName" autocomplete="off" type="text" class="form-control form-control-sm teacherName"
-                        formControlName="teacherName">
+                        <select class="form-control form-control-sm teacherName-select toolbar-icon" formControlName="teacherName">
+                          <option selected value=''>请选择教师</option>
+                          <option value="马云">马云</option>
+                        </select>
                       <div *ngIf="formErrors.teacherName" class="showerr alert-danger">{{ formErrors.teacherName }}</div>
                     </div>
                   </div>
@@ -78,8 +86,10 @@
                   <div class="row">
                     <label for="room" class="col-form-label col-form-label-sm">教室</label>
                     <div class="col-form-control">
-                      <input id="room" autocomplete="off" type="text" class="form-control form-control-sm room"
-                        formControlName="room">
+                        <select id="room" class="form-control form-control-sm room-select toolbar-icon" formControlName="room">
+                          <option selected value=''>请选择教室</option>
+                          <option value="101">101</option>
+                        </select>
                       <div *ngIf="formErrors.room" class="showerr alert-danger">{{ formErrors.room }}</div>
                     </div>
                   </div>
@@ -90,8 +100,10 @@
                   <div class="row">
                     <label for="students" class="col-form-label col-form-label-sm">学生</label>
                     <div class="col-form-control">
-                      <input id="students" autocomplete="off" type="text" class="form-control form-control-sm students"
-                        formControlName="students">
+                        <select id="students" class="form-control form-control-sm students-select toolbar-icon" formControlName="students">
+                          <option selected value=''>请选择学生</option>
+                          <option value="小王">小王</option>
+                        </select>
                       <div *ngIf="formErrors.students" class="showerr alert-danger">{{ formErrors.students }}</div>
                     </div>
                   </div>

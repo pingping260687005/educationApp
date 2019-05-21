@@ -14,7 +14,7 @@ export class BaseView {
    tableData = null;
   // 定义表单
    form: FormGroup;
-
+   
    formErrors = {};
    listCb: Function;
    addCb: Function;

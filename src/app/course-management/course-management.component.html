@@ -29,15 +29,31 @@
               <div class="form-group row">
                 <div class="col-md-6">
                   <div class="row">
-                    <label for="courseTeacher" class="col-form-label col-form-label-sm">课程-教师</label>
+                    <label for="course" class="col-form-label col-form-label-sm">课程</label>
                     <div class="col-form-control">
-                      <input id="courseTeacher" autocomplete="off" type="text"
-                        class="form-control form-control-sm courseTeacher" formControlName="courseTeacher">
-                      <div *ngIf="formErrors.courseTeacher" class="showerr alert-danger">{{ formErrors.courseTeacher }}
+                      <input id="course" autocomplete="off" type="text"
+                        class="form-control form-control-sm course" formControlName="course">
+                      <div *ngIf="formErrors.course" class="showerr alert-danger">{{ formErrors.course }}
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <label for="teacher" class="col-form-label col-form-label-sm">教师</label>
+                    <div class="col-form-control">
+                      <select class="form-control form-control-sm teacher-select toolbar-icon" formControlName="teacher">
+                        <option selected value=''>请选择教师</option>
+                        <option value="马云">马云</option>
+                      </select>
+                      <div *ngIf="formErrors.teacher" class="showerr alert-danger">{{ formErrors.teacher }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
                 <div class="col-md-6">
                   <div class="row">
                     <label for="hours" class="col-form-label col-form-label-sm">学时</label>
@@ -48,9 +64,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="form-group row">
                 <div class="col-md-6">
                   <div class="row">
                     <label for="cost" class="col-form-label col-form-label-sm">费用</label>
@@ -61,16 +74,19 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="form-group row">
                 <div class="col-md-6">
                   <div class="row">
-                    <label for="rate" class="col-form-label col-form-label-sm">评论</label>
+                    <label for="comment" class="col-form-label col-form-label-sm">评论</label>
                     <div class="col-form-control">
-                      <input id="rate" autocomplete="off" type="text" class="form-control form-control-sm rate"
-                        formControlName="rate">
-                      <div *ngIf="formErrors.rate" class="showerr alert-danger">{{ formErrors.rate }}</div>
+                      <input id="comment" autocomplete="off" type="text" class="form-control form-control-sm comment"
+                        formControlName="comment">
+                      <div *ngIf="formErrors.comment" class="showerr alert-danger">{{ formErrors.comment }}</div>
                     </div>
                   </div>
                 </div>
+             
               </div>
             </div>
           </div>

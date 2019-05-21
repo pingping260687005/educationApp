@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 // import 'rxjs/Rx';
 import { Observable, from, observable } from 'rxjs/index';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as CommonService from '../common-service/commonService'
+import * as CommonService from '../common-service/commonService';
 
 @Component({
   selector: 'timetable-management',
@@ -125,7 +125,7 @@ deleteCb = (data) => {
       // 用http请求
      // this.dataSource = this.http.get('/api/courses');
       // .map(res=> res.json());
-      super(formBuilder,toastMessageService);
+      super(formBuilder, toastMessageService);
    }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 .course-add-modify-dialog-content{
-    width: 800px;
+    width: 852px;
     .row{
         display: flex;
         margin-right: 0;
@@ -16,11 +16,20 @@
     }
     .timezone{
         display: inline-block;
-        width: 132px;
+        width: 145px;
     }
 }
-
+.bootstrap-table{
+    display: none;
+}
+.fixed-table-toolbar{
+    width: calc(100% - 226px);
+    display: none;
+}
 .toolbar{
+    .input-datepicker{
+        margin-left: 20px;
+    }
     .form_datetime{
     }
     .form-control{
